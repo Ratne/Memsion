@@ -3,15 +3,18 @@ const mongoose = require('mongoose');
 const userSchema = new mongoose.Schema({
     name: {
         type: String,
+        trim: true,
         required: true,
 
     },
     surname: {
         type: String,
+        trim: true,
         required: true
     },
     email: {
         type: String,
+        trim: true,
         required: true,
     },
     password: {
@@ -25,7 +28,9 @@ const userSchema = new mongoose.Schema({
     tag: {
         type: Array,
         default: []
-    }
+    },
+},{
+    timestamps: true,
 });
 
 
