@@ -6,11 +6,17 @@ const passport = require('passport');
 const InfusionsoftStrategy  = require('passport-infusionsoft').Strategy;
 const axios = require('axios');
 const bodyParser = require('body-parser');
+const publicRoute = require('./routes/userApi');
+const authRoute = require('./routes/authRoutes');
+const verify = require('./routes/verifyToken');
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(bodyParser.json({limit: '50mb'}));
 app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
 require('./allcron');
+require('./mongodb')
+app.use('/api', publicRoute);
+app.use('/api/auth', verify, authRoute)
 const myCache = require('./myCache');
 
 app.get('/', (req, res) => {
