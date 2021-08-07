@@ -2,7 +2,7 @@ const router = require('express').Router();
 const User = require('../models/User');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-const nodemailer = require("nodemailer");
+const sendEmail = require("../utils/sendEmail");
 const Joi = require('joi');
 const schema = Joi.object({
     name: Joi.string().required(),
@@ -25,7 +25,6 @@ router.post('/register', async (req, res) => {
     const salt = await bcrypt.genSalt(10);
     const randomPassword =Array(10).fill("!$%&=0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz").map(function(x) { return x[Math.floor(Math.random() * x.length)] }).join('');;
     const hashPassword = await bcrypt.hash(randomPassword, salt);
-    console.log(randomPassword);
     if (isOk.error) return  res.status(400).send(isOk.error.details[0].message);
     const user = new User({
         name: obj.name,
@@ -39,20 +38,8 @@ router.post('/register', async (req, res) => {
 
 
         // send email
-        const transporter = nodemailer.createTransport({
-            host: process.env.EMAIL_HOST,
-            port: process.env.EMAIL_PORT,
-            auth: {
-                user: process.env.EMAIL_USERNAME, // generated ethereal user
-                pass: process.env.EMAIL_PASSWORD, // generated ethereal password
-            },
-        });
-        const info = await transporter.sendMail({
-            from: process.env.FROM_EMAIL,
-            to: obj.email,
-            subject: "Benvenuto a bordo",
-            text: "Benvenuto in piattaforma",
-            html: ` <div align="center"><img alt="logo" width="30%" src="${process.env.PATH_LOGO}" /></div>
+        const emailSend = `
+                    <div align="center"><img alt="logo" width="30%" src="${process.env.PATH_LOGO}" /></div>
                     <h2>Benvenuto nella piattaforma dei corsi</h2>
                     <p>Ciao ${obj.name} da Davide</p>
                     <p>In questa piattaforma potrai visualizzare tutti i corsi
@@ -61,8 +48,8 @@ router.post('/register', async (req, res) => {
                     <p>La tua username è: ${obj.email}</p>
                     <p>La tua password è: ${randomPassword}</p> 
                     <p>Puoi procedere all'accesso dalla seguente url ${process.env.URL_PIATTAFORMA}</p>
-                    `,
-        });
+                         `;
+        await sendEmail(user.email, "Benvenuto a bordo", emailSend);
 
     }
     catch (err){
