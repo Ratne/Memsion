@@ -2,4 +2,5 @@ appunti.txt
 node_modules
 .idea
 .env
+.env_old
 .gitignore

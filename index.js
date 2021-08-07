@@ -9,6 +9,7 @@ const bodyParser = require('body-parser');
 const publicRoute = require('./routes/userApi');
 const authRoute = require('./routes/authRoutes');
 const verify = require('./routes/verifyToken');
+const passwordReset = require("./routes/passwordReset");
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(bodyParser.json({limit: '50mb'}));
@@ -17,6 +18,7 @@ require('./allcron');
 require('./mongodb')
 app.use('/api', publicRoute);
 app.use('/api/auth', verify, authRoute)
+app.use('/api/password-reset', passwordReset);
 const myCache = require('./myCache');
 
 app.get('/', (req, res) => {
