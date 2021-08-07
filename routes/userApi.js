@@ -1,11 +1,8 @@
 const router = require('express').Router();
 const User = require('../models/User');
 const bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken')
-
-
-
-//Joy validate
+const jwt = require('jsonwebtoken');
+const nodemailer = require("nodemailer");
 const Joi = require('joi');
 const schema = Joi.object({
     name: Joi.string().required(),
@@ -16,7 +13,6 @@ const loginSchema = Joi.object({
     email: Joi.string().required().email(),
     password: Joi.string().required(),
 })
-
 
 router.post('/register', async (req, res) => {
     const obj = req.body;
@@ -40,6 +36,34 @@ router.post('/register', async (req, res) => {
     try {
         const savedUser = await user.save();
         res.send({user: user._id});
+
+
+        // send email
+        const transporter = nodemailer.createTransport({
+            host: process.env.EMAIL_HOST,
+            port: process.env.EMAIL_PORT,
+            auth: {
+                user: process.env.EMAIL_USERNAME, // generated ethereal user
+                pass: process.env.EMAIL_PASSWORD, // generated ethereal password
+            },
+        });
+        const info = await transporter.sendMail({
+            from: process.env.FROM_EMAIL,
+            to: obj.email,
+            subject: "Benvenuto a bordo",
+            text: "Benvenuto in piattaforma",
+            html: ` <div align="center"><img alt="logo" width="30%" src="${process.env.PATH_LOGO}" /></div>
+                    <h2>Benvenuto nella piattaforma dei corsi</h2>
+                    <p>Ciao ${obj.name} da Davide</p>
+                    <p>In questa piattaforma potrai visualizzare tutti i corsi
+                    ai quali hai avuto accesso o hai acquistato</p>
+                    <p>Per poter procedere al login ti inserisco qui sotto username e password</p>
+                    <p>La tua username è: ${obj.email}</p>
+                    <p>La tua password è: ${randomPassword}</p> 
+                    <p>Puoi procedere all'accesso dalla seguente url ${process.env.URL_PIATTAFORMA}</p>
+                    `,
+        });
+
     }
     catch (err){
 
@@ -61,6 +85,8 @@ router.post('/login' , async (req,res) =>{
     const token = jwt.sign({_id: user._id}, process.env.TOKEN_SECRET);
     res.header('auth-token', token).send({errorMessage: 'Login effettuato'});
 });
+
+
 
 
 module.exports = router;
