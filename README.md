@@ -1,7 +1,7 @@
-# Memberidium [WIP]
+# Memsion [WIP]
 ## _The last member platform made for infusionsoft_
 
-Memberidium is an open source member platform based on infusionsoft user tag
+Memsion is an open source member platform based on infusionsoft user tag
 
 Nodejs & Vuejs-powered 
 
