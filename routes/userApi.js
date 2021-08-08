@@ -4,6 +4,8 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const sendEmail = require("../utils/sendEmail");
 const Joi = require('joi');
+const axios = require("axios");
+const myCache = require("../myCache");
 const schema = Joi.object({
     name: Joi.string().required(),
     surname: Joi.string().required(),
@@ -71,6 +73,10 @@ router.post('/login' , async (req,res) =>{
 
     const token = jwt.sign({_id: user._id}, process.env.TOKEN_SECRET);
     res.header('auth-token', token).send({errorMessage: 'Login effettuato'});
+
+    //axios chiamata a infusionsoft,cercare l'utente pe prendere l'id
+    //poi altra chiamata con list tag con id utente e prendere le tag e spararle al db all'utente
+
 });
 
 
