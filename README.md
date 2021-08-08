@@ -1,7 +1,7 @@
 # Memberidium [WIP]
 ## _The last member platform made for infusionsoft_
 
-Memberium is an open source member platform based on infusionsoft user tag
+Memberidium is an open source member platform based on infusionsoft user tag
 
 Nodejs & Vuejs-powered 
 
