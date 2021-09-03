@@ -7,9 +7,11 @@ const InfusionsoftStrategy  = require('passport-infusionsoft').Strategy;
 const axios = require('axios');
 const bodyParser = require('body-parser');
 const publicRoute = require('./routes/userApi');
-const authRoute = require('./routes/authRoutes');
+const authRoute = require('./routes/courses');
 const verify = require('./routes/verifyToken');
 const passwordReset = require("./routes/passwordReset");
+const cors = require('cors')
+app.use(cors());
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(bodyParser.json({limit: '50mb'}));
@@ -17,7 +19,7 @@ app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
 require('./allcron');
 require('./mongodb')
 app.use('/api', publicRoute);
-app.use('/api/auth', verify, authRoute)
+app.use('/api/auth', authRoute)
 app.use('/api/password-reset', passwordReset);
 const myCache = require('./myCache');
 
@@ -84,4 +86,27 @@ app.get('/auth/call', (req, res) =>{
         // GESTISCI ERRORE
         console.log(err)
     })
+})
+
+const retrieveId = (res,userId) =>{
+    let userFind = res.data.contacts.map(res => res.id)
+    userId = userFind[0];
+    axios.get('https://api.infusionsoft.com/crm/rest/v1/contacts/'+userId+'/tags', {
+        headers: {
+            Accept: 'application/json, */*',
+            Host: 'api.infusionsoft.com',
+            Authorization: `Bearer ${myCache.get('tokens').accessToken}`
+        }
+    }).then(response =>{
+        let tagId =(response.data.tags);
+        const userTag = tagId.map(ele => ele.tag.id);
+    })
+}
+
+
+
+//demo retrieve id from email
+app.get('/test', (req, res) =>{
+    let userId = req.user.infusionsoftId;
+    retrieveId(res,userId)
 })

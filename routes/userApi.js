@@ -9,7 +9,12 @@ const myCache = require("../myCache");
 const schema = Joi.object({
     name: Joi.string().required(),
     surname: Joi.string().required(),
-    email: Joi.string().required().email()
+    email: Joi.string().required().email(),
+    contactId: Joi.string().required(),
+    secretKey: Joi.string().required().valid('1234567890').messages({
+        'string.base': `"secretKey" tipo testo`,
+        'string.empty': `"secretKey" required`
+    })
 })
 const loginSchema = Joi.object({
     email: Joi.string().required().email(),
@@ -32,7 +37,8 @@ router.post('/register', async (req, res) => {
         name: obj.name,
         surname: obj.surname,
         email: obj.email,
-        password: hashPassword
+        password: hashPassword,
+        infusionsoftId: obj.contactId
     });
     try {
         const savedUser = await user.save();
@@ -60,6 +66,28 @@ router.post('/register', async (req, res) => {
     }
 });
 
+const retrieveId = (userId) =>{
+    axios.get('https://api.infusionsoft.com/crm/rest/v1/contacts/'+userId+'/tags', {
+        headers: {
+            Accept: 'application/json, */*',
+            Host: 'api.infusionsoft.com',
+            Authorization: `Bearer ${myCache.get('tokens').accessToken}`
+        }
+    }).then(res =>{
+        let tagId =(res.data.tags);
+        const userTag = tagId.map(ele => ele.tag.id);
+        User.updateOne({infusionsoftId: userId}, {
+            $set: {
+                tags: userTag
+            }
+        }).then(response=>{
+            //console.log(response)
+        }).catch(err =>{
+            console.log(err)
+        })
+    })
+}
+
 router.post('/login' , async (req,res) =>{
     const obj = req.body
     const isOk = loginSchema.validate(obj)
@@ -72,10 +100,11 @@ router.post('/login' , async (req,res) =>{
     if (!validPass) return res.status(400).send({errorMessage: 'Email or password wrong'});
 
     const token = jwt.sign({_id: user._id}, process.env.TOKEN_SECRET);
-    res.header('auth-token', token).send({errorMessage: 'Login effettuato'});
+    let userId = user.infusionsoftId;
+    retrieveId(userId)
+    res.send({'token': token , errorMessage: 'Login effettuato'});
 
-    //axios chiamata a infusionsoft,cercare l'utente pe prendere l'id
-    //poi altra chiamata con list tag con id utente e prendere le tag e spararle al db all'utente
+
 
 });
 

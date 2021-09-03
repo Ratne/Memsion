@@ -25,9 +25,11 @@ const userSchema = new mongoose.Schema({
         type: Boolean,
         default: false
     },
-    tag: {
-        type: Array,
-        default: []
+    infusionsoftId : {
+        type: Number,
+    },
+    tags: {
+        type: [Number]
     },
 },{
     timestamps: true,
