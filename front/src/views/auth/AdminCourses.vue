@@ -3,16 +3,16 @@
     <h1>Admin Courses</h1>
     <ul>
       <li v-for="course of courses" @click="goToCourse(course._id)" >
-        {{ course.name }} - {{ course.requiredTag }}
+       <img :src="'data:image;base64,' + course.image" /> {{ course.name }} - {{ course.requiredTag }}
       </li>
     </ul>
     <h3 class="text-center">Aggiungi corso</h3>
     <form @submit.prevent="courseAdd">
       {{course}}
-    <FormGroupCustom :error="errors['name']" v-model:value="course.name" label="name" type="text"></FormGroupCustom>
-    <editor-text-area v-model="course.description" />
-      <FormGroupCustom :error="errors['image']" v-model:value="course.image" label="image" type="text"></FormGroupCustom>
-    <FormGroupCustom :error="errors['requiredTag']" v-model:value="course.requiredTag" label="tag" type="number"></FormGroupCustom>
+    <FormGroupCustom name="name" :error="errors['name']" v-model:value="course.name" label="name" type="text"></FormGroupCustom>
+    <editor-text-area name="description" v-model:dataValue="course.description" />
+      <FormGroupCustom name="image" :error="errors['image']" @change="onFileChange" label="image" type="file"></FormGroupCustom>
+    <FormGroupCustom name="requiredTag" :error="errors['requiredTag']" v-model:value="course.requiredTag" label="tag" type="number"></FormGroupCustom>
     <button class="btn btn-primary w-100 mt-3 mb-3 "  type="submit">Invia</button>
     </form>
 
@@ -71,8 +71,13 @@ export default {
   methods:{
     courseAdd(){
       this.$store.dispatch('resetErrors');
+      let formData = new FormData();
+      formData.append('name',this.course.name)
+      formData.append('description',this.course.description)
+      formData.append('image',this.course.image, this.course.image.name)
+      formData.append('requiredTag',this.course.requiredTag)
       if (this.isValid(this.course)){
-        coursesStore(this.course).then(res =>{
+        coursesStore(formData).then(res =>{
           this.courses.push(res)
           this.course = {}
         })
@@ -85,6 +90,10 @@ export default {
           id
         }
       })
+    },
+    onFileChange(event){
+      console.log(event.target.files);
+      this.course.image = event.target.files[0]
     }
   },
   computed:{

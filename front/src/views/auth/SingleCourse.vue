@@ -1,31 +1,30 @@
 <template>
   <div class="home">
+   <SummaryCourse :course="course" @setShowEdit="showEdit = true"/>
 
-        {{ course.name }} - {{ course.requiredTag }}
-    <!--lessons-->
+    <EditCourse :course="course" @updateCourse="editCourseAction" v-if="showEdit" />
 
-        <div><h1>Elenco lezioni</h1>
-          <ul v-if="course.lessons">
-            <li @click="goToLesson(lesson._id)" v-for="lesson in course.lessons">Titolo: {{lesson.name}}</li>
-          </ul>
-        </div>
+    <LessonList :lessons="course.lessons" @goToLesson="goToLesson" @showEditLesson="showEditLesson = true" />
 
+
+
+
+    <!--edit lesson-->
+  <div v-if="showEditLesson">
+    <h2>Aggiungi Lezione</h2>
     <form @submit.prevent="lessonAdd">
-      {{lesson}}
       <FormGroupCustom :error="errors['name']" v-model:value="lesson.name" label="name" type="text"></FormGroupCustom>
-      <editor-text-area v-model="lesson.description" />
-      <editor-text-area v-model="lesson.content" />
+      <editor-text-area v-model:dataValue="lesson.description" />
+      <editor-text-area v-model:dataValue="lesson.content" />
       <FormGroupCustom :error="errors['image']" v-model:value="lesson.image" label="image" type="text"></FormGroupCustom>
       <FormGroupCustom :error="errors['requiredTag']" v-model:value="lesson.requiredTag" label="tag" type="number"></FormGroupCustom>
       <button class="btn btn-primary w-100 mt-3 mb-3 "  type="submit">Invia</button>
     </form>
+  </div>
+    <!--edit lesson-->
 
 
-<!--    aggiornamento del corso-->
-<!--    aggiornamento della lezione -->
 <!--    caricamento dell'immagine-->
-<!--    al click ci sarà dettaglio lezione e aggiornamento lezione-->
-<!--    al click ci sarà dettaglio lezione e aggiornamento lezione e eliminazione della lezione-->
   </div>
 
 
@@ -38,21 +37,26 @@
 <script>
 
 
-import {coursesDelete, coursesShow} from "../../services/coursesService";
+import {coursesDelete, coursesShow, coursesUpdate} from "../../services/coursesService";
 import {lessonStore} from "../../services/lessonService";
 import FormGroupCustom from "../../components/shared/form/FormGroupCustom";
 import {validationMixin} from "../../mixins/validationMixin";
 import {validationTypeName} from "../../utils/validationType";
 import EditorTextArea from "../../components/shared/form/EditorTextArea";
+import SummaryCourse from "../../components/views/single_course/SummaryCourse";
+import EditCourse from "../../components/views/single_course/EditCourse";
+import LessonList from "../../components/views/single_course/LessonList";
 
 
 export default {
   name: 'SingleCourse',
-  components: {FormGroupCustom, EditorTextArea},
+  components: {LessonList, EditCourse, SummaryCourse, FormGroupCustom, EditorTextArea},
   data(){
     return {
       course: {},
       lesson: {},
+      showEdit: false,
+      showEditLesson: false,
       validazione: [
         {
           name: 'name',
@@ -83,10 +87,10 @@ export default {
     lessonAdd(){
       this.$store.dispatch('resetErrors');
       if (this.isValid(this.lesson)){
-        console.log(this.lesson)
        lessonStore(this.lesson,this.course._id).then(res =>{
-         this.course.lessons.push(res)
-         this.lesson = {}
+         this.course.lessons.push(res.lesson);
+         this.lesson = {};
+         this.showEditLesson=false;
        })
       }
     },
@@ -104,6 +108,12 @@ export default {
         this.$router.push({
           name: 'Home',
         })
+      })
+    },
+    editCourseAction(editCourse){
+      coursesUpdate(editCourse).then(res =>{
+        this.course = {...editCourse}
+        this.showEdit = false;
       })
     }
   },

@@ -1,10 +1,14 @@
 <template>
   <div class="home">
 
-        {{ lesson.name }} - {{ lesson.requiredTag }}
+        {{ lesson.name }} - {{ lesson.requiredTag }} - <button class="alert-info" @click="editLessonShow = true">Modifica Lezione</button>
   </div>
 
+  <div v-if="editLessonShow">
 
+    <EditLesson :lesson="lesson" @editLesson="lessonEdit" />
+
+  </div>
 
   <div>
     <!--lesson delete-->
@@ -15,21 +19,24 @@
 <script>
 
 
-import {lessonDelete, lessonShow, lessonStore} from "../../services/lessonService";
+import {lessonDelete, lessonShow, lessonUpdate} from "../../services/lessonService";
 import FormGroupCustom from "../../components/shared/form/FormGroupCustom";
 import {validationMixin} from "../../mixins/validationMixin";
 import {validationTypeName} from "../../utils/validationType";
 import EditorTextArea from "../../components/shared/form/EditorTextArea";
+import EditLesson from "../../components/views/single_course/EditLesson";
 
 
 export default {
   name: 'SingleLesson',
-  components: {FormGroupCustom, EditorTextArea},
+  components: {EditLesson, FormGroupCustom, EditorTextArea},
   data(){
     return {
       courseId: undefined,
       lesson: {},
+      editLesson: {},
       lessonId: undefined,
+      editLessonShow: false,
       validazione: [
         {
           name: 'name',
@@ -66,6 +73,12 @@ export default {
           }
         })
       })
+    },
+    lessonEdit(editLesson){
+      lessonUpdate(this.courseId, this.lessonId, editLesson).then(res =>{
+        this.lesson = {...editLesson};
+        this.editLessonShow = false;
+      })
     }
   },
   mounted() {
@@ -73,6 +86,7 @@ export default {
     this.lessonId= this.$route.params.lessonId;
     lessonShow(this.courseId, this.lessonId).then(res =>{
       this.lesson=res
+      this.editLesson= {...res}
     })
   },
 

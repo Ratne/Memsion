@@ -9,8 +9,8 @@ export const lessonShow = (idCourse, idLesson) => {
     return http.get(`${url}/${idCourse}/lesson/${idLesson}`)
 }
 
-export const lessonUpdate = (data) => {
-    return http.patch(`${url}/${data._id}`, data )
+export const lessonUpdate = (idCourse, idLesson, data) => {
+    return http.patch(`${url}/${idCourse}/lesson/${idLesson}`, data )
 }
 
 export const lessonDelete = (idCourse, idLesson) => {

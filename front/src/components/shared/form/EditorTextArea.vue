@@ -33,10 +33,12 @@ export default {
   },
   watch: {
     dataValue(){
-      this.value = this.dataValue
+      console.log(this.value, this.dataValue)
+      this.value = this.dataValue || ''
     },
     value(){
-      this.$emit("update:value", this.value)
+      console.log(this.value)
+      this.$emit("update:dataValue", this.value)
     }
   }
 }
