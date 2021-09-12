@@ -10,7 +10,7 @@ Nodejs & Vuejs-powered
 - Webhook from infusionsoft to create an user
 - Admin backend to create courses and lessons
 
-##Env Variables for backend
+## Env Variables for backend
 - PORT: nodejs local port
 - URL_PIATTAFORMA: the url of the platform
 - BASE_URL: the base url of nodejs
@@ -26,6 +26,6 @@ Nodejs & Vuejs-powered
 - FROM_EMAIL= from smtp host
 - PATH_LOGO= full path logo
 
-##Env Variables for frontend
+## Env Variables for frontend
 - VUE_APP_URL= nodejs backend url and port + '/api'
 - VUE_APP_APIKEY= tiny.cloud free api key
