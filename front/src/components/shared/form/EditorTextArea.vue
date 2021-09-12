@@ -1,7 +1,7 @@
 <template>
 
 
-        <editor  v-model="value"
+        <editor :apiKey="apiTiny" v-model="value"
                 :init="{
            height: 300,
            menubar: false,
@@ -28,16 +28,17 @@ export default {
   props: ["dataValue"],
   data(){
     return{
-      value: ''
+      value: '',
+      apiTiny: process.env.VUE_APP_APIKEY,
     }
   },
   watch: {
     dataValue(){
-      console.log(this.value, this.dataValue)
+
       this.value = this.dataValue || ''
     },
     value(){
-      console.log(this.value)
+
       this.$emit("update:dataValue", this.value)
     }
   }
