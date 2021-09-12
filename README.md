@@ -1,7 +1,7 @@
 # Memsion [WIP]
 ## _Member platform made for infusionsoft_
 
-Memsion is an open source member platform based on infusionsoft user tag where the user can access to a custom membership platform and watch theyr video resources
+Memsion is an open source member platform based on infusionsoft user tag where the user can access to a custom membership platform and watch their video resources
 
 Nodejs & Vuejs-powered 
 
