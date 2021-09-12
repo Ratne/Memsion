@@ -47,10 +47,11 @@ router.post("/:userId/:token", async (req, res) => {
     try {
         const schema = Joi.object({ password: Joi.string().required() });
         const { error } = schema.validate(req.body);
+
         if (error) return res.status(400).send(error.details[0].message);
 
         const user = await User.findById(req.params.userId);
-        console.log(user);
+
         if (!user) return res.status(400).send("invalid link or expired");
 
         const token = await Token.findOne({

@@ -1,15 +1,20 @@
 <template>
+  <!--lessons-->
+  <div class="container">
+    <h1>Elenco Lezioni</h1>
+    <div class="row">
+      <div class="card mb-sm-2 ms-2 mx-2" style="width: 18rem;" v-for="lesson in lessons" @click="$emit('goToLesson', lesson._id)">
+        <img :src="'data:image;base64,' + lesson.image" class="card-img-top" alt="course image">
+        <div class="card-body">
+          <h5 class="card-title">{{lesson.name}}</h5>
+          <p class="card-text" v-if="lesson.requiredTag">Tag: {{lesson.requiredTag}}</p>
 
-
-    <!--lessons-->
-        <div><h1>Elenco lezioni</h1>
-          <ul v-if="lessons">
-            <li @click="$emit('goToLesson', lesson._id)" v-for="lesson in lessons">Titolo: {{lesson.name}}</li>
-          </ul>
-          <button @click="$emit('showEditLesson')" class="alert-info">Aggiungi Lezione</button>
         </div>
-    <!--lessons-->
-
+      </div>
+    </div>
+    <button @click="$emit('showEditLesson')" class="alert-info">Aggiungi Lezione</button>
+  </div>
+  <!--lessons-->
 </template>
 
 <script>

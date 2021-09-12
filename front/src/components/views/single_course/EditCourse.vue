@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="container">
      <h2>Modifica Corso</h2>
      <form @submit.prevent="editCourseAction">
        <FormGroupCustom :error="errors['name']" v-model:value="editCourse.name" label="name" type="text"></FormGroupCustom>

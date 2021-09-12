@@ -30,7 +30,6 @@ export default {
     options: {type: Array, default: () => []},
     disabled: {type: Boolean, default: false},
     error: {type: String},
-
   }
 }
 </script>

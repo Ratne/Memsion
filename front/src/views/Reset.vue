@@ -4,15 +4,15 @@
   <div class="row">
     <div class="col-8 offset-2">
 
-  <form @submit.prevent="userLogin">
+  <form v-if="form" @submit.prevent="userPassword">
 
     <FormGroupCustom :error="errors['email']" v-model:value="user.email" label="email" type="text"></FormGroupCustom>
-    <FormGroupCustom :error="errors['password']" v-model:value="user.password" type="password" label="Password"/>
-    <button class="btn btn-primary w-100 mt-3 mb-3 "  type="submit">Invia</button>
+    <button class="btn btn-danger w-100 mt-3 mb-3 "  type="submit">CAMBIA PASSWORD</button>
 
   </form>
-      <p class="align-content-center">Password persa? <a href="/reset">Clicca qui</a></p>
-
+      <div class="row" v-if="password">
+        <h3>Controlla la tua casella email: se la tua utenza verrà trovata riceverai una email per cambiare password</h3>
+      </div>
   </div>
   </div>
 
@@ -32,6 +32,8 @@ export default {
   data(){
     return {
       user: {},
+      password: false,
+      form: true,
       validazione: [
         {
           name: 'email',
@@ -42,30 +44,24 @@ export default {
           name: 'email',
           validation:
               {type: validationTypeName.email}
-        },
-        {
-          name: 'password',
-          validation: {
-            type: validationTypeName.required,
-          }
         }
       ]
 
     }
   },
-  name: "Login",
+  name: "Reset",
   mixins: [validationMixin],
   components: {NavbarLogin, FormGroupCustom},
 
   methods:{
-    userLogin(){
+    userPassword(){
       this.$store.dispatch('resetErrors');
       if (this.checkLogin) {
 
-        http.post(process.env.VUE_APP_URL+'/login', this.user).then(res =>{
-         localStorage.setItem('token', res.token);
-         this.$store.dispatch('setToken',res.token );
-         this.$router.push({name: 'Home'})
+
+        http.post(process.env.VUE_APP_URL+'/password-reset', this.user).then(res =>{
+          this.password=true;
+          this.form=false;
         })
       }
     }

@@ -1,5 +1,6 @@
 <template>
-  <div>
+
+  <div class="container">
     <h2>Modifica Lezione</h2>
     <form @submit.prevent="editLessonAction">
       <FormGroupCustom :error="errors['name']" v-model:value="editLesson.name" label="name" type="text"></FormGroupCustom>
@@ -10,6 +11,7 @@
       <FormGroupCustom :error="errors['requiredTag']" v-model:value="editLesson.requiredTag" label="tag" type="number"></FormGroupCustom>
       <button class="btn btn-primary w-100 mt-3 mb-3 "  type="submit">Modifica Lezione</button>
     </form>
+
   </div>
     <!--edit lesson-->
 

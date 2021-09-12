@@ -7,9 +7,9 @@
     <LessonList :lessons="course.lessons" @goToLesson="goToLesson" @showEditLesson="showEditLesson = true" />
 
 
-
-
     <!--edit lesson-->
+    <div class="container">
+
   <div v-if="showEditLesson">
     <h2>Aggiungi Lezione</h2>
     <form @submit.prevent="lessonAdd">
@@ -23,9 +23,8 @@
     </form>
   </div>
     <!--edit lesson-->
+    </div>
 
-
-<!--    caricamento dell'immagine-->
   </div>
 
 
