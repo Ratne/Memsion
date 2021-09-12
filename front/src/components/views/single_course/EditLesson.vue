@@ -6,6 +6,7 @@
       <editor-text-area v-model:dataValue="editLesson.description" />
       <editor-text-area v-model:dataValue="editLesson.content" />
       <FormGroupCustom :error="errors['image']" v-model:value="editLesson.image" label="image" type="text"></FormGroupCustom>
+      <FormGroupCustom :error="errors['video']" v-model:value="editLesson.video" label="video" type="text"></FormGroupCustom>
       <FormGroupCustom :error="errors['requiredTag']" v-model:value="editLesson.requiredTag" label="tag" type="number"></FormGroupCustom>
       <button class="btn btn-primary w-100 mt-3 mb-3 "  type="submit">Modifica Lezione</button>
     </form>
@@ -53,6 +54,12 @@ export default {
         },
         {
           name: 'image',
+          validation: {
+            type: validationTypeName.required,
+          }
+        },
+        {
+          name: 'video',
           validation: {
             type: validationTypeName.required,
           }

@@ -17,6 +17,7 @@
       <editor-text-area v-model:dataValue="lesson.description" />
       <editor-text-area v-model:dataValue="lesson.content" />
       <FormGroupCustom :error="errors['image']" v-model:value="lesson.image" label="image" type="text"></FormGroupCustom>
+      <FormGroupCustom :error="errors['video']" v-model:value="lesson.video" label="video" type="text"></FormGroupCustom>
       <FormGroupCustom :error="errors['requiredTag']" v-model:value="lesson.requiredTag" label="tag" type="number"></FormGroupCustom>
       <button class="btn btn-primary w-100 mt-3 mb-3 "  type="submit">Invia</button>
     </form>
@@ -75,6 +76,12 @@ export default {
         },
         {
           name: 'image',
+          validation: {
+            type: validationTypeName.required,
+          }
+        },
+        {
+          name: 'video',
           validation: {
             type: validationTypeName.required,
           }
