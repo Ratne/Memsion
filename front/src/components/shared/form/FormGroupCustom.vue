@@ -1,6 +1,6 @@
 <template>
 
-  <div class="form-group">
+  <div class="form-group mt-2 mb-2">
     <label>{{ label }}</label>
     <input :disabled="disabled" v-if="type === 'text'" :value="value" @input="$emit('update:value', $event.target.value)" :class="['form-control', {error: error}]" :type="type" :name="name" />
     <input :disabled="disabled" v-if="type === 'number'" :value="value" @input="$emit('update:value', $event.target.value)" :class="['form-control', {error: error}]" :type="type" :name="name" />

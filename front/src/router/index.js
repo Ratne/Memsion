@@ -21,12 +21,11 @@ const routes = [
     beforeEnter : NoAuthGuard
   },
   {
-    path: '/password-reset/:pathMatch(.*)*',
+    path: '/password-reset/:userId/:userToken',
     name: 'PasswordReset',
     component: PasswordReset,
     beforeEnter : NoAuthGuard
   },
-
   {
     path: '/auth',
     component: AuthPage,

@@ -1,7 +1,5 @@
 <template>
   <div class="home">
-
-
     <div class="container">
       <h1>Admin Courses</h1>
       <div class="row">
@@ -9,7 +7,7 @@
       <img :src="'data:image;base64,' + course.image" class="card-img-top" alt="course image">
       <div class="card-body">
         <h5 class="card-title">{{course.name}}</h5>
-        <p class="card-text">{{course.description}}<br> Tag: {{course.requiredTag}}</p>
+        <p class="card-text"><span v-html="course.description"></span><br> Tag: {{course.requiredTag}}</p>
 
       </div>
     </div>

@@ -14,6 +14,7 @@ Nodejs & Vuejs-powered
 - PORT: nodejs local port
 - URL_PIATTAFORMA: the url of the platform
 - BASE_URL: the base url of nodejs
+- FRONT_URL=frontend url
 - CLIENTID infusionsoft client id
 - CLIENTSECRET: infusionsoft client secret
 - CALLBACKURL: baseurl+/auth/infusionsoft/callback

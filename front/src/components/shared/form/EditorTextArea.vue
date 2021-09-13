@@ -1,6 +1,6 @@
 <template>
 
-
+<div class="mt-2 mb-2">
         <editor :apiKey="apiTiny" v-model="value"
                 :init="{
            height: 300,
@@ -17,7 +17,7 @@
          }"
         />
 
-
+</div>
 </template>
 
 <script>

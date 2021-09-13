@@ -6,8 +6,8 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
       <div class="navbar-nav">
-        <router-link class="nav-item nav-link active" to="/login">Login</router-link>
-
+        <router-link class="nav-item nav-link active" to="/">Home</router-link>
+        <router-link @click.prevent="logout" class="nav-item nav-link" to="/logout">Logout</router-link>
       </div>
     </div>
   </nav>
@@ -15,10 +15,15 @@
 
 <script>
 export default {
-  name: "NavbarLogin",
+  name: "NavbarAdmin",
   data(){
     return{
       logoBrand: process.env.VUE_APP_LOGOBRAND
+    }
+  },
+  methods:{
+    logout() {
+      this.$store.dispatch('logout')
     }
   }
 }

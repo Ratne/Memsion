@@ -1,9 +1,8 @@
 <template>
 <div>
-  <div id="nav">
-    <router-link to="/">Home</router-link> |
-    <router-link @click.prevent="logout" to="/logout">Logout</router-link>
-  </div>
+
+    <NavbarAdmin />
+
   <router-view/>
   <h2>Auth</h2>
 </div>
@@ -12,13 +11,10 @@
 
 <script>
 
+import NavbarAdmin from "../../components/shared/design/NavbarAdmin";
 export default {
   name: "AuthPage",
-  methods:{
-    logout() {
-      this.$store.dispatch('logout')
-    }
-  }
+  components: {NavbarAdmin},
 }
 
 </script>

@@ -11,7 +11,7 @@
     <button class="btn btn-primary w-100 mt-3 mb-3 "  type="submit">Invia</button>
 
   </form>
-      <p class="align-content-center">Password persa? <a href="/reset">Clicca qui</a></p>
+      <p class="align-content-center">Password persa? <router-link to="/reset">Clicca qui</router-link></p>
 
   </div>
   </div>
