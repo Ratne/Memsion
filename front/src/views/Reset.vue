@@ -28,7 +28,7 @@ import FormGroupCustom from "../components/shared/form/FormGroupCustom";
 import {validationMixin} from "../mixins/validationMixin";
 import {validationTypeName} from "../utils/validationType";
 import {http} from "../utils/http";
-import NavbarLogin from "../components/shared/design/NavbarLogin";
+import NavbarLogin from "../components/core/NavbarLogin";
 export default {
   data(){
     return {

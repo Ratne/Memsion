@@ -26,7 +26,7 @@ router.post("/courses",type,CourseController.courseStore)
 router.patch("/courses/:id", CourseController.courseUpdate)
 router.delete("/courses/:id", CourseController.courseDelete)
 
-router.post("/courses/:id/lessons", CourseController.lessonStore)
+router.post("/courses/:id/lessons", type, CourseController.lessonStore)
 router.patch("/courses/:id/lesson/:idLesson", CourseController.lessonUpdate)
 router.delete("/courses/:id/lesson/:idLesson", CourseController.lessonDelete)
 

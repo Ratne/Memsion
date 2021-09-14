@@ -11,7 +11,7 @@
 
 <script>
 
-import NavbarAdmin from "../../components/shared/design/NavbarAdmin";
+import NavbarAdmin from "../../components/core/NavbarAdmin";
 export default {
   name: "AuthPage",
   components: {NavbarAdmin},

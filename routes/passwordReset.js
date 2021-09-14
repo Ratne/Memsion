@@ -32,7 +32,7 @@ router.post("/", async (req, res) => {
                             <p>Se sei stato te ti basterà seguire questo link qui sotto</p>
                             <p>Altrimenti ti basterà ignorare questa email</p>
                             <p>Per resettare la tua password segui questo link:
-                            ${process.env.FRONT_URL}/password-reset/${user._id}/${token.token}</p>
+                            ${process.env.FRONT_URL}password-reset/${user._id}/${token.token}</p>
                          `;
         await sendEmail(user.email, "Reimposta la tua password", emailSend);
 

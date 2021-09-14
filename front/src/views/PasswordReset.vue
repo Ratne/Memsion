@@ -10,7 +10,6 @@
 
         </form>
         <p class="align-content-center"><router-link to="/login">Torna al login</router-link></p>
-        <p>Chiamata: http://localhost:2000/api/password-reset/{{userId}}/{{userToken}}?password={{user.password}}</p>
       </div>
     </div>
 
@@ -25,7 +24,7 @@ import FormGroupCustom from "../components/shared/form/FormGroupCustom";
 import {validationMixin} from "../mixins/validationMixin";
 import {validationTypeName} from "../utils/validationType";
 import {http} from "../utils/http";
-import NavbarLogin from "../components/shared/design/NavbarLogin";
+import NavbarLogin from "../components/core/NavbarLogin";
 import { useRoute } from 'vue-router';
 export default {
   data(){

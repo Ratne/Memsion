@@ -21,7 +21,9 @@ exports.coursesIndex = (req,res) =>{
 exports.courseShow = (req,res) =>{
     const _id = req.params.id
     Course.findOne({_id}).then(response =>{
-        res.send(response)
+        res.send({...response._doc, lessons: response.lessons.map((lesson =>{
+                return {...lesson._doc, image: calcBase64(lesson.image)}
+            }))})
     })
 };
 
@@ -54,8 +56,11 @@ exports.courseDelete = (req,res) =>{
 
 exports.lessonsIndex = (req,res) =>{
     const _id = req.params.id;
-    Course.findOne({_id}, {lessons: {name: 1, description:1, content:1, _id:1}, _id:0}).then(response =>{
-        res.send(response)
+    Course.findOne({_id}, {lessons: {name: 1, description:1,video:1, image:1, content:1, _id:1}, _id:0}).then(response =>{
+        res.send(response.lessons.map(lesson =>{
+            return {...lesson._doc, image: calcBase64(lesson.image)}
+        }))
+
     })
 };
 
@@ -70,11 +75,10 @@ exports.lessonShow = (req,res) =>{
 
 exports.lessonStore = (req,res) =>{
     const _id = req.params.id;
-    const lesson = new Lesson(req.body);
+    const lesson = new Lesson({...req.body, image: req.file.path});
     Course.updateOne({_id}, {$push: {lessons: lesson}} ).then(response =>{
-        res.send({
-            lesson,
-        errorMessage: 'Aggiunta Lezione'})
+        const image =  calcBase64(req.file.path)
+        res.send({...lesson._doc, image, errorMessage: 'Aggiunta Lezione'})
     })
 };
 

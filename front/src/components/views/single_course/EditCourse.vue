@@ -4,7 +4,6 @@
      <form @submit.prevent="editCourseAction">
        <FormGroupCustom :error="errors['name']" v-model:value="editCourse.name" label="name" type="text"></FormGroupCustom>
        <editor-text-area :error="errors['description']" v-model:dataValue="editCourse.description" />
-       <FormGroupCustom :error="errors['image']" v-model:value="editCourse.image" label="image" type="text"></FormGroupCustom>
        <FormGroupCustom :error="errors['requiredTag']" v-model:value="editCourse.requiredTag" label="tag" type="number"></FormGroupCustom>
        <button class="btn btn-primary w-100 mt-3 mb-3 "  type="submit">AGGIORNA CORSO</button>
      </form>
@@ -17,6 +16,7 @@ import FormGroupCustom from "../../../components/shared/form/FormGroupCustom";
 import {validationMixin} from "../../../mixins/validationMixin";
 import {validationTypeName} from "../../../utils/validationType";
 import EditorTextArea from "../../../components/shared/form/EditorTextArea";
+import {deletePropertiesByObject} from "../../../utils/objectUtils";
 
 export default {
   name: 'EditCourse',
@@ -39,12 +39,6 @@ export default {
           name: 'requiredTag',
           validation:
               {type: validationTypeName.required}
-        },
-        {
-          name: 'image',
-          validation: {
-            type: validationTypeName.required,
-          }
         }
       ]
     }
@@ -68,7 +62,8 @@ export default {
       }
     },
     init(){
-      this.editCourse = {...this.course}
+      this.editCourse = deletePropertiesByObject(this.course, ['lessons'])
+
     }
   },
   mounted() {

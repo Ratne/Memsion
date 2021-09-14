@@ -7,8 +7,8 @@
       <img :src="'data:image;base64,' + course.image" class="card-img-top" alt="course image">
       <div class="card-body">
         <h5 class="card-title">{{course.name}}</h5>
-        <p class="card-text"><span v-html="course.description"></span><br> Tag: {{course.requiredTag}}</p>
-
+        <p class="card-text" v-html="course.description"></p>
+        <p> Tag: {{course.requiredTag}}</p>
       </div>
     </div>
       </div>
@@ -36,6 +36,7 @@ import FormGroupCustom from "../../components/shared/form/FormGroupCustom";
 import {validationMixin} from "../../mixins/validationMixin";
 import {validationTypeName} from "../../utils/validationType";
 import EditorTextArea from "../../components/shared/form/EditorTextArea";
+import {setFormDataWithImage} from "../../utils/requestUtils";
 
 
 export default {
@@ -80,18 +81,16 @@ export default {
   methods:{
     courseAdd(){
 
-      this.$store.dispatch('resetErrors');
-      let formData = new FormData();
-      formData.append('name',this.course.name)
-      formData.append('description',this.course.description)
-      formData.append('image',this.course.image, this.course.image.name)
-      formData.append('requiredTag',this.course.requiredTag)
-      if (this.isValid(this.course)){
-        coursesStore(formData).then(res =>{
-          this.courses.push(res)
-          this.course = {}
-        })
-      }
+       this.$store.dispatch('resetErrors');
+       let formData = setFormDataWithImage(this.course)
+
+
+       if (this.isValid(this.course)){
+         coursesStore(formData).then(res =>{
+           this.courses.push(res)
+           this.course = {}
+         })
+       }
     },
     goToCourse(id){
       this.$router.push({

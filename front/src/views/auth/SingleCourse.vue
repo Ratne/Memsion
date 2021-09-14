@@ -16,7 +16,7 @@
       <FormGroupCustom :error="errors['name']" v-model:value="lesson.name" label="name" type="text"></FormGroupCustom>
       <editor-text-area v-model:dataValue="lesson.description" />
       <editor-text-area v-model:dataValue="lesson.content" />
-      <FormGroupCustom :error="errors['image']" v-model:value="lesson.image" label="image" type="text"></FormGroupCustom>
+      <FormGroupCustom name="image" :error="errors['image']" @change="onFileChange" label="image" type="file"></FormGroupCustom>
       <FormGroupCustom v-model:value="lesson.video" label="video" type="text"></FormGroupCustom>
       <FormGroupCustom :error="errors['requiredTag']" v-model:value="lesson.requiredTag" label="tag" type="number"></FormGroupCustom>
       <button class="btn btn-primary w-100 mt-3 mb-3 "  type="submit">Invia</button>
@@ -46,6 +46,7 @@ import EditorTextArea from "../../components/shared/form/EditorTextArea";
 import SummaryCourse from "../../components/views/single_course/SummaryCourse";
 import EditCourse from "../../components/views/single_course/EditCourse";
 import LessonList from "../../components/views/single_course/LessonList";
+import {setFormDataWithImage} from "../../utils/requestUtils";
 
 
 export default {
@@ -86,9 +87,10 @@ export default {
   methods:{
     lessonAdd(){
       this.$store.dispatch('resetErrors');
+      let formData = setFormDataWithImage(this.lesson)
       if (this.isValid(this.lesson)){
-       lessonStore(this.lesson,this.course._id).then(res =>{
-         this.course.lessons.push(res.lesson);
+       lessonStore(formData,this.course._id).then(res =>{
+         this.course.lessons.push(res);
          this.lesson = {};
          this.showEditLesson=false;
        })
@@ -112,10 +114,13 @@ export default {
     },
     editCourseAction(editCourse){
       coursesUpdate(editCourse).then(res =>{
-        this.course = {...editCourse}
+        this.course = {...this.course, ...editCourse}
         this.showEdit = false;
       })
-    }
+    },
+    onFileChange(event){
+      this.lesson.image = event.target.files[0]
+    },
   },
   mounted() {
     coursesShow(this.$route.params.id).then(res =>{
