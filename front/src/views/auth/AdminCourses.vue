@@ -4,7 +4,7 @@
       <h1>Admin Courses</h1>
       <div class="row">
     <div class="card mb-sm-2 ms-2 mx-2" style="width: 18rem;" v-for="course of courses" @click="goToCourse(course._id)">
-      <img :src="'data:image;base64,' + course.image" class="card-img-top" alt="course image">
+      <img :src="'data:image;base64,' + course.image" class="card-img-top mt-2" alt="course image">
       <div class="card-body">
         <h5 class="card-title">{{course.name}}</h5>
         <p class="card-text" v-html="course.description"></p>

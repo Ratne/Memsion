@@ -1,7 +1,7 @@
 <template>
 <div>
 
-    <NavbarAdmin />
+    <navbar :isAdmin="true" />
 
   <router-view/>
   <h2>Auth</h2>
@@ -11,10 +11,10 @@
 
 <script>
 
-import NavbarAdmin from "../../components/core/NavbarAdmin";
+import Navbar from "../../components/core/Navbar";
 export default {
   name: "AuthPage",
-  components: {NavbarAdmin},
+  components: {Navbar},
 }
 
 </script>

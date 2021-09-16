@@ -1,5 +1,5 @@
 <template>
-<navbar-login />
+  <navbar />
 <div class="container">
   <div class="row">
     <div class="col-8 offset-2">
@@ -28,7 +28,7 @@ import FormGroupCustom from "../components/shared/form/FormGroupCustom";
 import {validationMixin} from "../mixins/validationMixin";
 import {validationTypeName} from "../utils/validationType";
 import {http} from "../utils/http";
-import NavbarLogin from "../components/core/NavbarLogin";
+import Navbar from "../components/core/Navbar";
 export default {
   data(){
     return {
@@ -53,7 +53,7 @@ export default {
   },
   name: "Reset",
   mixins: [validationMixin],
-  components: {NavbarLogin, FormGroupCustom},
+  components: {Navbar, FormGroupCustom},
 
   methods:{
     userPassword(){

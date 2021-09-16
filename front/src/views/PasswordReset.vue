@@ -1,5 +1,5 @@
 <template>
-  <navbar-login />
+  <navbar/>
   <div class="container">
     <div class="row">
       <div class="col-8 offset-2">
@@ -24,7 +24,7 @@ import FormGroupCustom from "../components/shared/form/FormGroupCustom";
 import {validationMixin} from "../mixins/validationMixin";
 import {validationTypeName} from "../utils/validationType";
 import {http} from "../utils/http";
-import NavbarLogin from "../components/core/NavbarLogin";
+import Navbar from "../components/core/Navbar";
 import { useRoute } from 'vue-router';
 export default {
   data(){
@@ -47,7 +47,7 @@ export default {
   },
   name: "PasswordReset",
   mixins: [validationMixin],
-  components: {NavbarLogin, FormGroupCustom},
+  components: {Navbar, FormGroupCustom},
   methods:{
     /*
      if (this.isValid(this.course)){
