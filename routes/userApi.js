@@ -90,6 +90,9 @@ const retrieveId = (userId) =>{
 
 router.post('/login' , async (req,res) =>{
     const obj = req.body
+    if (!myCache.get('tokens')?.accessToken ){
+        res.status(503).send({errorMessage: 'Keap offline'});
+    }
     const isOk = loginSchema.validate(obj)
     if (isOk.error) return res.status(400).send(isOk.error.details[0].message);
     const user = await User.findOne({

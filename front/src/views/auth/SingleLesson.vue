@@ -1,7 +1,6 @@
 <template>
   <div class="home">
-
-        {{ lesson.name }} - {{ lesson.requiredTag }} - <button class="alert-info" @click="editLessonShow = true">Modifica Lezione</button>
+      <summary-lesson :courseId="courseId" :lesson="lesson" @setShowEdit="editLessonShow = true" />
   </div>
 
   <div v-if="editLessonShow">
@@ -25,11 +24,12 @@ import {validationMixin} from "../../mixins/validationMixin";
 import {validationTypeName} from "../../utils/validationType";
 import EditorTextArea from "../../components/shared/form/EditorTextArea";
 import EditLesson from "../../components/views/single_course/EditLesson";
+import SummaryLesson from "../../components/views/single_course/SummaryLesson";
 
 
 export default {
   name: 'SingleLesson',
-  components: {EditLesson, FormGroupCustom, EditorTextArea},
+  components: {SummaryLesson, EditLesson, FormGroupCustom, EditorTextArea},
   data(){
     return {
       courseId: undefined,

@@ -11,6 +11,7 @@ const courseSchema = new mongoose.Schema({
     name: {type: String, required: true},
     description: {type: String, required: true},
     image: {type: String, required: true},
+    mimetype: {type: String, required: true},
     requiredTag: {type: Number, required: true},
     lessons: {type: [lessonSchema], required: true},
     menu: {type: [menuSchema], required: true}

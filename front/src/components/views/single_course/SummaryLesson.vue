@@ -1,22 +1,22 @@
 <template>
   <div class="row">
     <div class="col-6">
-      <img :src="course.image" class="img-thumbnail" alt="course image" @click="editImage">
+      <img :src="lesson.image" class="img-thumbnail" alt="lesson image" @click="editImage">
       </div>
-    <!--summary course-->
+    <!--summary lesson-->
     <div class="col-6">
       <div class="row">
-        <div class="col-6">name: {{ course.name }}</div>
-        <div class="col-6">Tag: {{ course.requiredTag }}</div>
+        <div class="col-6">name: {{ lesson.name }}</div>
+        <div class="col-6">Tag: {{ lesson.requiredTag }}</div>
         <div class="col-12">
           Descrizione: <br>
-          <span v-html="course.description"></span>
+          <span v-html="lesson.description"></span>
         </div>
 
         <div class="col-12">
        <button class="btn btn-info" @click="$emit('setShowEdit')">Modifica</button>
           </div>
-    <!--summary course-->
+    <!--summary lesson-->
       </div>
 
     </div>
@@ -31,12 +31,13 @@
 
 
 import {setFormDataWithImage} from "../../../utils/requestUtils";
-import {coursesUpdateImage} from "../../../services/coursesService";
+import {lessonUpdateImage} from "../../../services/lessonService";
 
 export default {
-  name: 'SummaryCourse',
+  name: 'SummaryLesson',
   props: {
-    course: {type: Object, default:()=> ({}) }
+    lesson: {type: Object, default:()=> ({}) },
+    courseId: {type: String}
   },
   methods: {
     editImage(){
@@ -45,8 +46,8 @@ export default {
     onUploadFile(){
       const image = this.$refs.uploadInput.files[0]
       let formData = setFormDataWithImage({image})
-      coursesUpdateImage(this.course._id, formData).then(res =>{
-        this.course.image = res.image
+      lessonUpdateImage(this.courseId, this.lesson._id, formData).then(res =>{
+        this.lesson.image = res.image
       })
     }
   }

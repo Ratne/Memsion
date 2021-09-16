@@ -16,3 +16,7 @@ export const lessonUpdate = (idCourse, idLesson, data) => {
 export const lessonDelete = (idCourse, idLesson) => {
     return http.delete(`${url}/${idCourse}/lesson/${idLesson}` )
 }
+
+export const lessonUpdateImage = (idCourse, idLesson, data) => {
+    return http.patch(`${url}/${idCourse}/lesson/${idLesson}/image`, data )
+}
