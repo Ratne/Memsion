@@ -11,18 +11,19 @@ const schema = Joi.object({
     surname: Joi.string().required(),
     email: Joi.string().required().email(),
     contactId: Joi.string().required(),
-    secretKey: Joi.string().required().valid('1234567890').messages({
-        'string.base': `"secretKey" tipo testo`,
-        'string.empty': `"secretKey" required`
-    })
+    token: Joi.string().required()
 })
 const loginSchema = Joi.object({
     email: Joi.string().required().email(),
     password: Joi.string().required(),
 })
 
+
 router.post('/register', async (req, res) => {
     const obj = req.body;
+    if (obj.token !== '12345678'){
+        res.status(400).send('Token have to be valid');
+    }
     const isOk = schema.validate(obj)
 
     const emailExist = await User.findOne({
@@ -88,6 +89,8 @@ const retrieveId = (userId) =>{
     })
 }
 
+// user login
+
 router.post('/login' , async (req,res) =>{
     const obj = req.body
     if (!myCache.get('tokens')?.accessToken ){
@@ -110,6 +113,29 @@ router.post('/login' , async (req,res) =>{
 
 
 });
+
+
+// list user
+router.get( '/userList', async (req, res) =>{
+   User.find({}, (err, users) =>{
+       let userMap = []
+       users.forEach(user => {
+           userMap.push({
+               id : user._id,
+               admin: user.isAdmin,
+               name: user.name,
+               surname: user.surname,
+               email: user.email,
+               tag: user.tags,
+               infusionsoftId: user.infusionsoftId
+           })
+       })
+       res.send(userMap)
+   })
+
+
+})
+
 
 
 
