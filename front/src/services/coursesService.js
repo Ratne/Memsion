@@ -1,5 +1,6 @@
 import {http} from "../utils/http";
 const url = '/auth/courses'
+
 export const coursesIndex = () => {
     return http.get(url)
 }

@@ -1,0 +1,116 @@
+<template>
+  <div>
+    <h3>Single User Id: {{user._id}}</h3>
+</div>
+  <div v-if="showEditUser==false">
+    <ul class="list-group text-start ms-2 list-group-flush">
+      <li class="list-group-item">Name: {{user.name}}</li>
+      <li class="list-group-item">Surname: {{user.surname}}</li>
+      <li class="list-group-item">Email: {{user.email}}</li>
+      <li class="list-group-item">Admin: {{user.isAdmin}}</li>
+      <li class="list-group-item">Infusionsoft Tag: {{user.tags}}</li>
+      <li class="list-group-item">Infusionsoft Id: {{user.infusionsoftId}}</li>
+    </ul>
+
+
+  </div>
+
+  <div v-if="showEditUser==false">
+    <!--user delete-->
+    <button class="btn btn-danger mt-3 mb-3 w-25 " type="submit" @click="deleteUser">ELIMINA UTENTE</button>
+    <!--user delete-->
+    <button class="btn btn-warning ms-2 mt-3 mb-3 w-25 text-white " type="submit" @click="editUser">MODIFICA UTENTE</button>
+  </div>
+
+  <!--user edit-->
+  <div v-if="showEditUser">
+    <form @submit.prevent="editUserAction">
+    <FormGroupCustom :error="errors['name']" v-model:value="editUserUpdate.name" label="name" type="text"></FormGroupCustom>
+    <FormGroupCustom :error="errors['surname']" v-model:value="editUserUpdate.surname" label="surname" type="text"></FormGroupCustom>
+    <FormGroupCustom :error="errors['email']" v-model:value="editUserUpdate.email" label="email" type="text"></FormGroupCustom>
+    <FormGroupCustom :error="errors['infusionsoft']" v-model:value="editUserUpdate.infusionsoftId" label="infusionsoft" type="text"></FormGroupCustom>
+    <button class="btn btn-primary w-100 mt-3 mb-3 "  type="submit">AGGIORNA UTENTE</button>
+    </form>
+  </div>
+  <!--user delete-->
+</template>
+
+<script>
+
+
+
+import FormGroupCustom from "../../components/shared/form/FormGroupCustom";
+import {validationMixin} from "../../mixins/validationMixin";
+import {validationTypeName} from "../../utils/validationType";
+import {userDel, userShow, userUpdate} from "../../services/userService";
+
+
+
+export default {
+  name: 'SingleUser',
+  components: {FormGroupCustom},
+  data(){
+    return {
+      user: {},
+      editUserUpdate:{},
+      showEditUser: false,
+      validazione: [
+        {
+          name: 'name',
+          validation: {
+            type: validationTypeName.required,}
+        },
+        {
+          name: 'surname',
+          validation:
+              {type: validationTypeName.required}
+        },
+        {
+          name: 'email',
+          validation:
+              {type: validationTypeName.required}
+        },
+        {
+          name: 'email',
+          validation:
+              {type: validationTypeName.email}
+        }
+      ]
+    }
+  },
+  mixins: [validationMixin],
+  methods:{
+    deleteUser(){
+      userDel(this.user._id).then(res =>{
+        this.$router.push({
+          name: 'AdminUser',
+        })
+      })
+    },
+    editUser(){
+      this.showEditUser =  true;
+    },
+    editUserAction(){
+      if (this.isValid(this.editUserUpdate)) {
+        userUpdate(this.editUserUpdate._id, this.editUserUpdate).then(res =>{
+          this.showEditUser = false;
+          this.user = {...this.editUserUpdate}
+        })
+      }
+    }
+  },
+  mounted() {
+    userShow(this.$route.params.id).then(res =>{
+      this.user=res
+      this.editUserUpdate= {...res}
+    })
+  },
+
+  computed:{
+    allValidations(){
+      return [...this.validazione]
+
+    }
+  }
+}
+</script>

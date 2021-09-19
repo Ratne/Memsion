@@ -66,9 +66,9 @@ router.post("/:userId/:token", async (req, res) => {
         await user.save();
         await token.delete();
 
-        res.send("password reset sucessfully.");
+        res.send({errorMessage: 'Password reset'});
     } catch (error) {
-        res.send("An error occured");
+        res.send({errorMessage: 'An error occurred'});
         console.log(error);
     }
 });

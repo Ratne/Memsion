@@ -7,7 +7,8 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
       <div v-if="isAdmin" class="navbar-nav">
-        <router-link class="nav-item nav-link active" to="/">Home</router-link>
+        <router-link class="nav-item nav-link" to="/auth">Home</router-link>
+        <router-link class="nav-item nav-link" to="/auth/users/">Utenti</router-link>
         <router-link @click.prevent="logout" class="nav-item nav-link" to="/logout">Logout</router-link>
       </div>
       <div v-else class="navbar-nav">

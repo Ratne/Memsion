@@ -10,6 +10,7 @@
 
 import {http} from "../../utils/http";
 import AdminCourses from "./AdminCourses";
+import AdminUser from "./AdminUser";
 
 export default {
   name: 'Home',

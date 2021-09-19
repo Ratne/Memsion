@@ -6,12 +6,13 @@ const sendEmail = require("../utils/sendEmail");
 const Joi = require('joi');
 const axios = require("axios");
 const myCache = require("../myCache");
+const Course = require("../models/Course");
 const schema = Joi.object({
     name: Joi.string().required(),
     surname: Joi.string().required(),
     email: Joi.string().required().email(),
     contactId: Joi.string().required(),
-    token: Joi.string().required()
+  //  token: Joi.string().required()
 })
 const loginSchema = Joi.object({
     email: Joi.string().required().email(),
@@ -21,9 +22,9 @@ const loginSchema = Joi.object({
 
 router.post('/register', async (req, res) => {
     const obj = req.body;
-    if (obj.token !== '12345678'){
-        res.status(400).send('Token have to be valid');
-    }
+    // if (obj.token !== '12345678'){
+    //     res.status(400).send('Token have to be valid');
+    // }
     const isOk = schema.validate(obj)
 
     const emailExist = await User.findOne({
@@ -116,7 +117,7 @@ router.post('/login' , async (req,res) =>{
 
 
 // list user
-router.get( '/userList', async (req, res) =>{
+router.get( '/user-list', async (req, res) =>{
    User.find({}, (err, users) =>{
        let userMap = []
        users.forEach(user => {
@@ -132,11 +133,34 @@ router.get( '/userList', async (req, res) =>{
        })
        res.send(userMap)
    })
-
-
 })
 
+// delete user
+router.delete( '/user-list/delete-user/:id', async (req, res) =>{
+    const _id = req.params.id
+    User.deleteOne({_id}).then(response =>{
+        res.send(response)
+    })
+})
 
+// user show
+router.get('/user-list/:id', async (req,res)=>{
+    const _id = req.params.id
+    User.findOne({_id}).then(response =>{
+        res.send( {...response._doc})
+    })
+})
+
+// user update
+
+router.patch('/user-list/user-update/:id', async (req, res) =>{
+    const _id = req.params.id
+    User.updateOne({_id}, {$set: req.body}).then(response =>{
+        res.send({
+            errorMessage: 'Aggiornato'
+        })
+    })
+})
 
 
 
