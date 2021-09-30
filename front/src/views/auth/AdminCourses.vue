@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <div class="container">
+    <div class="container" v-if="showAddCourse==false">
       <h1>Admin Courses</h1>
       <div class="row">
     <div class="card mb-sm-2 ms-2 mx-2" style="width: 18rem;" v-for="course of courses" @click="goToCourse(course._id)">
@@ -12,8 +12,11 @@
       </div>
     </div>
       </div>
+      <button @click="showAddCourse = true" class="btn btn-primary w-100 mt-3 mb-3 "  type="submit">Aggiungi Corso</button>
     </div>
-  <div class="container">
+
+
+  <div v-if="showAddCourse" class="container">
     <h3 class="text-center">Aggiungi corso</h3>
     <form @submit.prevent="courseAdd">
       {{course}}
@@ -45,6 +48,7 @@ export default {
   data(){
     return {
       courses:[],
+      showAddCourse: false,
       course: {},
       validazione: [
         {
@@ -83,12 +87,11 @@ export default {
 
        this.$store.dispatch('resetErrors');
        let formData = setFormDataWithImage(this.course)
-
-
        if (this.isValid(this.course)){
          coursesStore(formData).then(res =>{
            this.courses.push(res)
            this.course = {}
+           this.showAddCourse= false
          })
        }
     },

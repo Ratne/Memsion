@@ -8,11 +8,10 @@
         <div class="card-body">
           <h5 class="card-title">{{lesson.name}}</h5>
           <p class="card-text" v-if="lesson.requiredTag">Tag: {{lesson.requiredTag}}</p>
-
         </div>
       </div>
     </div>
-    <button @click="$emit('showEditLesson')" class="alert-info">Aggiungi Lezione</button>
+
   </div>
   <!--lessons-->
 </template>
@@ -26,9 +25,5 @@ export default {
   props: {
     lessons: {type: Array, default: ()=> [] }
   },
-
-  methods:{
-  },
-
 }
 </script>

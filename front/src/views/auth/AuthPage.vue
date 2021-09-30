@@ -4,7 +4,7 @@
     <navbar :isAdmin="true" />
 
   <router-view/>
-  <h2>Auth</h2>
+
 </div>
 
 </template>

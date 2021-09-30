@@ -9,7 +9,7 @@
     <FormGroupCustom :error="errors['name']" v-model:value="user.name" label="name" type="text"></FormGroupCustom>
     <FormGroupCustom :error="errors['surname']" v-model:value="user.surname" label="surname" type="text"></FormGroupCustom>
     <FormGroupCustom :error="errors['email']" v-model:value="user.email" label="email" type="text"></FormGroupCustom>
-    <FormGroupCustom :error="errors['contact-id']" v-model:value="user.contactId" label="infusionsoft Id" type="text"></FormGroupCustom>
+    <FormGroupCustom :error="errors['infusionsoftId']" v-model:value="user.contactId" label="infusionsoft Id" type="number"></FormGroupCustom>
     <button class="btn btn-primary w-100 mt-3 mb-3 "  type="submit">INSERISCI UTENTE</button>
     </form>
   </div>
@@ -54,7 +54,12 @@ export default {
           name: 'email',
           validation:
               {type: validationTypeName.email}
-        }
+        },
+        {
+          name: 'infusionsoftId',
+          validation:
+              {type: validationTypeName.required}
+        },
       ]
     }
   },

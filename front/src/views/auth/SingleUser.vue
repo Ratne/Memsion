@@ -23,12 +23,13 @@
   </div>
 
   <!--user edit-->
-  <div v-if="showEditUser">
+
+  <div v-if="showEditUser" class="container">
     <form @submit.prevent="editUserAction">
     <FormGroupCustom :error="errors['name']" v-model:value="editUserUpdate.name" label="name" type="text"></FormGroupCustom>
     <FormGroupCustom :error="errors['surname']" v-model:value="editUserUpdate.surname" label="surname" type="text"></FormGroupCustom>
     <FormGroupCustom :error="errors['email']" v-model:value="editUserUpdate.email" label="email" type="text"></FormGroupCustom>
-    <FormGroupCustom :error="errors['infusionsoft']" v-model:value="editUserUpdate.infusionsoftId" label="infusionsoft" type="text"></FormGroupCustom>
+    <FormGroupCustom :error="errors['infusionsoftId']" v-model:value="editUserUpdate.infusionsoftId" label="infusionsoft id" type="number"></FormGroupCustom>
     <button class="btn btn-primary w-100 mt-3 mb-3 "  type="submit">AGGIORNA UTENTE</button>
     </form>
   </div>
@@ -74,6 +75,11 @@ export default {
           name: 'email',
           validation:
               {type: validationTypeName.email}
+        },
+        {
+          name: 'infusionsoftId',
+          validation:
+              {type: validationTypeName.required}
         }
       ]
     }

@@ -14,6 +14,14 @@ export const coursesShow = (id) => {
     return http.get(`${url}/${id}`)
 }
 
+export const coursesShowMenu = (id) => {
+    return http.get(`${url}/${id}/menu`)
+}
+
+export const coursesAddVoiceMenu = (id, data) => {
+    return http.post(`${url}/${id}/menu`, data)
+}
+
 export const coursesUpdate = (data) => {
     return http.patch(`${url}/${data._id}`, data )
 }

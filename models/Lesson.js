@@ -8,6 +8,8 @@ const lessonSchema = new mongoose.Schema({
     video: {type: String},
     content: {type: String, required: true},
     requiredTag: {type: Number},
+    module: {type: String, required: true},
+    order: {type: Number, required: true}
 })
 
 

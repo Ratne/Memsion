@@ -1,11 +1,14 @@
 const mongoose = require('mongoose');
 const {lessonSchema} = require('./Lesson')
+const {moduleSchema} = require('./Modules')
+
 
 const menuSchema = new mongoose.Schema({
     label: {type: String, required: true},
     name: {type: String, required: true},
     url: {type: String, required: true}
 })
+
 
 const courseSchema = new mongoose.Schema({
     name: {type: String, required: true},
@@ -14,6 +17,7 @@ const courseSchema = new mongoose.Schema({
     mimetype: {type: String, required: true},
     requiredTag: {type: Number, required: true},
     lessons: {type: [lessonSchema], required: true},
+    modules:{type: [moduleSchema], required: true},
     menu: {type: [menuSchema], required: true}
 })
 

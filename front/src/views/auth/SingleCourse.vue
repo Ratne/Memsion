@@ -1,30 +1,18 @@
 <template>
   <div class="home">
-   <SummaryCourse :course="course" @setShowEdit="showEdit = true"/>
+    <div class="row">
+      <div class="col-3">
+        <CourseMenu :courseId="course._id" :menu="menu" />
+      </div>
+      <div class="col-9">
+        <SummaryCourse :course="course" @setShowEdit="showEdit = true"/>
 
-    <EditCourse :course="course" @updateCourse="editCourseAction" v-if="showEdit" />
+        <EditCourse :course="course" @updateCourse="editCourseAction" v-if="showEdit" />
 
-    <LessonList :lessons="course.lessons" @goToLesson="goToLesson" @showEditLesson="showEditLesson = true" />
-
-
-    <!--edit lesson-->
-    <div class="container">
-
-  <div v-if="showEditLesson">
-    <h2>Aggiungi Lezione</h2>
-    <form @submit.prevent="lessonAdd">
-      <FormGroupCustom :error="errors['name']" v-model:value="lesson.name" label="name" type="text"></FormGroupCustom>
-      <editor-text-area v-model:dataValue="lesson.description" />
-      <editor-text-area v-model:dataValue="lesson.content" />
-      <FormGroupCustom name="image" :error="errors['image']" @change="onFileChange" label="image" type="file"></FormGroupCustom>
-      <FormGroupCustom v-model:value="lesson.video" label="video" type="text"></FormGroupCustom>
-      <FormGroupCustom :error="errors['requiredTag']" v-model:value="lesson.requiredTag" label="tag" type="number"></FormGroupCustom>
-      <button class="btn btn-primary w-100 mt-3 mb-3 "  type="submit">Invia</button>
-    </form>
-  </div>
-    <!--edit lesson-->
+        <ModulesList @goToModule="goToModule" @showModuleAdd="showModuleAdd = true" :modules="modules" />
+        <ModuleAdd v-if="showModuleAdd" @addModule="moduleAdd" />
+      </div>
     </div>
-
   </div>
 
 
@@ -47,15 +35,23 @@ import SummaryCourse from "../../components/views/single_course/SummaryCourse";
 import EditCourse from "../../components/views/single_course/EditCourse";
 import LessonList from "../../components/views/single_course/LessonList";
 import {setFormDataWithImage} from "../../utils/requestUtils";
+import ModulesList from "../../components/views/single_course/ModulesList";
+import {modulesIndex, modulesStore} from "../../services/moduleService";
+import ModuleAdd from "../../components/views/single_course/ModuleAdd";
+import CourseMenu from "../../components/views/single_course/CourseMenu";
 
 
 export default {
   name: 'SingleCourse',
-  components: {LessonList, EditCourse, SummaryCourse, FormGroupCustom, EditorTextArea},
+  components: {
+    CourseMenu,
+    ModuleAdd, ModulesList, LessonList, EditCourse, SummaryCourse, FormGroupCustom, EditorTextArea},
   data(){
     return {
       course: {},
-      lesson: {},
+      modules: [],
+      moduleNew: {},
+      showModuleAdd: false,
       showEdit: false,
       showEditLesson: false,
       validazione: [
@@ -85,6 +81,15 @@ export default {
   },
   mixins: [validationMixin],
   methods:{
+    goToModule(moduleId){
+      this.$router.push({
+        name: 'SingleCourseModule',
+        params: {
+          courseId: this.course._id,
+          moduleId
+        }
+      })
+    },
     lessonAdd(){
       this.$store.dispatch('resetErrors');
       let formData = setFormDataWithImage(this.lesson)
@@ -113,6 +118,7 @@ export default {
       })
     },
     editCourseAction(editCourse){
+      delete editCourse.image
       coursesUpdate(editCourse).then(res =>{
         this.course = {...this.course, ...editCourse}
         this.showEdit = false;
@@ -121,18 +127,57 @@ export default {
     onFileChange(event){
       this.lesson.image = event.target.files[0]
     },
+    moduleAdd(moduleNew){
+      modulesStore(this.$route.params.id, moduleNew).then(res =>{
+        this.modules.push(res.module);
+      })
+
+      this.showModuleAdd = false
+    }
   },
   mounted() {
     coursesShow(this.$route.params.id).then(res =>{
       this.course=res
-    })
+      this.modules=res.modules
+
+    });
   },
 
   computed:{
     allValidations(){
       return [...this.validazione]
-
+    },
+    menu(){
+      const modules = this.modules.map(module => {
+        return {
+          label: module.label,
+          type: 'module',
+          id: module._id,
+          lessons: this.course.lessons.filter(lesson =>{
+           return lesson.module === module._id
+        }).map(lesson =>{
+          return {
+            name: lesson.name ,
+            idLesson: lesson._id
+          }
+          }
+          )
+        }
+      })
+      return [...modules, ...(this.course?.menu || [])]
     }
   }
 }
 </script>
+
+// [{
+// label: 'moduleName',
+// type: 'module'
+// id: 'idModule'
+// lessons: [{title: 'nomeLezione', idLesson: idLezione}]
+// },
+// {
+// label: 'label',
+// url: 'url',
+// name: 'name'}
+// ]

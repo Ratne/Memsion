@@ -1,0 +1,48 @@
+<template>
+  <form @submit.prevent="addModule">
+    <FormGroupCustom name="label" :error="errors['label']" v-model:value="moduleNew.label" label="name" type="text"></FormGroupCustom>
+    <button class="btn btn-primary w-100 mt-3 mb-3 "  type="submit">Invia</button>
+  </form>
+</template>
+
+<script>
+import FormGroupCustom from "../../../components/shared/form/FormGroupCustom";
+import {validationMixin} from "../../../mixins/validationMixin";
+import {validationTypeName} from "../../../utils/validationType";
+
+export default {
+  name: "ModuleAdd",
+  components: {FormGroupCustom},
+  mixins: [validationMixin],
+  data(){
+    return {
+      moduleNew: {},
+      validazione: [
+        {
+          name: 'label',
+          validation: {
+            type: validationTypeName.required,}
+        },
+      ]
+    }
+  },
+  methods: {
+    addModule(){
+      if (this.isValid(this.moduleNew)){
+        this.$emit('addModule', this.moduleNew)
+      }
+
+    }
+  },
+  computed:{
+    allValidations(){
+      return [...this.validazione]
+
+    }
+  }
+}
+</script>
+
+<style scoped>
+
+</style>
