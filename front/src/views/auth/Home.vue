@@ -1,7 +1,16 @@
 <template>
   <div class="home">
     <h1>Homepage</h1>
-    <admin-courses />
+    <admin-courses v-if="user && user.isAdmin" />
+    <div v-else>
+
+
+
+      <UserCourses />
+
+
+
+    </div>
   </div>
 </template>
 
@@ -9,16 +18,22 @@
 
 
 import {http} from "../../utils/http";
-import AdminCourses from "./AdminCourses";
-import AdminUser from "./AdminUser";
+import AdminCourses from "./admin/AdminCourses";
+import AdminUser from "./admin/AdminUser";
+import UserCourses from "./user/UserCourses";
 
 export default {
   name: 'Home',
-  components: {AdminCourses},
+  components: {UserCourses, AdminCourses},
   mounted() {
     http.get('/auth').then(res =>{
-      console.log(res)
+      this.$store.dispatch('setUser', res)
     })
+  },
+  computed:{
+    user(){
+      return this.$store.getters.getUser
+    }
   }
 }
 </script>

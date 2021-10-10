@@ -1,6 +1,6 @@
 <template>
 <div>
-  <h2>Menu</h2> <span @click="goToMenuSettings">[EDIT MENU]</span>
+  <h2>Menu</h2> <span v-if="isAdmin" @click="goToMenuSettings">[EDIT MENU]</span>
   <ul>
   <li v-for="m in menu">
     <div v-if="m.url" @click="clickUrl(m.url)">
@@ -19,31 +19,22 @@
 
 <script>
 
-// [{
-// label: 'moduleName',
-// type: 'module'
-// id: 'idModule'
-// lessons: [{title: 'nomeLezione', idLesson: idLezione}]
-// },
-// {
-// label: 'label',
-// url: 'url',
-// name: 'name'}
-// ]
-
 
 
 export default {
   name: "CourseMenu",
   props:{
     menu: {type: Array, default: () => []},
-    courseId: {type: String}
+    courseId: {type: String},
+    isAdmin: {type: Boolean , default: true}
   },
   methods: {
     clickUrl(url) {
       window.open(url, '_blank')
     },
     goToLesson(lesson){
+      this.$emit('goToLesson', lesson)
+      this.isAdmin &&
       this.$router.push({
         name: 'SingleLesson',
         params: {

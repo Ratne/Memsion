@@ -40,10 +40,10 @@
 
 
 
-import FormGroupCustom from "../../components/shared/form/FormGroupCustom";
-import {validationMixin} from "../../mixins/validationMixin";
-import {validationTypeName} from "../../utils/validationType";
-import {userDel, userShow, userUpdate} from "../../services/userService";
+import FormGroupCustom from "../../../components/shared/form/FormGroupCustom";
+import {validationMixin} from "../../../mixins/validationMixin";
+import {validationTypeName} from "../../../utils/validationType";
+import {userDel, userShow, userUpdate} from "../../../services/userService";
 
 
 

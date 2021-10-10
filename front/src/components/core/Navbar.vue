@@ -1,5 +1,4 @@
 <template>
-
   <nav class="navbar navbar-expand navbar-light bg-light mb-4 ">
     <img :src="logoBrand" class="logoNav" alt="logo">
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
@@ -9,6 +8,10 @@
       <div v-if="isAdmin" class="navbar-nav">
         <router-link class="nav-item nav-link" to="/auth">Home</router-link>
         <router-link class="nav-item nav-link" to="/auth/users/">Utenti</router-link>
+        <router-link @click.prevent="logout" class="nav-item nav-link" to="/logout">Logout</router-link>
+      </div>
+      <div v-else-if="isAdmin === false" class="navbar-nav">
+        <router-link class="nav-item nav-link" to="/auth">Home</router-link>
         <router-link @click.prevent="logout" class="nav-item nav-link" to="/logout">Logout</router-link>
       </div>
       <div v-else class="navbar-nav">
@@ -28,7 +31,7 @@ export default {
     }
   },
   props:{
-    isAdmin: {type: Boolean, default: false},
+    isAdmin: {},
 
   },
   methods:{

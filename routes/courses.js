@@ -36,8 +36,10 @@ router.get("/",  (req, res) => {
 
 
 router.get("/courses", CourseController.coursesIndex)
+router.get("/courses/user", CourseController.coursesFilterIndex)
 router.get("/courses/:id/modules", CourseController.modulesIndex)
 router.get("/courses/:id", CourseController.courseShow)
+router.get("/courses/:id/user", CourseController.courseFilterShow)
 router.get("/courses/:id/menu", CourseController.courseShowMenu)
 router.get("/courses/:id/lessons", CourseController.lessonsIndex)
 router.get("/courses/:id/lesson/:idLesson", CourseController.lessonShow)
@@ -51,6 +53,10 @@ router.post("/courses/:id/modules",typeCourse,CourseController.modulesStore)
 router.post("/courses/:id/menu",CourseController.courseAddVoiceMenu)
 router.patch("/courses/:id", CourseController.courseUpdate)
 router.delete("/courses/:id", CourseController.courseDelete)
+router.delete("/courses/:id/menu/:idMenu",CourseController.courseDeleteMenu)
+
+
+
 
 router.post("/courses/:id/lessons", typeLesson, CourseController.lessonStore)
 router.patch("/courses/:id/lesson/:idLesson", CourseController.lessonUpdate)

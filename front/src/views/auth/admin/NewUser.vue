@@ -21,10 +21,10 @@
 
 
 
-import FormGroupCustom from "../../components/shared/form/FormGroupCustom";
-import {validationMixin} from "../../mixins/validationMixin";
-import {validationTypeName} from "../../utils/validationType";
-import {userAdd} from "../../services/userService";
+import FormGroupCustom from "../../../components/shared/form/FormGroupCustom";
+import {validationMixin} from "../../../mixins/validationMixin";
+import {validationTypeName} from "../../../utils/validationType";
+import {userAdd} from "../../../services/userService";
 
 
 

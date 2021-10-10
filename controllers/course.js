@@ -1,6 +1,7 @@
 const Course = require("../models/Course");
 const {model: Lesson} = require("../models/Lesson");
 const {model: Module} = require("../models/Modules");
+const {model: Menu} = require("../models/Menu");
 const fs = require('fs');
 const {func} = require("joi");
 const mongoose = require("mongoose");
@@ -21,6 +22,15 @@ exports.coursesIndex = (req,res) =>{
     })
 };
 
+exports.coursesFilterIndex = (req,res) =>{
+    const userTag = req.user.tags || []
+    Course.find({requiredTag: { '$in': userTag }}, {description:1, name:1,image:1}).then(response =>{
+        res.send(response.map(course =>{
+            return {...course._doc, image: calcBase64(course.image, course.mimetype)}
+        }))
+    })
+};
+
 exports.courseShow = (req,res) =>{
     const _id = req.params.id
     Course.findOne({_id}).then(response =>{
@@ -28,6 +38,43 @@ exports.courseShow = (req,res) =>{
                 lessons: response.lessons.map((lesson => ({...lesson._doc, image: calcBase64(lesson.image, lesson.mimetype)})
             ))})
     })
+};
+
+exports.courseFilterShow = (req,res) =>{
+    const _id = req.params.id
+    const userTag = req.user.tags || []
+    Course.aggregate(
+        [
+            {"$match": { _id: mongoose.Types.ObjectId(_id) , requiredTag: { '$in': userTag } }},
+            {
+                "$project": {
+                    modules: 1 ,
+                    menu: 1,
+                    image: 1,
+                    mimetype: 1,
+                    lessons: {
+                        "$filter": {
+                            "input": "$lessons",
+                            "as": "lesson",
+                            "cond": {
+                                "$in" : ['$$lesson.requiredTag', userTag]
+                            }
+                        },
+                    }
+                }
+            },
+        ],
+        function (err, response){
+            response[0].lessons.forEach(lesson =>{
+                lesson.image= calcBase64(lesson.image, lesson.mimetype)
+            })
+            response[0].image = calcBase64(response[0].image, response[0].mimetype)
+            res.send(response[0])
+
+
+        }
+    )
+
 };
 
 exports.courseStore = (req,res) =>{
@@ -209,9 +256,6 @@ exports.moduleShow = (req,res) =>{
 exports.moduleDelete = (req,res) =>{
     const _id = req.params.id;
     const idModule = req.params.idModule
-
-
-
     Course.updateOne({_id}, {$pull: {lessons: {module: idModule}, modules: {_id : mongoose.Types.ObjectId(idModule)}}} ).then(response =>{
         res.send(response)
     })
@@ -229,9 +273,23 @@ exports.courseShowMenu = (req,res) =>{
 
 exports.courseAddVoiceMenu = (req,res) =>{
     const _id = req.params.id
-    Course.updateOne({_id}, {$push: {menu: req.body}} ).then(response =>{
+    const menu = new Menu({...req.body});
+    Course.updateOne({_id}, {$push: {menu}} ).then(response =>{
         res.send({
-             menu: response, errorMessage: 'Aggiunto Modulo'})
+             menu: menu, errorMessage: 'Aggiunto Modulo'})
      }
     )
+};
+
+exports.courseDeleteMenu = (req,res) =>{
+    const _id = req.params.id
+    const idMenu = req.params.idMenu
+    Course.updateOne({_id}, {$pull: {menu: {_id: mongoose.Types.ObjectId(idMenu)} }} ).then(response =>{
+        res.send({
+            response,
+            errorMessage: 'Voce Menu Cancellata'
+        })
+
+
+    })
 };

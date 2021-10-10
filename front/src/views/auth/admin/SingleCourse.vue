@@ -25,20 +25,20 @@
 <script>
 
 
-import {coursesDelete, coursesShow, coursesUpdate} from "../../services/coursesService";
-import {lessonStore} from "../../services/lessonService";
-import FormGroupCustom from "../../components/shared/form/FormGroupCustom";
-import {validationMixin} from "../../mixins/validationMixin";
-import {validationTypeName} from "../../utils/validationType";
-import EditorTextArea from "../../components/shared/form/EditorTextArea";
-import SummaryCourse from "../../components/views/single_course/SummaryCourse";
-import EditCourse from "../../components/views/single_course/EditCourse";
-import LessonList from "../../components/views/single_course/LessonList";
-import {setFormDataWithImage} from "../../utils/requestUtils";
-import ModulesList from "../../components/views/single_course/ModulesList";
-import {modulesIndex, modulesStore} from "../../services/moduleService";
-import ModuleAdd from "../../components/views/single_course/ModuleAdd";
-import CourseMenu from "../../components/views/single_course/CourseMenu";
+import {coursesDelete, coursesShow, coursesUpdate} from "../../../services/coursesService";
+import {lessonStore} from "../../../services/lessonService";
+import FormGroupCustom from "../../../components/shared/form/FormGroupCustom";
+import {validationMixin} from "../../../mixins/validationMixin";
+import {validationTypeName} from "../../../utils/validationType";
+import EditorTextArea from "../../../components/shared/form/EditorTextArea";
+import SummaryCourse from "../../../components/views/single_course/SummaryCourse";
+import EditCourse from "../../../components/views/single_course/EditCourse";
+import LessonList from "../../../components/views/single_course/LessonList";
+import {setFormDataWithImage} from "../../../utils/requestUtils";
+import ModulesList from "../../../components/views/single_course/ModulesList";
+import {modulesIndex, modulesStore} from "../../../services/moduleService";
+import ModuleAdd from "../../../components/views/single_course/ModuleAdd";
+import CourseMenu from "../../../components/views/single_course/CourseMenu";
 
 
 export default {

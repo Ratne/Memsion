@@ -20,17 +20,17 @@
 <script>
 
 
-import {lessonStore} from "../../services/lessonService";
-import FormGroupCustom from "../../components/shared/form/FormGroupCustom";
-import EditorTextArea from "../../components/shared/form/EditorTextArea";
-import SummaryCourse from "../../components/views/single_course/SummaryCourse";
-import EditCourse from "../../components/views/single_course/EditCourse";
-import LessonList from "../../components/views/single_course/LessonList";
-import {setFormDataWithImage} from "../../utils/requestUtils";
-import ModulesList from "../../components/views/single_course/ModulesList";
-import {moduleDelete, moduleShow} from "../../services/moduleService";
-import ModuleAdd from "../../components/views/single_course/ModuleAdd";
-import AddLesson from "../../components/views/single_course/AddLesson";
+import {lessonStore} from "../../../services/lessonService";
+import FormGroupCustom from "../../../components/shared/form/FormGroupCustom";
+import EditorTextArea from "../../../components/shared/form/EditorTextArea";
+import SummaryCourse from "../../../components/views/single_course/SummaryCourse";
+import EditCourse from "../../../components/views/single_course/EditCourse";
+import LessonList from "../../../components/views/single_course/LessonList";
+import {setFormDataWithImage} from "../../../utils/requestUtils";
+import ModulesList from "../../../components/views/single_course/ModulesList";
+import {moduleDelete, moduleShow} from "../../../services/moduleService";
+import ModuleAdd from "../../../components/views/single_course/ModuleAdd";
+import AddLesson from "../../../components/views/single_course/AddLesson";
 
 
 export default {

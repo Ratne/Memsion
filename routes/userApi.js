@@ -85,12 +85,12 @@ const retrieveId = (userId) =>{
         }).then(response=>{
             //console.log(response)
         }).catch(err =>{
-            console.log(err)
+            console.log(err, 'problema')
         })
     })
 }
 
-// user login
+// user login (isAdmin check false or true)
 
 router.post('/login' , async (req,res) =>{
     const obj = req.body
@@ -106,13 +106,10 @@ router.post('/login' , async (req,res) =>{
     const validPass = await bcrypt.compare(obj.password, user.password);
     if (!validPass) return res.status(400).send({errorMessage: 'Email or password wrong'});
 
-    const token = jwt.sign({_id: user._id}, process.env.TOKEN_SECRET);
+    const token = jwt.sign({_id: user._id, isAdmin: user.isAdmin}, process.env.TOKEN_SECRET);
     let userId = user.infusionsoftId;
     retrieveId(userId)
     res.send({'token': token , errorMessage: 'Login effettuato'});
-
-
-
 });
 
 

@@ -1,13 +1,9 @@
 const mongoose = require('mongoose');
 const {lessonSchema} = require('./Lesson')
 const {moduleSchema} = require('./Modules')
+const {menuSchema} = require ('./Menu')
 
 
-const menuSchema = new mongoose.Schema({
-    label: {type: String, required: true},
-    name: {type: String, required: true},
-    url: {type: String, required: true}
-})
 
 
 const courseSchema = new mongoose.Schema({

@@ -6,6 +6,7 @@ import NoAuthGuard from "../guards/NoAuthGuard";
 import AuthPage from "../views/auth/AuthPage";
 import Reset from "../views/Reset";
 import PasswordReset from "../views/PasswordReset";
+import IsAdminGuard from "../guards/IsAdminGuard";
 
 const routes = [
   {
@@ -42,5 +43,5 @@ const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes
 })
-
+router.beforeResolve(IsAdminGuard)
 export default router

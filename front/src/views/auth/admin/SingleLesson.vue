@@ -18,13 +18,13 @@
 <script>
 
 
-import {lessonDelete, lessonShow, lessonUpdate} from "../../services/lessonService";
-import FormGroupCustom from "../../components/shared/form/FormGroupCustom";
-import {validationMixin} from "../../mixins/validationMixin";
-import {validationTypeName} from "../../utils/validationType";
-import EditorTextArea from "../../components/shared/form/EditorTextArea";
-import EditLesson from "../../components/views/single_course/EditLesson";
-import SummaryLesson from "../../components/views/single_course/SummaryLesson";
+import {lessonDelete, lessonShow, lessonUpdate} from "../../../services/lessonService";
+import FormGroupCustom from "../../../components/shared/form/FormGroupCustom";
+import {validationMixin} from "../../../mixins/validationMixin";
+import {validationTypeName} from "../../../utils/validationType";
+import EditorTextArea from "../../../components/shared/form/EditorTextArea";
+import EditLesson from "../../../components/views/single_course/EditLesson";
+import SummaryLesson from "../../../components/views/single_course/SummaryLesson";
 
 
 export default {

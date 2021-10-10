@@ -6,7 +6,7 @@
     <div class="mt-1" v-for="m in menu">
      Label: {{m.label}}
       Url: {{m.url}}
-      <button class="btn btn-danger" @click="deleteVoice">ELIMINA</button>
+      <button class="btn btn-danger" @click="deleteVoice(m._id)">ELIMINA</button>
     </div>
 
     <div class="container mt-3">
@@ -20,7 +20,7 @@
 </template>
 
 <script>
-import {coursesAddVoiceMenu, coursesShowMenu} from "../../../services/coursesService";
+import {courseDeleteMenu, coursesAddVoiceMenu, coursesShowMenu} from "../../../services/coursesService";
 import MenuAdd from "./MenuAdd";
 
 export default {
@@ -34,16 +34,18 @@ export default {
     }
   },
   methods:{
-    deleteVoice(){
-      console.log('ciaociao')
+    deleteVoice(idMenu){
+      courseDeleteMenu(this.courseId, idMenu).then(res =>{
+        this.menu = this.menu.filter(ele => ele._id !== idMenu)
+      })
     },
     showAddVoice(){
       this.showAdd = true
     },
     addVoice(data){
       coursesAddVoiceMenu(this.courseId, data.menu).then(res =>{
-        this.menu.push(res.menu),
-        data.callback && data.callback(),
+        this.menu.push(res.menu)
+        data.callback && data.callback()
         this.showAdd = false
       })
     }

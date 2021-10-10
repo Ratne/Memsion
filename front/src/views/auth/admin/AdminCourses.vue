@@ -34,12 +34,12 @@
 <script>
 
 
-import {coursesIndex, coursesStore} from "../../services/coursesService";
-import FormGroupCustom from "../../components/shared/form/FormGroupCustom";
-import {validationMixin} from "../../mixins/validationMixin";
-import {validationTypeName} from "../../utils/validationType";
-import EditorTextArea from "../../components/shared/form/EditorTextArea";
-import {setFormDataWithImage} from "../../utils/requestUtils";
+import {coursesIndex, coursesStore} from "../../../services/coursesService";
+import FormGroupCustom from "../../../components/shared/form/FormGroupCustom";
+import {validationMixin} from "../../../mixins/validationMixin";
+import {validationTypeName} from "../../../utils/validationType";
+import EditorTextArea from "../../../components/shared/form/EditorTextArea";
+import {setFormDataWithImage} from "../../../utils/requestUtils";
 
 
 export default {

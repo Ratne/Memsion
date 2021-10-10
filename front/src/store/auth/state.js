@@ -1,5 +1,6 @@
 const state = {
-    token: undefined
+    token: undefined,
+    user: undefined
 };
 
 export default state;

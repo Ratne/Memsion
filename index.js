@@ -22,7 +22,7 @@ app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
 require('./allcron');
 require('./mongodb')
 app.use('/api', publicRoute);
-app.use('/api/auth', authRoute)
+app.use('/api/auth', verify, authRoute)
 app.use('/api/password-reset', passwordReset);
 const myCache = require('./myCache');
 

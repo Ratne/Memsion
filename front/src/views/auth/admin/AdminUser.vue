@@ -20,8 +20,8 @@
 
 
 
-import {userList} from "../../services/userService";
-import CustomTable from "../../components/shared/design/CustomTable";
+import {userList} from "../../../services/userService";
+import CustomTable from "../../../components/shared/design/CustomTable";
 
 export default {
   name: 'AdminUser',
