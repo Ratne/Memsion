@@ -13,6 +13,16 @@ const calcBase64= (path, mimetype='image') => {
         return `data:${mimetype};base64,${image}`
 };
 
+const lessonFind = (res, queryFilter) => {
+    Course.findOne(queryFilter,
+        {'lessons.$': 1}).then(response =>{
+        response?.lessons?.length ?
+            res.send({...response.lessons[0]._doc, image:calcBase64(response.lessons[0].image, response.lessons[0].mimetype)})
+            : res.status(404).send({errorMessage: 'Lesson Not Found'});
+    })
+}
+
+
 
 exports.coursesIndex = (req,res) =>{
     Course.find({}, {description:1, name:1,image:1, requiredTag:1, modules: 1 }).then(response =>{
@@ -51,6 +61,8 @@ exports.courseFilterShow = (req,res) =>{
                     modules: 1 ,
                     menu: 1,
                     image: 1,
+                    name: 1,
+                    description: 1,
                     mimetype: 1,
                     lessons: {
                         "$filter": {
@@ -128,13 +140,19 @@ exports.lessonsIndex = (req,res) =>{
     })
 };
 
+
 exports.lessonShow = (req,res) =>{
     const _id = req.params.id;
     const idLesson = req.params.idLesson;
-    Course.findOne({_id, 'lessons._id':idLesson}, {'lessons.$': 1}).then(response =>{
-       res.send({...response.lessons[0]._doc, image:calcBase64(response.lessons[0].image, response.lessons[0].mimetype)})
-    })
+    lessonFind(res, {_id, 'lessons._id':idLesson})
 
+};
+
+exports.lessonFilterShow = (req,res) =>{
+    const _id = req.params.id;
+    const idLesson = req.params.idLesson;
+    const userTag = req.user.tags || []
+    lessonFind(res, {_id, 'lessons':{$elemMatch: {_id: mongoose.Types.ObjectId(idLesson), requiredTag: { '$in': userTag }} }, requiredTag: { '$in': userTag }})
 };
 
 exports.lessonStore = (req,res) =>{
@@ -155,10 +173,6 @@ exports.lessonUpdate = (req,res) =>{
         acc['lessons.$.'+ele] = req.body[ele]
         return acc
     }, {})
-    // const mongoSet = {}
-    // dataSet.forEach(ele => {
-    //     mongoSet['lessons.$.'+ele] = req.body[ele]
-    // })
 
     Course.updateOne({_id, 'lessons._id':idLesson}, {$set: dataSet }).then(response =>{
         res.send({

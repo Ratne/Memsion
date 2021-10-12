@@ -8,7 +8,15 @@
 
 
         <div v-if="selectLesson">
-          {{selectLesson}}
+          <SelectLesson  :idLesson="selectLesson.idLesson" :idCourse="course._id" />
+        </div>
+
+        <div v-else>
+          <img :src="course.image" class="img-thumbnail" alt="course image" >
+          <h2>Benvenuto nel corso: {{course.name}}</h2>
+          <h3 v-html="course.description"></h3>
+          <p><strong>Seleziona una lezione per continuare</strong></p>
+
         </div>
 
 
@@ -29,11 +37,13 @@ import SummaryCourse from "../../../components/views/single_course/SummaryCourse
 import LessonList from "../../../components/views/single_course/LessonList";
 import ModulesList from "../../../components/views/single_course/ModulesList";
 import CourseMenu from "../../../components/views/single_course/CourseMenu";
+import SelectLesson from "../../../components/views/single_course/SelectLesson";
 
 
 export default {
   name: 'SingleCourseFilter',
   components: {
+    SelectLesson,
     CourseMenu,
     ModulesList, LessonList, SummaryCourse},
   data(){
@@ -59,7 +69,7 @@ export default {
   computed:{
     menu(){
       const modules = this.modules.map(module => {
-      debugger
+
         return {
           label: module.label,
           type: 'module',
