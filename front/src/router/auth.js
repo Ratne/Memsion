@@ -7,6 +7,7 @@ import NewUser from "../views/auth/admin/NewUser";
 import SingleCourseModule from "../views/auth/admin/SingleCourseModule";
 import MenuSettings from "../components/views/single_course/MenuSettings";
 import SingleCourseFilter from "../views/auth/user/SingleCourseFilter";
+import {routeNames} from "./routeNames";
 
 
 
@@ -73,11 +74,15 @@ const authRoutes = [
     }
   },
   {
-    path: 'course/:id',
+    path: 'single/course/:id',
     name: 'SingleCourseFilter',
     component: SingleCourseFilter,
   },
-
+  {
+    path: 'single/course/:id/lesson/:idLesson',
+    name: routeNames.SingleCourseFilterWithLesson,
+    component: SingleCourseFilter,
+  }
 
 ]
 

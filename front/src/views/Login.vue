@@ -28,6 +28,7 @@ import {validationMixin} from "../mixins/validationMixin";
 import {validationTypeName} from "../utils/validationType";
 import {http} from "../utils/http";
 import Navbar from "../components/core/Navbar";
+import lastRoute from "../guards/lastRoute";
 export default {
   data(){
     return {
@@ -65,7 +66,7 @@ export default {
         http.post(process.env.VUE_APP_URL+'/login', this.user).then(res =>{
          localStorage.setItem('token', res.token);
          this.$store.dispatch('setToken',res.token );
-         this.$router.push({name: 'Home'})
+         this.$router.push(lastRoute.route || {name: 'Home'})
         })
       }
     }

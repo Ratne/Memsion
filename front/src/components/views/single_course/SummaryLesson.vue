@@ -9,6 +9,9 @@
         <div class="col-6">name: {{ lesson.name }}</div>
         <div class="col-6">Tag: {{ lesson.requiredTag }}</div>
         <div class="col-12">
+          <p><span @click="goToSingleLesson">UrlLesson</span> <span @click="copyUrlLesson">[Copy]</span> </p>
+        </div>
+        <div class="col-12">
           Descrizione: <br>
           <span v-html="lesson.description"></span>
         </div>
@@ -32,6 +35,8 @@
 
 import {setFormDataWithImage} from "../../../utils/requestUtils";
 import {lessonUpdateImage} from "../../../services/lessonService";
+import {copyUrlMixin} from "../../../mixins/copyUrl";
+import {routeNames} from "../../../router/routeNames";
 
 export default {
   name: 'SummaryLesson',
@@ -39,6 +44,7 @@ export default {
     lesson: {type: Object, default:()=> ({}) },
     courseId: {type: String}
   },
+  mixins: [copyUrlMixin],
   methods: {
     editImage(){
       this.$refs.uploadInput.click();
@@ -49,6 +55,25 @@ export default {
       lessonUpdateImage(this.courseId, this.lesson._id, formData).then(res =>{
         this.lesson.image = res.image
       })
+    },
+    goToSingleLesson(){
+      this.$router.push({
+        name: routeNames.SingleCourseFilterWithLesson,
+        params: {
+          id: this.courseId,
+          idLesson: this.lesson._id
+        }
+      })
+
+    },
+    copyUrlLesson(){
+      this.copyUrl({
+        name: routeNames.SingleCourseFilterWithLesson,
+        params: {
+          id: this.courseId,
+          idLesson: this.lesson._id
+        }}
+      )
     }
   }
 }

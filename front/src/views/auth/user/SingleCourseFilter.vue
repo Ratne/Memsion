@@ -62,7 +62,10 @@ export default {
     coursesFilterShow(this.$route.params.id).then(res =>{
       this.course=res
       this.modules=res.modules
-
+      if (this.$route.params.idLesson){
+      const lesson = this.course.lessons.find(ele => ele._id === this.$route.params.idLesson)
+      this.selectLesson = lesson ? {...lesson, idLesson: lesson._id } : lesson
+      }
     });
   },
 

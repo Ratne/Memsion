@@ -53,9 +53,10 @@ exports.courseShow = (req,res) =>{
 exports.courseFilterShow = (req,res) =>{
     const _id = req.params.id
     const userTag = req.user.tags || []
+    const userAdmin = req.user.isAdmin
     Course.aggregate(
         [
-            {"$match": { _id: mongoose.Types.ObjectId(_id) , requiredTag: { '$in': userTag } }},
+            {"$match": {_id: mongoose.Types.ObjectId(_id) , ...(userAdmin ? {} : {requiredTag: {'$in': userTag}}) }},
             {
                 "$project": {
                     modules: 1 ,
@@ -64,7 +65,7 @@ exports.courseFilterShow = (req,res) =>{
                     name: 1,
                     description: 1,
                     mimetype: 1,
-                    lessons: {
+                    lessons: userAdmin ? 1 : {
                         "$filter": {
                             "input": "$lessons",
                             "as": "lesson",
@@ -77,12 +78,16 @@ exports.courseFilterShow = (req,res) =>{
             },
         ],
         function (err, response){
+            if (response && response.length){
             response[0].lessons.forEach(lesson =>{
                 lesson.image= calcBase64(lesson.image, lesson.mimetype)
             })
             response[0].image = calcBase64(response[0].image, response[0].mimetype)
             res.send(response[0])
-
+            }
+            else {
+                res.status(403).send({errorMessage: 'Course Not Found'});
+            }
 
         }
     )
@@ -152,7 +157,14 @@ exports.lessonFilterShow = (req,res) =>{
     const _id = req.params.id;
     const idLesson = req.params.idLesson;
     const userTag = req.user.tags || []
-    lessonFind(res, {_id, 'lessons':{$elemMatch: {_id: mongoose.Types.ObjectId(idLesson), requiredTag: { '$in': userTag }} }, requiredTag: { '$in': userTag }})
+    const userAdmin = req.user.isAdmin
+    lessonFind(res, {_id, 'lessons':{
+        $elemMatch:
+                {_id: mongoose.Types.ObjectId(idLesson), ...(userAdmin ? {} :
+                        {
+                        requiredTag: {'$in': userTag}
+                    })} },
+        ...(userAdmin ? {} : {requiredTag: {'$in': userTag}})})
 };
 
 exports.lessonStore = (req,res) =>{

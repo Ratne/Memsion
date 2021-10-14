@@ -27,29 +27,10 @@ export default {
 
   computed: {
     url(){
-        if (this.src.includes('youtube')){
-      //   this.getYoutubeNumber()
-          const arr = this.src.split('?v=')
-          const number = arr[1]
-          return `https://www.youtube.com/embed/${number}`
-
-        }
-        else  //  this.getYoubeNumber()
-        {
-          const arr = this.src.split('/')
-          const number = arr[arr.length-1]
-          return `https://www.youtube.com/embed/${number}`
-        }
-
-
+        return  this.src.includes('youtube') ? this.getYoutubeNumber() : this.getYoubeNumber()
     }
   },
 }
-
-/*
-https://www.youtube.com/watch?v=0zM3nApSvMg
-http://youtu.be/0zM3nApSvMg
- */
 
 
 </script>
