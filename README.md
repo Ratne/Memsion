@@ -1,4 +1,4 @@
-# Memsion [WIP]
+# Memsion
 ## _Member platform made for infusionsoft_
 
 Memsion is an open source member platform based on infusionsoft user tag where the user can access to a custom membership platform and watch their video resources
@@ -30,3 +30,4 @@ Nodejs & Vuejs-powered
 ## Env Variables for frontend
 - VUE_APP_URL= nodejs backend url and port + '/api'
 - VUE_APP_APIKEY= tiny.cloud free api key
+- VUE_APP_LOGOBRAND= full path to logo
