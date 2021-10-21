@@ -1,10 +1,10 @@
 <template>
   <div class="home">
     <div class="row">
-      <div class="col-3">
+      <div class="col-sm-12 col-md-3">
         <CourseMenu :courseId="course._id" :menu="menu" />
       </div>
-      <div class="col-9">
+      <div class="col-sm-12 col-md-9">
         <SummaryCourse :course="course" @setShowEdit="showEdit = true"/>
 
         <EditCourse :course="course" @updateCourse="editCourseAction" v-if="showEdit" />

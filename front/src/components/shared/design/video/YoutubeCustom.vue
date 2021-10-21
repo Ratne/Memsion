@@ -1,6 +1,6 @@
 <template>
 <div>
-  <iframe width="50%" height="315" :src="url" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+  <iframe class="youtubeFrame" width="100%" :src="url" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 </div>
 </template>
@@ -36,5 +36,7 @@ export default {
 </script>
 
 <style scoped>
-
+.youtubeFrame{
+  aspect-ratio: 16/9;
+}
 </style>

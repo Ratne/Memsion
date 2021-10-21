@@ -1,11 +1,12 @@
 <template>
 
   <div>
-    <img :src="lesson.image" class="img-thumbnail" alt="course image" >
+    <div class="headerImage" :style="{ backgroundImage: `url('${lesson.image}')` }"></div>
+
     <h2>{{lesson.title}}</h2>
-    <div v-html="lesson.description"></div>
+    <div class="lessonDescription" v-html="lesson.description"></div>
     <div v-if="lesson.video"><video-custom :url="lesson.video" /></div>
-    <div v-html="lesson.content"></div>
+    <div class="lessonDescription" v-html="lesson.content"></div>
   </div>
 
 
@@ -53,6 +54,17 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+
+.headerImage{
+  height: 180px;
+  width: 100%;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+.lessonDescription{
+  font-size: 18px;
+}
 
 </style>

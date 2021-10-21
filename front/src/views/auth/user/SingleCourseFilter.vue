@@ -1,23 +1,30 @@
 <template>
-  <div class="home">
+  <div class="container-fluid">
+
     <div class="row">
-      <div class="col-3">
+      <div class="col-sm-12 col-md-3 leftSide">
         <CourseMenu @goToLesson="goToLesson" :courseId="course._id" :menu="menu" :isAdmin="false" />
       </div>
-      <div class="col-9">
+      <div class="col-sm-12 col-md-9 rightSide">
 
-
+        <div class="containerCourseLesson">
         <div v-if="selectLesson">
           <SelectLesson  :idLesson="selectLesson.idLesson" :idCourse="course._id" />
         </div>
 
-        <div v-else>
-          <img :src="course.image" class="img-thumbnail" alt="course image" >
-          <h2>Benvenuto nel corso: {{course.name}}</h2>
-          <h3 v-html="course.description"></h3>
-          <p><strong>Seleziona una lezione per continuare</strong></p>
+        <div class="containerBackground" :style="{ backgroundImage: `url('${course.image}')` }" v-else>
 
+
+          <div class="courseIntroduction">
+
+             <div class="courseHeading">
+             <h2>Benvenuto nel corso: {{course.name}}</h2>
+              <h3 v-html="course.description"></h3>
+              <p>Seleziona una lezione per continuare</p>
+            </div>
+          </div>
         </div>
+          </div>
 
 
 
@@ -89,7 +96,79 @@ export default {
         }
       })
       return [...modules, ...(this.course?.menu || [])]
-    }
+    },
+
+
   }
 }
 </script>
+
+<style scoped lang="scss">
+.leftSide{
+  order: 1;
+}
+.rightSide{
+  order: 2;
+}
+.containerCourseLesson {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      padding: 25px;
+      background-color: #ecf8f7;
+      border-radius: 20px;
+      margin-top: 32px;
+}
+.containerBackground{
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  min-height: 400px;
+
+}
+.courseIntroduction{
+position: absolute;
+
+
+  .courseBg{
+
+  }
+
+  .courseHeading{
+    max-width: 320px;
+    padding: 18px;
+    background-color: white;
+    position: relative;
+    left: 80px;
+    top: 80px;
+    border-radius: 20px;
+    h2{
+      color: #1e6866;
+    }
+
+  }
+}
+@media(max-width: 960px){
+  .courseIntroduction{
+    position: unset;
+    .courseHeading{
+      margin-top: 12px;
+      margin-left: 12px;
+      position: unset;
+    }
+  }
+}
+@media(max-width: 768px){
+
+    .leftSide{
+      margin-top: 50px;
+      order: 2;
+    }
+  .rightSide{
+    order: 1;
+  }
+  }
+
+</style>

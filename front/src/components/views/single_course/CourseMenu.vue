@@ -1,28 +1,32 @@
 <template>
 <div>
-  <h2>Menu</h2> <span v-if="isAdmin" @click="goToMenuSettings">[EDIT MENU]</span>
-  <ul>
-  <li v-for="m in menu">
-    <div v-if="m.url" @click="clickUrl(m.url)">
-      {{ m.label }}
+  <h2 class="text-start">Menu</h2> <span v-if="isAdmin" @click="goToMenuSettings">[EDIT MENU]</span>
+
+    <div class="accordion">
+      <template v-for="(m, index) in menu">
+        <div v-if="m.url" @click="clickUrl(m.url)">{{m.label}}</div>
+        <Accordion  v-else-if="m.lessons.length" :title="m.label" :index="index">
+          <span @click="goToLesson(lesson)" v-for="lesson in m.lessons">
+            {{lesson.name}}
+          </span>
+        </Accordion>
+      </template>
     </div>
-    <ul v-else>
-      <h2>Modulo: {{m.label}}</h2>
-      <li @click="goToLesson(lesson)" v-for="lesson in m.lessons">
-        {{lesson.name}}
-      </li>
-    </ul>
-  </li>
-  </ul>
+
+
 </div>
 </template>
+
+
 
 <script>
 
 
 
+import Accordion from "../../shared/design/Accordion";
 export default {
   name: "CourseMenu",
+  components: {Accordion},
   props:{
     menu: {type: Array, default: () => []},
     courseId: {type: String},

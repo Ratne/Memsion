@@ -26,7 +26,6 @@
 
   </div>
 <input type="file" style="display: none" name="imageUpload" ref="uploadInput" @change="onUploadFile"/>
-
 </template>
 
 <script>

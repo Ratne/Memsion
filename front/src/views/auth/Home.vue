@@ -1,4 +1,5 @@
 <template>
+  <div class="container-fluid">
   <div class="home">
     <h1>Homepage</h1>
     <admin-courses v-if="user && user.isAdmin" />
@@ -11,6 +12,7 @@
 
 
     </div>
+  </div>
   </div>
 </template>
 

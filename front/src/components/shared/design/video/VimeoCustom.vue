@@ -1,6 +1,6 @@
 <template>
 <div>
-  <iframe :src="url" width="100%" height="360" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+  <iframe :src="url" width="100%" class="vimeoFrame" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
 </div>
 </template>
 
@@ -21,6 +21,8 @@ export default {
 }
 </script>
 
-<style scoped>
-
+<style lang="scss" scoped>
+.vimeoFrame{
+  aspect-ratio: 16/9;
+}
 </style>
