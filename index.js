@@ -48,7 +48,6 @@ passport.use(new InfusionsoftStrategy({
                 refreshToken: refreshToken
             };
             myCache.set( "tokens", tokens, 0 );
-            console.log(tokens)
             return done(null, tokens);
 
     }

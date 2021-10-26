@@ -42,9 +42,13 @@ export default {
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+@import "src/sass/variables.scss";
 .logoNav{
   width: 12rem;
   display: block;
+}
+.navbar{
+  box-shadow: $bgShadow;
 }
 </style>

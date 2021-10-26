@@ -3,7 +3,7 @@
     <div class="container">
       <div class="row ">
         <div class="col">
-        <button class="btn btn-info text-white float-end mb-2" @click="goToNewUser">ADD USER</button>
+        <button class="btn btn-primary text-white float-end mb-2" @click="goToNewUser">AGGIUNGI UTENTE</button>
         </div>
       </div>
     </div>

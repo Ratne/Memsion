@@ -1,15 +1,18 @@
 <template>
 <div>
-  <h2 class="text-start">Menu</h2> <span v-if="isAdmin" @click="goToMenuSettings">[EDIT MENU]</span>
+  <h2 class="text-start mb-2">Menu</h2> <span class="editAdmin" v-if="isAdmin" @click="goToMenuSettings"><i class="bi bi-pencil-square"></i>Modifica</span>
 
     <div class="accordion">
       <template v-for="(m, index) in menu">
-        <div v-if="m.url" @click="clickUrl(m.url)">{{m.label}}</div>
-        <Accordion  v-else-if="m.lessons.length" :title="m.label" :index="index">
+        <Accordion v-if="m.lessons && m.lessons.length" :title="m.label" :index="index">
           <span @click="goToLesson(lesson)" v-for="lesson in m.lessons">
-            {{lesson.name}}
+           <i class="bi bi-card-heading me-2"></i> {{lesson.name}}
           </span>
         </Accordion>
+      </template>
+      <h2 class="text-start mt-3 mb-1">Link</h2>
+      <template v-for="(l) in link">
+        <div class="text-start p-1" @click="clickUrl(l.url)"><i class="bi bi-link-45deg me-2 "></i><span class="text-capitalize">{{l.label}}</span></div>
       </template>
     </div>
 
@@ -29,6 +32,7 @@ export default {
   components: {Accordion},
   props:{
     menu: {type: Array, default: () => []},
+    link: {type: Array, default: () => []},
     courseId: {type: String},
     isAdmin: {type: Boolean , default: true}
   },
@@ -61,6 +65,9 @@ export default {
 
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+.editAdmin{
+  cursor: pointer;
 
+}
 </style>

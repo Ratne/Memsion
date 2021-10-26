@@ -2,13 +2,13 @@
 <navbar />
 <div class="container">
   <div class="row">
-    <div class="col-8 offset-2">
-
+    <div class="col-sm-12 col-md-6 offset-md-3 col-lg-4 offset-lg-4 formCustomLogin">
+<h2 class="text-center pb-3">Login</h2>
   <form @submit.prevent="userLogin">
 
     <FormGroupCustom :error="errors['email']" v-model:value="user.email" label="email" type="text"></FormGroupCustom>
     <FormGroupCustom :error="errors['password']" v-model:value="user.password" type="password" label="Password"/>
-    <button class="btn btn-primary w-100 mt-3 mb-3 "  type="submit">Invia</button>
+    <button class="btn btn-primary  mt-3 mb-3 "  type="submit">Invia</button>
 
   </form>
       <p class="align-content-center">Password persa? <router-link to="/reset">Clicca qui</router-link></p>

@@ -1,0 +1,10 @@
+.btn{
+  border-radius: 16px;
+  padding-left: 22px;
+  padding-right: 22px;
+
+  &.btn-primary{
+    background-color: $btnPrimary;
+    border: none;
+  }
+}

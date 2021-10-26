@@ -2,12 +2,13 @@
   <navbar />
 <div class="container">
   <div class="row">
-    <div class="col-8 offset-2">
+    <div class="col-sm-12 col-md-6 offset-md-3 col-lg-4 offset-lg-4 formCustomLogin">
+      <h2 class="text-center pb-3">Recupera Password</h2>
 
-  <form v-if="form" v-on:keydown.enter.prevent="userPassword" @submit.prevent="userPassword">
+  <form  v-if="form" v-on:keydown.enter.prevent="userPassword" @submit.prevent="userPassword">
 
     <FormGroupCustom :error="errors['email']" v-model:value="user.email" label="email" type="text"></FormGroupCustom>
-    <button class="btn btn-danger w-100 mt-3 mb-3 " :disabled="isActive" type="submit"> CAMBIA PASSWORD</button>
+    <button class="btn btn-primary mt-3 mb-3 " :disabled="isActive" type="submit"> Cambia Password</button>
 
   </form>
       <p class="align-content-center"><router-link to="/login">Torna al login</router-link></p>

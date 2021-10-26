@@ -9,7 +9,7 @@
         <div class="col-6">name: {{ lesson.name }}</div>
         <div class="col-6">Tag: {{ lesson.requiredTag }}</div>
         <div class="col-12">
-          <p><span @click="goToSingleLesson">UrlLesson</span> <span @click="copyUrlLesson">[Copy]</span> </p>
+          <p><span @click="goToSingleLesson">UrlLesson</span> <span @click="copyUrlLesson"><i class="bi bi-clipboard"></i>Copia</span> </p>
         </div>
         <div class="col-12">
           Descrizione: <br>
@@ -17,7 +17,7 @@
         </div>
 
         <div class="col-12">
-       <button class="btn btn-info" @click="$emit('setShowEdit')">Modifica</button>
+       <button class="btn btn-primary" @click="$emit('setShowEdit')">Modifica</button>
           </div>
     <!--summary lesson-->
       </div>

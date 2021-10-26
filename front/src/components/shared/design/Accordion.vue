@@ -38,10 +38,12 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import "src/sass/variables";
 .accordion-item{
+  box-shadow: $bgShadow;
   margin-bottom: 12px;
   border: none;
-  background-color: #54c4bf1f;
+  background-color: $bgCard-03;
   border-radius:20px;
 .accordion-button{
     border-radius:20px;

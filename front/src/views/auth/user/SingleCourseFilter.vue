@@ -3,7 +3,7 @@
 
     <div class="row">
       <div class="col-sm-12 col-md-3 leftSide">
-        <CourseMenu @goToLesson="goToLesson" :courseId="course._id" :menu="menu" :isAdmin="false" />
+        <CourseMenu @goToLesson="goToLesson" :courseId="course._id" :link="link" :menu="menu" :isAdmin="false" />
       </div>
       <div class="col-sm-12 col-md-9 rightSide">
 
@@ -56,6 +56,7 @@ export default {
   data(){
     return {
       course: {},
+      link:[],
       modules: [],
       selectLesson: undefined
     }
@@ -69,6 +70,7 @@ export default {
     coursesFilterShow(this.$route.params.id).then(res =>{
       this.course=res
       this.modules=res.modules
+      this.link=res.menu
       if (this.$route.params.idLesson){
       const lesson = this.course.lessons.find(ele => ele._id === this.$route.params.idLesson)
       this.selectLesson = lesson ? {...lesson, idLesson: lesson._id } : lesson
@@ -95,7 +97,7 @@ export default {
           )
         }
       })
-      return [...modules, ...(this.course?.menu || [])]
+      return modules
     },
 
 
@@ -104,6 +106,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
+@import "src/sass/variables";
 .leftSide{
   order: 1;
 }
@@ -111,11 +114,12 @@ export default {
   order: 2;
 }
 .containerCourseLesson {
+      box-shadow: $bgShadow;
       display: flex;
       flex-direction: column;
       height: 100%;
       padding: 25px;
-      background-color: #ecf8f7;
+      background-color: $bgCard;
       border-radius: 20px;
       margin-top: 32px;
 }

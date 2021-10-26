@@ -1,8 +1,10 @@
 <template>
   <div class="home">
+
     <div class="row">
       <div class="col-sm-12 col-md-3">
-        <CourseMenu :courseId="course._id" :menu="menu" />
+
+        <CourseMenu class="menuAdmin ms-3" :link="course.menu"  :courseId="course._id" :menu="menu" />
       </div>
       <div class="col-sm-12 col-md-9">
         <SummaryCourse :course="course" @setShowEdit="showEdit = true"/>
@@ -170,14 +172,6 @@ export default {
 }
 </script>
 
-// [{
-// label: 'moduleName',
-// type: 'module'
-// id: 'idModule'
-// lessons: [{title: 'nomeLezione', idLesson: idLezione}]
-// },
-// {
-// label: 'label',
-// url: 'url',
-// name: 'name'}
-// ]
+<style lang="scss" scoped>
+
+</style>

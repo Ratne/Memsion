@@ -1,0 +1,20 @@
+
+.form-control{
+  border-radius:12px;
+  border: $btnPrimary solid 1px;
+
+}
+.form-group{
+  text-align: left;
+  text-transform: capitalize;
+}
+.formCustomLogin{
+  border-radius: 20px;
+  box-shadow: $bgShadow;
+  padding: 32px;
+  background-color: $bgCard-03;
+  a{
+    color: $btnPrimary;
+  }
+}
+

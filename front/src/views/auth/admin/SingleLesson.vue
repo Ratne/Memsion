@@ -1,6 +1,10 @@
 <template>
   <div class="home">
+    <div class="container">
+      <div class="row">
       <summary-lesson :courseId="courseId" :lesson="lesson" @setShowEdit="editLessonShow = true" />
+      </div>
+    </div>
   </div>
 
   <div v-if="editLessonShow">

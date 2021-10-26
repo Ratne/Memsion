@@ -7,7 +7,7 @@
   </div>
 
 <div>
-  <button @click="showAddLesson =  true" class="alert-info">Aggiungi Lezione</button>
+  <button @click="showAddLesson =  true" class="btn btn-primary">Aggiungi Lezione</button>
 </div>
   <div>
     <!--module delete-->

@@ -3,7 +3,7 @@
     <div class="container" v-if="showAddCourse==false">
       <h1>Admin Courses</h1>
       <div class="row">
-    <div class="card mb-sm-2 ms-2 mx-2" style="width: 18rem;" v-for="course of courses" @click="goToCourse(course._id)">
+    <div class="card mb-sm-2 ms-2 mx-2 courseAdminUser" style="width: 18rem;" v-for="course of courses" @click="goToCourse(course._id)">
       <img :src="course.image" class="card-img-top mt-2" alt="course image">
       <div class="card-body">
         <h5 class="card-title">{{course.name}}</h5>
@@ -115,3 +115,25 @@ export default {
   }
 }
 </script>
+<style scoped lang="scss">
+@import "src/sass/variables";
+.card{
+  cursor: pointer;
+
+
+  &.courseAdminUser{
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    padding: 25px;
+    background-color: $bgCard;
+    border-radius: 20px;
+    margin-top: 32px;
+    border: none;
+    color: $colorUserCard;
+    box-shadow: $bgShadow;
+  }
+
+}
+
+</style>
