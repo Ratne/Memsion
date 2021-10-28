@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h3>Add User</h3>
+    <h3>Aggiungi Utente</h3>
 </div>
 <div class="container">
   <!--user add-->

@@ -5,19 +5,19 @@
       </div>
     <!--summary course-->
     <div class="col-6">
-      <div class="row">
-        <div class="col-6">name: {{ course.name }}</div>
-        <div class="col-6">Tag: {{ course.requiredTag }}</div>
-        <div class="col-12">
-          <p><span @click="goToSingleCourse">UrlCorso</span> <span @click="copyUrlCourse"><i class="bi bi-clipboard"></i> Copia</span> </p>
+      <div class="row adminSidebar">
+        <div class="col-6 text-start">Nome: {{ course.name }}</div>
+        <div class="col-6 text-end"><span class="badge bg-primary">Tag: {{ course.requiredTag }}</span></div>
+        <div class="col-12 text-start">
+          <p><span @click="goToSingleCourse">Url Corso:</span> <span @click="copyUrlCourse"><i class="bi bi-clipboard-check"></i> Copia</span> </p>
         </div>
-        <div class="col-12">
-          Descrizione: <br>
+        <div class="col-12 text-start">
+         <h3> Descrizione Corso: </h3>
           <span v-html="course.description"></span>
         </div>
 
         <div class="col-12">
-       <button class="btn btn-primary" @click="$emit('setShowEdit')">Modifica</button>
+          <icon-button icon="bi bi-pencil-square" label="Modifica" @clickEvent="$emit('setShowEdit')"  />
           </div>
     <!--summary course-->
       </div>
@@ -36,9 +36,11 @@
 import {setFormDataWithImage} from "../../../utils/requestUtils";
 import {coursesUpdateImage} from "../../../services/coursesService";
 import {copyUrlMixin} from "../../../mixins/copyUrl";
+import IconButton from "../../shared/design/iconButton";
 
 export default {
   name: 'SummaryCourse',
+  components: {IconButton},
   props: {
     course: {type: Object, default:()=> ({}) }
   },
@@ -73,3 +75,21 @@ export default {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+@import "src/sass/index";
+.adminSidebar{
+  padding:20px;
+  background-color: #ffffff;
+  box-shadow: $bgShadow;
+  border-radius: $customBorderRadius;
+  margin-right: 0px;
+}
+
+.badge{
+  &.bg-primary{
+    background-color: red;
+  }
+}
+
+</style>

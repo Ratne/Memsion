@@ -1,20 +1,22 @@
 <template>
 <div class="container">
   <div class="row">
-<h1>Menu</h1>
+    <div class="col-12">
+      <h1>Menu</h1>
 
     <div class="mt-1" v-for="m in menu">
      Label: {{m.label}}
       Url: {{m.url}}
-      <button class="btn btn-danger" @click="deleteVoice(m._id)">ELIMINA</button>
+      <icon-button label="Elimina" @clickEvent="deleteVoice(m._id)" icon="bi bi-trash2"/>
+
     </div>
 
     <div class="container mt-3">
-      <button class="btn btn-primary" @click="showAddVoice">AGGIUNGI</button>
+      <icon-button label="Aggiungi" @clickEvent="showAddVoice" icon="bi bi-plus-circle"/>
     </div>
 
     <menu-add @addMenu="addVoice" v-if="showAdd" />
-
+    </div>
   </div>
 </div>
 </template>
@@ -22,10 +24,11 @@
 <script>
 import {courseDeleteMenu, coursesAddVoiceMenu, coursesShowMenu} from "../../../services/coursesService";
 import MenuAdd from "./MenuAdd";
+import IconButton from "../../shared/design/iconButton";
 
 export default {
   name: "MenuSettings",
-  components: {MenuAdd},
+  components: {IconButton, MenuAdd},
   data(){
     return {
       courseId: this.$route.params.id,
@@ -35,9 +38,11 @@ export default {
   },
   methods:{
     deleteVoice(idMenu){
-      courseDeleteMenu(this.courseId, idMenu).then(res =>{
-        this.menu = this.menu.filter(ele => ele._id !== idMenu)
-      })
+      if(confirm("Vuoi eliminare la voce del menu?")) {
+        courseDeleteMenu(this.courseId, idMenu).then(res => {
+          this.menu = this.menu.filter(ele => ele._id !== idMenu)
+        })
+      }
     },
     showAddVoice(){
       this.showAdd = true

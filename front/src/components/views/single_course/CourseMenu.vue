@@ -1,7 +1,7 @@
 <template>
 <div>
-  <h2 class="text-start mb-2">Menu</h2> <span class="editAdmin" v-if="isAdmin" @click="goToMenuSettings"><i class="bi bi-pencil-square"></i>Modifica</span>
-
+  <h2 class="text-start mb-2">Menu</h2>
+    <icon-button v-if="isAdmin" @clickEvent="goToMenuSettings" label="Modifica" icon="bi bi-pencil-square" />
     <div class="accordion">
       <template v-for="(m, index) in menu">
         <Accordion v-if="m.lessons && m.lessons.length" :title="m.label" :index="index">
@@ -27,9 +27,10 @@
 
 
 import Accordion from "../../shared/design/Accordion";
+import IconButton from "../../shared/design/iconButton";
 export default {
   name: "CourseMenu",
-  components: {Accordion},
+  components: {IconButton, Accordion},
   props:{
     menu: {type: Array, default: () => []},
     link: {type: Array, default: () => []},
@@ -64,10 +65,3 @@ export default {
 }
 
 </script>
-
-<style lang="scss" scoped>
-.editAdmin{
-  cursor: pointer;
-
-}
-</style>

@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <div class="container" v-if="showAddCourse==false">
-      <h1>Admin Courses</h1>
+      <h1>Amministrazione Corsi</h1>
       <div class="row">
     <div class="card mb-sm-2 ms-2 mx-2 courseAdminUser" style="width: 18rem;" v-for="course of courses" @click="goToCourse(course._id)">
       <img :src="course.image" class="card-img-top mt-2" alt="course image">
@@ -12,19 +12,19 @@
       </div>
     </div>
       </div>
-      <button @click="showAddCourse = true" class="btn btn-primary w-100 mt-3 mb-3 "  type="submit">Aggiungi Corso</button>
+      <icon-button label="Aggiungi Corso" icon="bi bi-plus-circle" @clickEvent="showAddCourse=true"/>
+
     </div>
 
 
   <div v-if="showAddCourse" class="container">
     <h3 class="text-center">Aggiungi corso</h3>
-    <form @submit.prevent="courseAdd">
-      {{course}}
+    <form class="text-start" @submit.prevent="courseAdd">
     <FormGroupCustom name="name" :error="errors['name']" v-model:value="course.name" label="name" type="text"></FormGroupCustom>
     <editor-text-area name="description"  :error="errors['description']"  label="description" v-model:dataValue="course.description" />
     <FormGroupCustom name="image" :error="errors['image']" @change="onFileChange" label="image" type="file"></FormGroupCustom>
     <FormGroupCustom name="requiredTag" :error="errors['requiredTag']" v-model:value="course.requiredTag" label="tag" type="number"></FormGroupCustom>
-    <button class="btn btn-primary w-100 mt-3 mb-3 "  type="submit">Invia</button>
+    <button class="btn btn-primary mt-3 mb-3 text"  type="submit">Invia</button>
     </form>
 
   </div>
@@ -40,11 +40,12 @@ import {validationMixin} from "../../../mixins/validationMixin";
 import {validationTypeName} from "../../../utils/validationType";
 import EditorTextArea from "../../../components/shared/form/EditorTextArea";
 import {setFormDataWithImage} from "../../../utils/requestUtils";
+import IconButton from "../../../components/shared/design/iconButton";
 
 
 export default {
   name: 'AdminCourses',
-  components: {EditorTextArea, FormGroupCustom},
+  components: {IconButton, EditorTextArea, FormGroupCustom},
   data(){
     return {
       courses:[],

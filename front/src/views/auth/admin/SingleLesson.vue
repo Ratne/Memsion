@@ -1,9 +1,9 @@
 <template>
   <div class="home">
-    <div class="container">
-      <div class="row">
+    <div class="container-fluid">
+
       <summary-lesson :courseId="courseId" :lesson="lesson" @setShowEdit="editLessonShow = true" />
-      </div>
+
     </div>
   </div>
 
@@ -13,9 +13,13 @@
 
   </div>
 
-  <div>
-    <!--lesson delete-->
-    <button class="btn btn-danger mt-3 mb-3 w-25 " type="submit" @click="deleteLesson">ELIMINA LEZIONE</button>
+  <div class="container text-end">
+    <div class="row">
+      <div class="col-12">
+          <!--lesson delete-->
+          <button class="btn btn-danger mt-3 mb-3 w-25 " type="submit" @click="deleteLesson">ELIMINA LEZIONE</button>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -69,14 +73,16 @@ export default {
   mixins: [validationMixin],
   methods:{
     deleteLesson(){
-      lessonDelete(this.courseId, this.lessonId).then(res =>{
-        this.$router.push({
-          name: 'SingleCourse',
-          params: {
-            id: this.courseId
-          }
+      if(confirm("Vuoi eliminare la lezione?")) {
+        lessonDelete(this.courseId, this.lessonId).then(res => {
+          this.$router.push({
+            name: 'SingleCourse',
+            params: {
+              id: this.courseId
+            }
+          })
         })
-      })
+      }
     },
     lessonEdit(editLesson){
       lessonUpdate(this.courseId, this.lessonId, editLesson).then(res =>{

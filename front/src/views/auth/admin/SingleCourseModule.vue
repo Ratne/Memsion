@@ -1,19 +1,22 @@
 <template>
   <div class="home">
-
 <LessonList :lessons="module.lessons" @goToLesson="goToLessonId"/>
 
 
   </div>
 
 <div>
-  <button @click="showAddLesson =  true" class="btn btn-primary">Aggiungi Lezione</button>
-</div>
-  <div>
-    <!--module delete-->
-    <button class="btn btn-danger mt-3 mb-3 w-25 " type="submit" @click="deleteModule">ELIMINA MODULO</button>
-  </div>
+  <icon-button label="Aggiungi Lezione" icon="bi bi-plus-circle" @clickEvent="showAddLesson=true" />
 
+</div>
+  <div class="container">
+    <div class="row">
+    <div class="col-12 text-end">
+      <!--module delete-->
+     <button class="btn btn-danger mt-3 mb-3 w-25 " type="submit" @click="deleteModule">ELIMINA MODULO</button>
+    </div>
+  </div>
+  </div>
   <AddLesson v-if="showAddLesson" @addLesson="lessonAdd"/>
 </template>
 
@@ -31,11 +34,14 @@ import ModulesList from "../../../components/views/single_course/ModulesList";
 import {moduleDelete, moduleShow} from "../../../services/moduleService";
 import ModuleAdd from "../../../components/views/single_course/ModuleAdd";
 import AddLesson from "../../../components/views/single_course/AddLesson";
+import IconButton from "../../../components/shared/design/iconButton";
 
 
 export default {
   name: 'SingleCourseModule',
-  components: {AddLesson, ModuleAdd, ModulesList, LessonList, EditCourse, SummaryCourse, FormGroupCustom, EditorTextArea},
+  components: {
+    IconButton,
+    AddLesson, ModuleAdd, ModulesList, LessonList, EditCourse, SummaryCourse, FormGroupCustom, EditorTextArea},
   data(){
     return {
       module: {},
@@ -67,6 +73,7 @@ export default {
       })
     },
     deleteModule(){
+      if(confirm("Vuoi eliminare il modulo?")){
       moduleDelete(this.$route.params.courseId, this.$route.params.moduleId).then(res =>{
         this.$router.push({
           name: 'SingleCourse',
@@ -76,6 +83,7 @@ export default {
         })
 
       })
+      }
     }
   },
   mounted() {

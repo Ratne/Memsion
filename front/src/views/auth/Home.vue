@@ -1,7 +1,7 @@
 <template>
   <div class="container-fluid">
   <div class="home">
-    <h1>Homepage</h1>
+    <h1 v-if="user && !user.isAdmin">Homepage</h1>
     <admin-courses v-if="user && user.isAdmin" />
     <div v-else>
 

@@ -12,7 +12,6 @@ module.exports = function(req,res,next){
             _id: verified._id
         }, {isAdmin: 1, name: 1,tags: 1}).then(res => {
             req.user = res
-            console.log(res)
             next()
         });
     }catch (err){

@@ -10,18 +10,12 @@
 </template>
 
 <script>
-import dataErrors, {removeErrors} from "./dataErrors";
 
 export default {
   name: "ErrorMessage",
-  // data(){
-  //   return {
-  //     errors:[]
-  //   }
-  // },
+
   methods: {
     removeAlert(error){
-      // removeErrors(error.id)
       this.$store.dispatch('removeError', error)
     }
   },
@@ -30,16 +24,11 @@ export default {
       return this.$store.getters.getErrors
     }
   },
- // mounted(){
-    // const self = this;
-    // dataErrors.update=(errors)=>{
-    //   self.errors = errors
-    // }
- // }
 }
 </script>
 
 <style scoped lang="scss">
+@import "src/sass/variables";
 .content-alert {
   position: fixed;
   bottom: 0;
@@ -47,20 +36,32 @@ export default {
   width: 100%;
   z-index: 5000;
 .alert-custom {
+  box-shadow: $bgShadow;
   margin: 15px;
-  border: 2px solid #115769;
-  background: aquamarine;
+  border-radius: 16px;
+  span{
+    font-weight: bold;
+  }
   button{
+    &.btn-close{
+      right: 8px;
+      top: 8px;
+      font-size:10px
+    }
+
     position: absolute;
     top: 5px;
     right: 5px;
     font-size: 12px;
+
   }
   &.success{
-   color: #33db33;
+   color: white;
+   background: #a5e794;
   }
   &.error{
-  color: #db3333
+  color: white;
+  background: #eb6f6f;
   }
   }
 }

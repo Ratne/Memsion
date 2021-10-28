@@ -1,9 +1,9 @@
 <template>
-  <form @submit.prevent="addMenu">
+  <form class="text-start" @submit.prevent="addMenu">
     <FormGroupCustom name="label" :error="errors['label']" v-model:value="menuNew.label" label="label" type="text"></FormGroupCustom>
     <FormGroupCustom name="name" :error="errors['name']" v-model:value="menuNew.name" label="name" type="text"></FormGroupCustom>
     <FormGroupCustom name="url" :error="errors['url']" v-model:value="menuNew.url" label="url" type="text"></FormGroupCustom>
-    <button class="btn btn-primary w-100 mt-3 mb-3 "  type="submit">Invia</button>
+    <button class="btn btn-primary mt-3 mb-3 "  type="submit">Invia</button>
   </form>
 </template>
 

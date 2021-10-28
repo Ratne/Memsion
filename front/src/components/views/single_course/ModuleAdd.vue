@@ -1,8 +1,12 @@
 <template>
-  <form @submit.prevent="addModule">
-    <FormGroupCustom name="label" :error="errors['label']" v-model:value="moduleNew.label" label="name" type="text"></FormGroupCustom>
-    <button class="btn btn-primary w-100 mt-3 mb-3 "  type="submit">Invia</button>
-  </form>
+  <div class="container">
+    <div class="row text-start">
+      <form @submit.prevent="addModule">
+        <FormGroupCustom name="label" :error="errors['label']" v-model:value="moduleNew.label" label="name" type="text"></FormGroupCustom>
+        <button class="btn btn-primary mt-3 mb-3 "  type="submit">Invia</button>
+      </form>
+    </div>
+  </div>
 </template>
 
 <script>

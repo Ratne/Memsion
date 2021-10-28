@@ -2,8 +2,8 @@
   <div class="home">
     <div class="container">
       <div class="row ">
-        <div class="col">
-        <button class="btn btn-primary text-white float-end mb-2" @click="goToNewUser">AGGIUNGI UTENTE</button>
+        <div class="col-12 text-end">
+          <icon-button label="Aggiungi Utente" icon="bi bi-plus-circle" @clickEvent="goToNewUser"/>
         </div>
       </div>
     </div>
@@ -22,10 +22,11 @@
 
 import {userList} from "../../../services/userService";
 import CustomTable from "../../../components/shared/design/CustomTable";
+import IconButton from "../../../components/shared/design/iconButton";
 
 export default {
   name: 'AdminUser',
-  components: {CustomTable},
+  components: {IconButton, CustomTable},
   data(){
     return {
       users: [],

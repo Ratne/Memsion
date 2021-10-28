@@ -2,23 +2,34 @@
   <div class="row">
     <div class="col-6">
       <img :src="lesson.image" class="img-thumbnail" alt="lesson image" @click="editImage">
+      <div class="mt-3" v-if="lesson.video"><video-custom :url="lesson.video" /></div>
       </div>
     <!--summary lesson-->
     <div class="col-6">
-      <div class="row">
-        <div class="col-6">name: {{ lesson.name }}</div>
-        <div class="col-6">Tag: {{ lesson.requiredTag }}</div>
-        <div class="col-12">
-          <p><span @click="goToSingleLesson">UrlLesson</span> <span @click="copyUrlLesson"><i class="bi bi-clipboard"></i>Copia</span> </p>
-        </div>
-        <div class="col-12">
-          Descrizione: <br>
-          <span v-html="lesson.description"></span>
+      <div class="row adminSidebar">
+        <div class="col-6 text-start">Nome: {{ lesson.name }}</div>
+        <div class="col-6 text-end"><span class="badge bg-primary">Tag: {{ lesson.requiredTag }}</span></div>
+        <div class="col-12 text-start">
+          <p><span @click="goToSingleLesson">Url Lezione: </span>
+            <icon-button label="Copia" icon="bi bi-clipboard-check" @clickEvent="copyUrlLesson" /> </p>
         </div>
 
         <div class="col-12">
-       <button class="btn btn-primary" @click="$emit('setShowEdit')">Modifica</button>
+          <h3>Descrizione Lezione:</h3>
+          <div class="descriptionLesson">
+           <span v-html="lesson.description"></span>
           </div>
+        </div>
+        <div class="col-12">
+          <h3>Contenuto Lezione:</h3>
+          <div class="descriptionLesson">
+           <span v-html="lesson.content"></span>
+          </div>
+        </div>
+        <div class="col-12">
+          <icon-button label="Modifica" icon="bi bi-pencil-square" @clickEvent="$emit('setShowEdit')" />
+        </div>
+
     <!--summary lesson-->
       </div>
 
@@ -36,9 +47,12 @@ import {setFormDataWithImage} from "../../../utils/requestUtils";
 import {lessonUpdateImage} from "../../../services/lessonService";
 import {copyUrlMixin} from "../../../mixins/copyUrl";
 import {routeNames} from "../../../router/routeNames";
+import IconButton from "../../shared/design/iconButton";
+import VideoCustom from "../../shared/design/video/VideoCustom";
 
 export default {
   name: 'SummaryLesson',
+  components: {VideoCustom, IconButton},
   props: {
     lesson: {type: Object, default:()=> ({}) },
     courseId: {type: String}
@@ -77,3 +91,22 @@ export default {
   }
 }
 </script>
+<style lang="scss" scoped>
+
+@import "src/sass/index";
+.adminSidebar{
+  padding:20px;
+  background-color: #ffffff;
+  box-shadow: $bgShadow;
+  border-radius: $customBorderRadius;
+  margin-right: 0px;
+}
+
+.descriptionLesson{
+  max-height: 200px;
+  overflow: auto;
+  text-align: start;
+  margin-bottom: 12px;
+}
+
+</style>

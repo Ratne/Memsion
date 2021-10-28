@@ -1,6 +1,6 @@
 <template>
   <!--lessons-->
-  <div class="container">
+  <div class="container-fluid">
     <h1>Elenco Lezioni</h1>
     <div class="row">
       <div class="card mb-sm-2 ms-2 mx-2 lessonAdminList" style="width: 18rem;" v-for="lesson in lessons" @click="$emit('goToLesson', lesson._id)">

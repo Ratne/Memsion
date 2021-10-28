@@ -1,15 +1,17 @@
 <template>
   <!--modules-->
-  <div class="container">
-    <h1 class="mt-3">Elenco Moduli</h1>
-    <div class="row">
-      <div class="card mb-sm-2 ms-2 mx-2 listAdminCourse" style="width: 20%;" v-for="module in modules" @click="$emit('goToModule', module._id)">
-        <div class="card-body">
-          <h5 class="card-title">{{module.label}}</h5>
+  <div class="row adminSidebar mt-3">
+    <div class="col-12">
+      <h1>Elenco Moduli</h1>
+      <div class="d-flex flex-wrap">
+        <div class="card listAdminCourse" v-for="module in modules" @click="$emit('goToModule', module._id)">
+          <div class="card-body">
+            <h5 class="card-title">{{module.label}}</h5>
+          </div>
         </div>
       </div>
     </div>
-    <button @click="$emit('showModuleAdd')" class="btn btn-primary">Aggiungi Modulo</button>
+    <icon-button icon="bi bi-plus-circle" label="Aggiungi Modulo" @clickEvent="$emit('showModuleAdd')" />
   </div>
   <!--modules-->
 </template>
@@ -18,8 +20,10 @@
 
 
 
+import IconButton from "../../shared/design/iconButton";
 export default {
   name: 'ModulesList',
+  components: {IconButton},
   props: {
     modules: {type: Array, default: ()=> [] }
   },
@@ -32,22 +36,31 @@ export default {
 
   .card{
     cursor: pointer;
+    display: flex;
+    margin-bottom: 20px;
 
 
     &.listAdminCourse{
+      width: 200px;
       display: flex;
-      flex-direction: column;
-      height: 100%;
       padding: 15px;
       background-color: $bgCard;
       border-radius: 20px;
       border: none;
       color: $colorUserCard;
       box-shadow: $bgShadow;
+      margin-right: 20px;
     }
 
 
   }
+.adminSidebar{
+  padding:20px;
+  background-color: #ffffff;
+  box-shadow: $bgShadow;
+  border-radius: $customBorderRadius;
+  margin-right: 0px;
+}
 
 
 </style>

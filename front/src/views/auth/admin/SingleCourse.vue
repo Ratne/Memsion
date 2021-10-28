@@ -1,27 +1,32 @@
 <template>
   <div class="home">
+<div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-12 col-md-3">
 
-    <div class="row">
-      <div class="col-sm-12 col-md-3">
+          <CourseMenu class="menuAdmin" :link="course.menu"  :courseId="course._id" :menu="menu" />
+        </div>
+        <div class="col-sm-12 col-md-9">
+          <SummaryCourse :course="course" @setShowEdit="showEdit = true"/>
 
-        <CourseMenu class="menuAdmin ms-3" :link="course.menu"  :courseId="course._id" :menu="menu" />
-      </div>
-      <div class="col-sm-12 col-md-9">
-        <SummaryCourse :course="course" @setShowEdit="showEdit = true"/>
+          <EditCourse class="mt-5" :course="course" @updateCourse="editCourseAction" v-if="showEdit" />
 
-        <EditCourse :course="course" @updateCourse="editCourseAction" v-if="showEdit" />
-
-        <ModulesList @goToModule="goToModule" @showModuleAdd="showModuleAdd = true" :modules="modules" />
-        <ModuleAdd v-if="showModuleAdd" @addModule="moduleAdd" />
-      </div>
+          <ModulesList @goToModule="goToModule" @showModuleAdd="showModuleAdd = true" :modules="modules" />
+          <ModuleAdd v-if="showModuleAdd" @addModule="moduleAdd" />
+        </div>
+        </div>
+  <div class="row text-end">
+    <div class="col-12">
+      <!--course delete-->
+      <button class="btn btn-danger mt-3 mb-3" type="submit" @click="deleteCourse">ELIMINA CORSO</button>
     </div>
   </div>
+      </div>
 
-
-  <div>
-    <!--course delete-->
-    <button class="btn btn-danger mt-3 mb-3 w-25 " type="submit" @click="deleteCourse">ELIMINA CORSO</button>
   </div>
+
+
+
 </template>
 
 <script>
@@ -113,11 +118,13 @@ export default {
       })
     },
     deleteCourse(){
-      coursesDelete(this.course._id).then(res =>{
-        this.$router.push({
-          name: 'Home',
+      if(confirm("Vuoi eliminare il corso?")) {
+        coursesDelete(this.course._id).then(res => {
+          this.$router.push({
+            name: 'Home',
+          })
         })
-      })
+      }
     },
     editCourseAction(editCourse){
       delete editCourse.image
