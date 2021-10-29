@@ -62,6 +62,10 @@ export default {
     border: none;
     color: $colorUserCard;
     box-shadow: $bgShadow;
+  };
+  .card-text{
+    max-height: 200px;
+    overflow: auto;
   }
 
 }
