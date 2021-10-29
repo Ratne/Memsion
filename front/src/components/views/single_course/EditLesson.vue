@@ -4,7 +4,9 @@
     <h2 class="mt-5">Modifica Lezione</h2>
     <form @submit.prevent="editLessonAction">
       <FormGroupCustom :error="errors['name']" v-model:value="editLesson.name" label="name" type="text"></FormGroupCustom>
+      <span class="text-start">Descrizione Lezione</span>
       <editor-text-area v-model:dataValue="editLesson.description" />
+      <span class="text-start">Contenuto Lezione</span>
       <editor-text-area v-model:dataValue="editLesson.content" />
       <FormGroupCustom v-model:value="editLesson.video" label="video" type="text"></FormGroupCustom>
       <FormGroupCustom :error="errors['requiredTag']" v-model:value="editLesson.requiredTag" label="tag" type="number"></FormGroupCustom>

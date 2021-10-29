@@ -12,7 +12,7 @@
            ],
            toolbar:
              'undo redo | formatselect | bold italic backcolor | \
-             alignleft aligncenter alignright alignjustify | \
+             alignleft aligncenter alignright alignjustify | code \
              bullist numlist outdent indent | removeformat | help'
          }"
         />

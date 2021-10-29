@@ -12,8 +12,9 @@
       </div>
     </div>
       </div>
-      <icon-button label="Aggiungi Corso" icon="bi bi-plus-circle" @clickEvent="showAddCourse=true"/>
-
+      <div class="mb-3 mt-3">
+        <icon-button label="Aggiungi Corso" icon="bi bi-plus-circle" @clickEvent="showAddCourse=true"/>
+      </div>
     </div>
 
 
@@ -21,6 +22,7 @@
     <h3 class="text-center">Aggiungi corso</h3>
     <form class="text-start" @submit.prevent="courseAdd">
     <FormGroupCustom name="name" :error="errors['name']" v-model:value="course.name" label="name" type="text"></FormGroupCustom>
+      <span class="text-start">Descrizione Corso</span>
     <editor-text-area name="description"  :error="errors['description']"  label="description" v-model:dataValue="course.description" />
     <FormGroupCustom name="image" :error="errors['image']" @change="onFileChange" label="image" type="file"></FormGroupCustom>
     <FormGroupCustom name="requiredTag" :error="errors['requiredTag']" v-model:value="course.requiredTag" label="tag" type="number"></FormGroupCustom>
@@ -133,6 +135,10 @@ export default {
     border: none;
     color: $colorUserCard;
     box-shadow: $bgShadow;
+  }
+  .card-text{
+    max-height: 200px;
+    overflow: auto;
   }
 
 }

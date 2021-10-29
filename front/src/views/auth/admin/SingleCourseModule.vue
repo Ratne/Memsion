@@ -5,9 +5,9 @@
 
   </div>
 
-<div>
-  <icon-button label="Aggiungi Lezione" icon="bi bi-plus-circle" @clickEvent="showAddLesson=true" />
-
+<div class="mt-3 mb-3">
+  <icon-button  label="Aggiungi Lezione" icon="bi bi-plus-circle" @clickEvent="showAddLesson=true" />
+  <go-back class="text-start mt-3 mb-3 ms-3" />
 </div>
   <div class="container">
     <div class="row">
@@ -35,11 +35,13 @@ import {moduleDelete, moduleShow} from "../../../services/moduleService";
 import ModuleAdd from "../../../components/views/single_course/ModuleAdd";
 import AddLesson from "../../../components/views/single_course/AddLesson";
 import IconButton from "../../../components/shared/design/iconButton";
+import GoBack from "../../../components/shared/design/GoBack";
 
 
 export default {
   name: 'SingleCourseModule',
   components: {
+    GoBack,
     IconButton,
     AddLesson, ModuleAdd, ModulesList, LessonList, EditCourse, SummaryCourse, FormGroupCustom, EditorTextArea},
   data(){

@@ -13,10 +13,11 @@
 import FormGroupCustom from "../../../components/shared/form/FormGroupCustom";
 import {validationMixin} from "../../../mixins/validationMixin";
 import {validationTypeName} from "../../../utils/validationType";
+import GoBack from "../../shared/design/GoBack";
 
 export default {
   name: "ModuleAdd",
-  components: {FormGroupCustom},
+  components: {GoBack, FormGroupCustom},
   mixins: [validationMixin],
   data(){
     return {

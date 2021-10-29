@@ -2,7 +2,7 @@
   <div class="home">
     <div class="container">
       <div class="row ">
-        <div class="col-12 text-end">
+        <div class="col-12 text-end mb-3 mt-3">
           <icon-button label="Aggiungi Utente" icon="bi bi-plus-circle" @clickEvent="goToNewUser"/>
         </div>
       </div>
@@ -10,7 +10,9 @@
     <div class="container">
 
       <CustomTable :data="filterUser" :fields="fields" :filter-properties="filterProperties" ></CustomTable>
-
+      <div class="row">
+        <go-back class="mt-3 ms-3 mb-3 text-start" />
+      </div>
 
   </div>
   </div>
@@ -23,10 +25,11 @@
 import {userList} from "../../../services/userService";
 import CustomTable from "../../../components/shared/design/CustomTable";
 import IconButton from "../../../components/shared/design/iconButton";
+import GoBack from "../../../components/shared/design/GoBack";
 
 export default {
   name: 'AdminUser',
-  components: {IconButton, CustomTable},
+  components: {GoBack, IconButton, CustomTable},
   data(){
     return {
       users: [],

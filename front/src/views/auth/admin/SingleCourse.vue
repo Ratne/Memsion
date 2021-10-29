@@ -1,18 +1,19 @@
 <template>
   <div class="home">
 <div class="container-fluid">
-      <div class="row">
+      <div v-if="course" class="row">
         <div class="col-sm-12 col-md-3">
 
           <CourseMenu class="menuAdmin" :link="course.menu"  :courseId="course._id" :menu="menu" />
         </div>
         <div class="col-sm-12 col-md-9">
-          <SummaryCourse :course="course" @setShowEdit="showEdit = true"/>
+          <SummaryCourse  :course="course" @showEdit="showEdit = true"/>
 
-          <EditCourse class="mt-5" :course="course" @updateCourse="editCourseAction" v-if="showEdit" />
+          <EditCourse  class="mt-5" :course="course" @updateCourse="editCourseAction" v-if="showEdit" />
 
           <ModulesList @goToModule="goToModule" @showModuleAdd="showModuleAdd = true" :modules="modules" />
           <ModuleAdd v-if="showModuleAdd" @addModule="moduleAdd" />
+
         </div>
         </div>
   <div class="row text-end">
@@ -46,16 +47,18 @@ import ModulesList from "../../../components/views/single_course/ModulesList";
 import {modulesIndex, modulesStore} from "../../../services/moduleService";
 import ModuleAdd from "../../../components/views/single_course/ModuleAdd";
 import CourseMenu from "../../../components/views/single_course/CourseMenu";
+import GoBack from "../../../components/shared/design/GoBack";
 
 
 export default {
   name: 'SingleCourse',
   components: {
+    GoBack,
     CourseMenu,
     ModuleAdd, ModulesList, LessonList, EditCourse, SummaryCourse, FormGroupCustom, EditorTextArea},
   data(){
     return {
-      course: {},
+      course: undefined,
       modules: [],
       moduleNew: {},
       showModuleAdd: false,

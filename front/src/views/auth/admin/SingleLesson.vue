@@ -3,7 +3,7 @@
     <div class="container-fluid">
 
       <summary-lesson :courseId="courseId" :lesson="lesson" @setShowEdit="editLessonShow = true" />
-
+      <go-back class="mt-3 ms-3 mb-3 text-start" />
     </div>
   </div>
 
@@ -33,11 +33,12 @@ import {validationTypeName} from "../../../utils/validationType";
 import EditorTextArea from "../../../components/shared/form/EditorTextArea";
 import EditLesson from "../../../components/views/single_course/EditLesson";
 import SummaryLesson from "../../../components/views/single_course/SummaryLesson";
+import GoBack from "../../../components/shared/design/GoBack";
 
 
 export default {
   name: 'SingleLesson',
-  components: {SummaryLesson, EditLesson, FormGroupCustom, EditorTextArea},
+  components: {GoBack, SummaryLesson, EditLesson, FormGroupCustom, EditorTextArea},
   data(){
     return {
       courseId: undefined,

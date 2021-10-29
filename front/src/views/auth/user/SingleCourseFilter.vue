@@ -131,6 +131,7 @@ export default {
   background-position: center;
   min-height: 400px;
 
+
 }
 .courseIntroduction{
 position: absolute;
@@ -151,6 +152,13 @@ position: absolute;
     h2{
       color: #1e6866;
     }
+    h3{
+
+        max-height: 200px;
+        overflow: auto;
+
+    }
+
 
   }
 }

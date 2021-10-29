@@ -1,6 +1,7 @@
 <template>
   <div>
-    <div class="row"><input type="text"
+    <div class="row">
+      <input class="form-control" type="text"
                             placeholder="Cerca utente"
                             v-model="search" /></div>
     <div class="row">

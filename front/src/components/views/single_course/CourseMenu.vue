@@ -11,9 +11,11 @@
         </Accordion>
       </template>
       <h2 class="text-start mt-3 mb-1">Link</h2>
+
       <template v-for="(l) in link">
         <div class="text-start p-1" @click="clickUrl(l.url)"><i class="bi bi-link-45deg me-2 "></i><span class="text-capitalize">{{l.label}}</span></div>
       </template>
+      <go-back class="mt-3 mb-4" />
     </div>
 
 
@@ -28,9 +30,10 @@
 
 import Accordion from "../../shared/design/Accordion";
 import IconButton from "../../shared/design/iconButton";
+import GoBack from "../../shared/design/GoBack";
 export default {
   name: "CourseMenu",
-  components: {IconButton, Accordion},
+  components: {GoBack, IconButton, Accordion},
   props:{
     menu: {type: Array, default: () => []},
     link: {type: Array, default: () => []},

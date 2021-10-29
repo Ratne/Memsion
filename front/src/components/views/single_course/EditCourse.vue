@@ -1,8 +1,9 @@
 <template>
-  <div class="container">
-     <h2>Modifica Corso</h2>
+  <div class="container text-start">
+     <h2 class="text-center">Modifica Corso</h2>
      <form @submit.prevent="editCourseAction">
        <FormGroupCustom :error="errors['name']" v-model:value="editCourse.name" label="name" type="text"></FormGroupCustom>
+       <span>Descrizione Corso</span>
        <editor-text-area :error="errors['description']" v-model:dataValue="editCourse.description" />
        <FormGroupCustom :error="errors['requiredTag']" v-model:value="editCourse.requiredTag" label="tag" type="number"></FormGroupCustom>
        <button class="btn btn-primary w-100 mt-3 mb-3 "  type="submit">AGGIORNA CORSO</button>

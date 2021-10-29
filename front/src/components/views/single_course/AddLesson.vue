@@ -1,10 +1,12 @@
 <template>
   <!--add lesson-->
-  <div class="container">
-    <h2>Aggiungi Lezione</h2>
+  <div class="container text-start">
+    <h2 class="text-center">Aggiungi Lezione</h2>
     <form @submit.prevent="lessonAdd">
       <FormGroupCustom :error="errors['name']" v-model:value="lesson.name" label="name" type="text"></FormGroupCustom>
+      <span>Descrizione Lezione</span>
       <editor-text-area v-model:dataValue="lesson.description" />
+      <span class="text-start">Contenuto Lezione</span>
       <editor-text-area v-model:dataValue="lesson.content" />
       <FormGroupCustom name="image" :error="errors['image']" @change="onFileChange" label="image" type="file"></FormGroupCustom>
       <FormGroupCustom v-model:value="lesson.video" label="video" type="text"></FormGroupCustom>

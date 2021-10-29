@@ -3,6 +3,7 @@
     <div class="col-6">
       <img :src="course.image" class="img-thumbnail" alt="course image" @click="editImage">
       </div>
+
     <!--summary course-->
     <div class="col-6">
       <div class="row adminSidebar">
@@ -17,7 +18,7 @@
         </div>
 
         <div class="col-12">
-          <icon-button icon="bi bi-pencil-square" label="Modifica" @clickEvent="$emit('setShowEdit')"  />
+          <icon-button icon="bi bi-pencil-square" label="Modifica" @clickEvent="setShowEdit"  />
           </div>
     <!--summary course-->
       </div>
@@ -45,6 +46,7 @@ export default {
     course: {type: Object, default:()=> ({}) }
   },
   mixins: [copyUrlMixin],
+  emits: ['showEdit'],
   methods: {
     editImage(){
       this.$refs.uploadInput.click();
@@ -71,6 +73,9 @@ export default {
           id: this.course._id
         }
       })
+    },
+    setShowEdit(){
+      this.$emit('showEdit')
     }
   }
 }

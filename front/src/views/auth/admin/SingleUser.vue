@@ -3,6 +3,7 @@
     <div class="row">
       <h3>Id utente database: {{user._id}}</h3>
       <icon-button @clickEvent="editUser" label="Modifica Utente" icon="bi bi-pencil-square"/>
+
     </div>
     <div class="row">
         <div v-if="showEditUser==false">
@@ -15,6 +16,10 @@
             <li class="list-group-item">Infusionsoft Id: {{user.infusionsoftId}}</li>
           </ul>
         </div>
+
+    </div>
+    <div class="row">
+      <go-back class="mt-3 ms-3 mb-3 text-start" />
     </div>
   <div class="text-end" v-if="showEditUser==false">
     <!--user delete-->
@@ -45,12 +50,13 @@ import {validationMixin} from "../../../mixins/validationMixin";
 import {validationTypeName} from "../../../utils/validationType";
 import {userDel, userShow, userUpdate} from "../../../services/userService";
 import IconButton from "../../../components/shared/design/iconButton";
+import GoBack from "../../../components/shared/design/GoBack";
 
 
 
 export default {
   name: 'SingleUser',
-  components: {IconButton, FormGroupCustom},
+  components: {GoBack, IconButton, FormGroupCustom},
   data(){
     return {
       user: {},
