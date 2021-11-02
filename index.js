@@ -10,6 +10,7 @@ const publicRoute = require('./routes/userApi');
 const authRoute = require('./routes/courses');
 const verify = require('./routes/verifyToken');
 const passwordReset = require("./routes/passwordReset");
+const importUser = require("./routes/import")
 const cors = require('cors')
 
 
@@ -24,6 +25,7 @@ require('./mongodb')
 app.use('/api', publicRoute);
 app.use('/api/auth', verify, authRoute)
 app.use('/api/password-reset', passwordReset);
+app.use('/api/import',verify, importUser)
 const myCache = require('./myCache');
 
 app.get('/', (req, res) => {

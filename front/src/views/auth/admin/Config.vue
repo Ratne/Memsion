@@ -85,7 +85,6 @@ export default {
 
   mounted() {
     customKeyGet().then(res =>{
-      console.log(res)
       this.user.customKey=res.customKey
       this.user.customId=res.customId
     })

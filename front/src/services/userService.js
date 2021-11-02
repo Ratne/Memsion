@@ -34,3 +34,7 @@ export const customKeyGet = () => {
 export const customerUpdate = () => {
     return http.post('/customer-update')
 }
+
+export const importUser = (data) => {
+    return http.post("/import", data )
+}

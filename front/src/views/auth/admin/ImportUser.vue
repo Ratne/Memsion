@@ -4,26 +4,28 @@
       <div class="col-12">
      <h3 class="text-center">Importa Utenti</h3>
         <h2 class="text-start">Istruzioni:</h2>
-        <p class="text-start">Per importare correttamente gli utenti nella piattaforma preparare un file csv con le seguenti colonne (tutti i campi sono richiesti)</p>
+        <p class="text-start">Per importare correttamente gli utenti nella piattaforma preparare un file csv con le seguenti colonne (tutti i campi sono richiesti nell'ordine in cui sono qui sotto)</p>
         <div class="col-3">
           <ol class="list-group list-group-numbered text-start">
             <li class="list-group-item">Nome</li>
             <li class="list-group-item">Cognome</li>
             <li class="list-group-item">Email</li>
+            <li class="list-group-item">Infusionsoft id</li>
           </ol>
         </div>
       </div>
     </div>
 </div>
 <div class="container">
-  <!--user add-->
+
+  <!--import user-->
   <div class="text-start">
     <form @submit.prevent="importUser">
-      <FormGroupCustom name="file" :error="errors['file']" @change="onFileChange" label="file" type="file"></FormGroupCustom>
+      <input class="form-control mt-3" type="file" required name="file" @change="onFileChange" label="file">
      <button class="btn btn-primary w-25 mt-3 mb-3 "  type="submit">IMPORTA UTENTI</button>
     </form>
   </div>
-  <!--user add-->
+  <!--import user-->
   <go-back  class="text-start" />
 </div>
 </template>
@@ -32,45 +34,31 @@
 
 
 
-import FormGroupCustom from "../../../components/shared/form/FormGroupCustom";
-import {validationMixin} from "../../../mixins/validationMixin";
-import {validationTypeName} from "../../../utils/validationType";
 import GoBack from "../../../components/shared/design/GoBack";
+import {importUser} from "../../../services/userService";
 
 
 
 export default {
   name: 'ImportUser',
-  components: {GoBack, FormGroupCustom},
+  components: {GoBack},
   data(){
     return {
-      user: {},
-      validazione: [
-        {
-          name: 'file',
-          validation: {
-            type: validationTypeName.required,}
-        },
-      ]
+      file: '',
     }
   },
-  mixins: [validationMixin],
   methods:{
     importUser(){
-      if (this.isValid(this.user)) {
-       console.log('ciao')
-      }
+        let formData = new FormData();
+        formData.append('import', this.file);
+        importUser(formData, ).then(res =>{
+          this.file= ''
+        })
+
     },
     onFileChange(event){
-      this.user.file = event.target.files[0]
+      this.file = event.target.files[0];
     },
   },
-
-  computed:{
-    allValidations(){
-      return [...this.validazione]
-
-    }
-  }
 }
 </script>
