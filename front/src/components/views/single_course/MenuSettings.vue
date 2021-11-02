@@ -14,6 +14,9 @@
     <div class="container mt-3">
       <icon-button label="Aggiungi" @clickEvent="showAddVoice" icon="bi bi-plus-circle"/>
     </div>
+      <div class="row text-start">
+        <go-back />
+      </div>
 
     <menu-add @addMenu="addVoice" v-if="showAdd" />
     </div>
@@ -25,10 +28,11 @@
 import {courseDeleteMenu, coursesAddVoiceMenu, coursesShowMenu} from "../../../services/coursesService";
 import MenuAdd from "./MenuAdd";
 import IconButton from "../../shared/design/iconButton";
+import GoBack from "../../shared/design/GoBack";
 
 export default {
   name: "MenuSettings",
-  components: {IconButton, MenuAdd},
+  components: {GoBack, IconButton, MenuAdd},
   data(){
     return {
       courseId: this.$route.params.id,

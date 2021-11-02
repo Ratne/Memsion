@@ -58,6 +58,7 @@ export default {
     courseId: {type: String}
   },
   mixins: [copyUrlMixin],
+  emits: ['setShowEdit'],
   methods: {
     editImage(){
       this.$refs.uploadInput.click();

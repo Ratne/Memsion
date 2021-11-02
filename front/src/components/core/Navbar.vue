@@ -8,6 +8,7 @@
       <div v-if="isAdmin" class="navbar-nav w-100">
         <router-link class="nav-item nav-link" to="/auth">Home</router-link>
         <router-link class="nav-item nav-link" to="/auth/users/">Utenti</router-link>
+        <router-link class="nav-item nav-link" to="/auth/config">Configurazione</router-link>
         <router-link @click.prevent="logout" class="nav-item nav-link ms-auto" to="/logout">Logout</router-link>
       </div>
       <div v-else-if="isAdmin === false" class="navbar-nav w-100">

@@ -4,6 +4,7 @@
       <h3>Id utente database: {{user._id}}</h3>
       <icon-button @clickEvent="editUser" label="Modifica Utente" icon="bi bi-pencil-square"/>
 
+
     </div>
     <div class="row">
         <div v-if="showEditUser==false">
@@ -14,6 +15,7 @@
             <li class="list-group-item">Admin: {{user.isAdmin}}</li>
             <li class="list-group-item">Infusionsoft Tag: {{user.tags}}</li>
             <li class="list-group-item">Infusionsoft Id: {{user.infusionsoftId}}</li>
+            <li class="list-group-item">Secret User Key: {{user.userKey}}</li>
           </ul>
         </div>
 

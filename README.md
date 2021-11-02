@@ -1,9 +1,9 @@
 # Memsion
-## _Member platform made for infusionsoft_
+## _Member platform made for Keap Max Classico / Infusionsoft_
 
-Memsion is an open source member platform based on infusionsoft user tag where the user can access to a custom membership platform and watch their video resources
+Memsion is an open source member platform based on Keap max classic user tag where the user can access to a custom membership platform and watch their video resources
 
-Nodejs & Vuejs-powered 
+Nodejs & Vue3-powered 
 
 ## Features
 
@@ -31,3 +31,8 @@ Nodejs & Vuejs-powered
 - VUE_APP_URL= nodejs backend url and port + '/api'
 - VUE_APP_APIKEY= tiny.cloud free api key
 - VUE_APP_LOGOBRAND= full path to logo
+
+
+## WIP
+- autologin from email
+- import user from csv

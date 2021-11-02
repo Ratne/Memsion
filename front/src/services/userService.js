@@ -22,3 +22,15 @@ export const userUpdate = (id,data) => {
 export const userAdd = (data) => {
     return http.post('/register', data)
 }
+
+
+export const customIdUpdate = (data) => {
+    return http.post('/custom-key', data)
+}
+
+export const customKeyGet = () => {
+    return http.get('/custom-key')
+}
+export const customerUpdate = () => {
+    return http.post('/customer-update')
+}

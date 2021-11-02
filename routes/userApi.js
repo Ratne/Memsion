@@ -9,22 +9,61 @@ const myCache = require("../myCache");
 const Course = require("../models/Course");
 const schema = Joi.object({
     name: Joi.string().required(),
-    surname: Joi.string().required(),
+    surname: Joi.string(),
     email: Joi.string().required().email(),
     contactId: Joi.string().required(),
-  //  token: Joi.string().required()
 })
 const loginSchema = Joi.object({
     email: Joi.string().required().email(),
     password: Joi.string().required(),
 })
 
+const customField = (userId,userObjectId,userKey) =>{
+    axios.get('https://api.infusionsoft.com/crm/rest/v1/contacts/model', {
+        headers: {
+            Accept: 'application/json, */*',
+            Host: 'api.infusionsoft.com',
+            Authorization: `Bearer ${myCache.get('tokens').accessToken}`
+        }
+    }).then(res =>{
+        const fields = res.data.custom_fields.filter(ele =>{
+         return   ele.field_name === myCache.get('customId') || ele.field_name === myCache.get('customKey')
+        })
+        if (fields.length === 2){
+            const body = {
+                "custom_fields": [
+                    {
+                        "id": fields.find(ele => ele.field_name === myCache.get('customId')).id,
+                        "content": userObjectId.toString()
+                    },
+                    {
+                        "id": fields.find(ele => ele.field_name === myCache.get('customKey')).id,
+                        "content": userKey.toString()
+                    }
+                ]
+            }
+            axios.patch(`https://api.infusionsoft.com/crm/rest/v1/contacts/${userId}`, body,{
+                headers: {
+                    Accept: 'application/json, */*',
+                    Host: 'api.infusionsoft.com',
+                    Authorization: `Bearer ${myCache.get('tokens').accessToken}`
+                },
+            }).then(res => {
+                console.log(res)
+            })
+        }
+        else {
+            console.log('errore')
+        }// error message
+
+    })
+}
+
+
+
 
 router.post('/register', async (req, res) => {
     const obj = req.body;
-    // if (obj.token !== '12345678'){
-    //     res.status(400).send('Token have to be valid');
-    // }
     const isOk = schema.validate(obj)
 
     const emailExist = await User.findOne({
@@ -45,6 +84,13 @@ router.post('/register', async (req, res) => {
     try {
         const savedUser = await user.save();
         res.send({user: user._id});
+
+        if (myCache.get('customId') && myCache.get('customKey')){
+            customField(savedUser.infusionsoftId, savedUser._id, savedUser.userKey)
+
+            // presi gli id fai chiamata sempre a infusionsoft per mettere in quei custom key le cose che servono dal db dell'utente
+        }
+
 
 
         // send email
@@ -89,6 +135,9 @@ const retrieveId = (userId) =>{
         })
     })
 }
+
+
+
 
 // user login (isAdmin check false or true)
 
@@ -159,6 +208,27 @@ router.patch('/user-list/user-update/:id', async (req, res) =>{
     })
 })
 
+// Custom memsion id e user key
 
+router.get('/custom-key', async (req, res ) =>{
+    res.send({customKey: myCache.get('customKey'),customId: myCache.get('customId') })
+})
+
+router.post('/custom-key' , async (req,res) =>{
+    const obj = req.body
+    myCache.set( "customKey", obj.customKey, 0 ); // questi sono i campi dal frontend
+    myCache.set("customId", obj.customId, 0) // questi sono i campi dal frontend
+    res.send({errorMessage: 'Aggiornato'});
+});
+
+
+// customer update
+router.post('/customer-update', async (req, res ) =>{
+    let result = User.find({}, function (err) {
+
+    });
+
+    res.send({errorMessage: 'Aggiornamento in corso, la procedura procede in background'})
+})
 
 module.exports = router;

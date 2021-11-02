@@ -4,16 +4,17 @@
 </div>
 <div class="container">
   <!--user add-->
-  <div>
+  <div class="text-start">
     <form @submit.prevent="addUser">
     <FormGroupCustom :error="errors['name']" v-model:value="user.name" label="name" type="text"></FormGroupCustom>
-    <FormGroupCustom :error="errors['surname']" v-model:value="user.surname" label="surname" type="text"></FormGroupCustom>
+    <FormGroupCustom v-model:value="user.surname" label="surname" type="text"></FormGroupCustom>
     <FormGroupCustom :error="errors['email']" v-model:value="user.email" label="email" type="text"></FormGroupCustom>
-    <FormGroupCustom :error="errors['infusionsoftId']" v-model:value="user.contactId" label="infusionsoft Id" type="number"></FormGroupCustom>
-    <button class="btn btn-primary w-100 mt-3 mb-3 "  type="submit">INSERISCI UTENTE</button>
+    <FormGroupCustom :error="errors['contactId']" v-model:value="user.contactId" label="infusionsoft Id" type="number"></FormGroupCustom>
+    <button class="btn btn-primary w-25 mt-3 mb-3 "  type="submit">INSERISCI UTENTE</button>
     </form>
   </div>
   <!--user add-->
+  <go-back  class="text-start" />
 </div>
 </template>
 
@@ -25,12 +26,13 @@ import FormGroupCustom from "../../../components/shared/form/FormGroupCustom";
 import {validationMixin} from "../../../mixins/validationMixin";
 import {validationTypeName} from "../../../utils/validationType";
 import {userAdd} from "../../../services/userService";
+import GoBack from "../../../components/shared/design/GoBack";
 
 
 
 export default {
   name: 'NewUser',
-  components: {FormGroupCustom},
+  components: {GoBack, FormGroupCustom},
   data(){
     return {
       user: {},
@@ -39,11 +41,6 @@ export default {
           name: 'name',
           validation: {
             type: validationTypeName.required,}
-        },
-        {
-          name: 'surname',
-          validation:
-              {type: validationTypeName.required}
         },
         {
           name: 'email',
@@ -56,7 +53,7 @@ export default {
               {type: validationTypeName.email}
         },
         {
-          name: 'infusionsoftId',
+          name: 'contactId',
           validation:
               {type: validationTypeName.required}
         },

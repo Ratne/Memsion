@@ -8,6 +8,8 @@ import SingleCourseModule from "../views/auth/admin/SingleCourseModule";
 import MenuSettings from "../components/views/single_course/MenuSettings";
 import SingleCourseFilter from "../views/auth/user/SingleCourseFilter";
 import {routeNames} from "./routeNames";
+import Config from "../views/auth/admin/Config";
+import ImportUser from "../views/auth/admin/ImportUser";
 
 
 
@@ -58,9 +60,25 @@ const authRoutes = [
     }
   },
   {
+    path: 'users/import',
+    name: 'ImportUser',
+    component: ImportUser,
+    meta: {
+      isAdmin: true
+    }
+  },
+  {
     path: 'user/:id',
     name: 'SingleUser',
     component: SingleUser,
+    meta: {
+      isAdmin: true
+    }
+  },
+  {
+    path: 'config',
+    name: 'Config',
+    component: Config,
     meta: {
       isAdmin: true
     }

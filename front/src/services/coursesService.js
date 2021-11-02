@@ -45,3 +45,4 @@ export const coursesDelete = (id) => {
 export const courseDeleteMenu = (id, idMenu) => {
     return http.delete(`${url}/${id}/menu/${idMenu}` )
 }
+
