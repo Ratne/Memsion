@@ -38,3 +38,7 @@ export const customerUpdate = () => {
 export const importUser = (data) => {
     return http.post("/import", data )
 }
+
+export const autoLogin = (data) =>{
+    return http.post("/autologin", data )
+}

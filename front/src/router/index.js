@@ -7,6 +7,7 @@ import AuthPage from "../views/auth/AuthPage";
 import Reset from "../views/Reset";
 import PasswordReset from "../views/PasswordReset";
 import IsAdminGuard from "../guards/IsAdminGuard";
+import AutoLogin from "../views/AutoLogin";
 
 const routes = [
   {
@@ -14,6 +15,11 @@ const routes = [
     name: 'Login',
     component: Login,
     beforeEnter : NoAuthGuard
+  },
+  {
+    path: '/autologin/:id/:userkey',
+    name: 'Autologin',
+    component: AutoLogin,
   },
   {
     path: '/reset',

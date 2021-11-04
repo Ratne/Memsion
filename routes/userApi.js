@@ -87,8 +87,6 @@ router.post('/register', async (req, res) => {
 
         if (myCache.get('customId') && myCache.get('customKey')){
             customField(savedUser.infusionsoftId, savedUser._id, savedUser.userKey)
-
-            // presi gli id fai chiamata sempre a infusionsoft per mettere in quei custom key le cose che servono dal db dell'utente
         }
 
 
@@ -137,10 +135,32 @@ const retrieveId = (userId) =>{
 }
 
 
+// login by autologin
+
+
+router.post('/autologin' , async (req,res) =>{
+    const obj = req.body
+    if (!myCache.get('tokens')?.accessToken ){
+        res.status(503).send({errorMessage: 'Keap offline'});
+    }
+   // fare una joi per validare che ci sia a single String of 12 bytes or a string of 24 hex characters const isOk = loginSchema.validate(obj)
+    const user = await User.findOne({
+        _id: obj.id,
+        userKey: obj.userKey
+    });
+    if (!user) return res.status(401).send({errorMessage: 'Utente non trovato'});
+
+
+    const token = jwt.sign({_id: user._id, isAdmin: user.isAdmin}, process.env.TOKEN_SECRET);
+    let userId = user.infusionsoftId;
+    retrieveId(userId)
+    res.send({'token': token});
+});
+
+
 
 
 // user login (isAdmin check false or true)
-
 router.post('/login' , async (req,res) =>{
     const obj = req.body
     if (!myCache.get('tokens')?.accessToken ){

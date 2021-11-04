@@ -2,7 +2,6 @@ import router from "../../router";
 
 const actions = {
     setToken: (context, payload) => {
-        //    context.dispatch()  dispacciamo una azione mentre con context.commit() dispacciamo una mutation
         context.commit('SET_TOKEN', payload)
     },
     resetToken: (context) => {

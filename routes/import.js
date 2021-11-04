@@ -25,34 +25,42 @@ async function findUser(userEmail) {
      await User.findOne({
         email: userEmail
     })
+    console.log(userFind)
     return userFind
+}
+
+async function saveUser (userData) {
+
+    for (const ele of userData) {
+        const user = new User(ele);
+        const userFind = await findUser(ele.email);
+        if (userFind === null) {
+
+            const savedUser = await user.save();
+        }
+    }
+
 }
 
 function uploadToMongo(filePath, hashPassword) {
     let stream = fs.createReadStream(filePath)
+    const users =[]
     let csvStream = csv
         .parse()
         .on('data', (data) => {
-
-            const user = new User({
+            users.push({
                 name: data[0],
                 surname: data[1],
                 email:data[2],
                 infusionsoftId: data[3],
                 password: hashPassword
-            });
-            findUser(data[2]).then(res =>{
-                 if (res === null) {
-                 const savedUser = user.save();
-                }
-            }).catch(err =>{
-                // ci sta un errore da sistemare
             })
-
         })
         .on('end', () => {
+          saveUser(users).then(res =>{
 
-         console.log('fatto')
+          })
+
 
         });
 
