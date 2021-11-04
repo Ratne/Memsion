@@ -18,6 +18,11 @@ const loginSchema = Joi.object({
     password: Joi.string().required(),
 })
 
+const autoLoginSchema = Joi.object({
+    id: Joi.string().length(24).required(),
+    userKey: Joi.string().required(),
+})
+
 const customField = (userId,userObjectId,userKey) =>{
     axios.get('https://api.infusionsoft.com/crm/rest/v1/contacts/model', {
         headers: {
@@ -143,7 +148,8 @@ router.post('/autologin' , async (req,res) =>{
     if (!myCache.get('tokens')?.accessToken ){
         res.status(503).send({errorMessage: 'Keap offline'});
     }
-   // fare una joi per validare che ci sia a single String of 12 bytes or a string of 24 hex characters const isOk = loginSchema.validate(obj)
+    const isOk = autoLoginSchema.validate(obj)
+    if (isOk.error) return res.status(400).send(isOk.error.details[0].message);
     const user = await User.findOne({
         _id: obj.id,
         userKey: obj.userKey
