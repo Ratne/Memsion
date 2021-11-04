@@ -34,6 +34,11 @@
     "MemsionUserKey" sempre di tipo text e fai salva. <br>
     Fatto questo in fondo alla pagina clicca su "View the field database names (for the API)" e prendi il nome contenuto nel database
     e copialo nei campi qui sotto. <br><b>Importante:</b> ricordati che devi inserire "_" (underscore) prima del nome come da istruzioni</p>
+  <h3 class="text-start mt-3">Istruzioni autologin:</h3>
+  <p class="text-start">Dopo aver completato la procedura qui sotto per effettuare correttamente l'autologin dovrai creare in infusionsoft
+  dei link nelle tue email in questo modo: <code>http://iltuositoweb/linklezioneolinkcorso?userapi=~CustomMemsionId~&userkey=~MemsionUserKey~
+    </code> ovviamente passati in modo dinamico ~CustomField1~ e ~CustomField2~
+  </p>
 
   <h3 class="text-start">Campo custom id utente</h3>
   <div class="row text-start">

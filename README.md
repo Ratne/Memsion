@@ -9,6 +9,8 @@ Nodejs & Vue3-powered
 
 - Webhook from infusionsoft to create an user
 - Admin backend to create courses and lessons
+- Autologin from infusionsoft email
+- Import user from csv
 
 ## Env Variables for backend
 - PORT: nodejs local port
@@ -31,8 +33,3 @@ Nodejs & Vue3-powered
 - VUE_APP_URL= nodejs backend url and port + '/api'
 - VUE_APP_APIKEY= tiny.cloud free api key
 - VUE_APP_LOGOBRAND= full path to logo
-
-
-## WIP
-- autologin from email
-- import user from csv
