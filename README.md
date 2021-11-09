@@ -1,5 +1,5 @@
 # Memsion
-## _Member platform made for Keap Max Classico / Infusionsoft_
+## Member platform made for Keap Max Classic / Infusionsoft_
 
 Memsion is an open source member platform based on Keap max classic user tag where the user can access to a custom membership platform and watch their video resources
 
