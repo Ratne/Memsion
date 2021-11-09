@@ -27,11 +27,6 @@ import UserCourses from "./user/UserCourses";
 export default {
   name: 'Home',
   components: {UserCourses, AdminCourses},
-  mounted() {
-    http.get('/auth').then(res =>{
-      this.$store.dispatch('setUser', res)
-    })
-  },
   computed:{
     user(){
       return this.$store.getters.getUser

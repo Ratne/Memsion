@@ -59,7 +59,7 @@ const customField = (userId,userObjectId,userKey) =>{
         }
         else {
             console.log('errore')
-        }// error message
+        }
 
     })
 }
@@ -117,7 +117,7 @@ router.post('/register', async (req, res) => {
     }
 });
 
-const retrieveId = (userId) =>{
+const retrieveId = (userId, userEmail, response, token, errorMessage) =>{
     axios.get('https://api.infusionsoft.com/crm/rest/v1/contacts/'+userId+'/tags', {
         headers: {
             Accept: 'application/json, */*',
@@ -131,10 +131,34 @@ const retrieveId = (userId) =>{
             $set: {
                 tags: userTag
             }
-        }).then(response=>{
-            //console.log(response)
+        }).then(resp=>{
+            response.send({'token': token , errorMessage});
         }).catch(err =>{
-            console.log(err, 'problema')
+
+            response.status(401).send({errorMessage: 'Utente non in infusionsoft'});
+        })
+    }).catch(err =>{
+        axios.get('https://api.infusionsoft.com/crm/rest/v1/contacts/?limit=1&email='+userEmail, {
+            headers: {
+                Accept: 'application/json, */*',
+                Host: 'api.infusionsoft.com',
+                Authorization: `Bearer ${myCache.get('tokens').accessToken}`
+            }
+        }).then(res =>{
+            if (!res.data.contacts.length){
+                response.status(401).send({errorMessage: 'Utente non in infusionsoft'});
+            }
+            else {
+            let contactFind= res.data.contacts[0].id
+            User.updateOne({email: userEmail}, {
+                $set: {
+                    infusionsoftId: contactFind
+                }
+            }).then(res =>{
+                retrieveId(contactFind, userEmail, response, token, errorMessage)
+            })
+            } }).catch(err =>{
+            response.status(401).send({errorMessage: 'Utente non in infusionsoft'});
         })
     })
 }
@@ -157,10 +181,13 @@ router.post('/autologin' , async (req,res) =>{
     if (!user) return res.status(401).send({errorMessage: 'Utente non trovato'});
 
 
-    const token = jwt.sign({_id: user._id, isAdmin: user.isAdmin}, process.env.TOKEN_SECRET);
+    const token = jwt.sign(
+        {_id: user._id, isAdmin: user.isAdmin},
+        process.env.TOKEN_SECRET,
+        {algorithm: "HS256", expiresIn: '1d'});
     let userId = user.infusionsoftId;
-    retrieveId(userId)
-    res.send({'token': token});
+    retrieveId(userId, user.email, res, token)
+
 });
 
 
@@ -181,10 +208,12 @@ router.post('/login' , async (req,res) =>{
     const validPass = await bcrypt.compare(obj.password, user.password);
     if (!validPass) return res.status(400).send({errorMessage: 'Email or password wrong'});
 
-    const token = jwt.sign({_id: user._id, isAdmin: user.isAdmin}, process.env.TOKEN_SECRET);
+    const token = jwt.sign(
+        {_id: user._id, isAdmin: user.isAdmin},
+        process.env.TOKEN_SECRET,
+        {algorithm: "HS256", expiresIn: '1d'});
     let userId = user.infusionsoftId;
-    retrieveId(userId)
-    res.send({'token': token , errorMessage: 'Login effettuato'});
+    retrieveId(userId, obj.email, res, token, 'Login effettuato')
 });
 
 
