@@ -8,6 +8,7 @@
        <FormGroupCustom :error="errors['requiredTag']" v-model:value="editCourse.requiredTag" label="tag" type="number"></FormGroupCustom>
        <button class="btn btn-primary w-100 mt-3 mb-3 "  type="submit">AGGIORNA CORSO</button>
      </form>
+    <icon-button label="Chiudi" icon="bi bi-x-circle" @click="closeModalView"/>
   </div>
 </template>
 
@@ -18,10 +19,11 @@ import {validationMixin} from "../../../mixins/validationMixin";
 import {validationTypeName} from "../../../utils/validationType";
 import EditorTextArea from "../../../components/shared/form/EditorTextArea";
 import {deletePropertiesByObject} from "../../../utils/objectUtils";
+import IconButton from "../../shared/design/iconButton";
 
 export default {
   name: 'EditCourse',
-  components: {FormGroupCustom, EditorTextArea},
+  components: {IconButton, FormGroupCustom, EditorTextArea},
   data(){
     return {
       editCourse: {},
@@ -61,6 +63,9 @@ export default {
       if (this.isValid(this.editCourse)) {
         this.$emit('updateCourse', this.editCourse)
       }
+    },
+    closeModalView(){
+      this.$emit('closeModalView')
     },
     init(){
       this.editCourse = deletePropertiesByObject(this.course, ['lessons'])

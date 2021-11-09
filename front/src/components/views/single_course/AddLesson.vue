@@ -13,7 +13,7 @@
       <FormGroupCustom :error="errors['requiredTag']" v-model:value="lesson.requiredTag" label="tag" type="number"></FormGroupCustom>
       <button class="btn btn-primary w-100 mt-3 mb-3 "  type="submit">Invia</button>
     </form>
-
+    <div class="text-start mb-4"><icon-button label="Chiudi" icon="bi bi-x-circle" @click="closeModalView"/></div>
   </div>
     <!--add lesson-->
 
@@ -28,11 +28,12 @@ import FormGroupCustom from "../../../components/shared/form/FormGroupCustom";
 import {validationMixin} from "../../../mixins/validationMixin";
 import {validationTypeName} from "../../../utils/validationType";
 import EditorTextArea from "../../../components/shared/form/EditorTextArea";
+import IconButton from "../../shared/design/iconButton";
 
 
 export default {
   name: 'AddLesson',
-  components: {FormGroupCustom, EditorTextArea},
+  components: {IconButton, FormGroupCustom, EditorTextArea},
   data(){
 
     return {
@@ -66,6 +67,9 @@ export default {
           callback
         })
       }
+    },
+    closeModalView(){
+      this.$emit('closeModalView')
     },
     onFileChange(event){
       this.lesson.image = event.target.files[0]

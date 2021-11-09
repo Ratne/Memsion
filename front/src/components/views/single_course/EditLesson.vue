@@ -12,7 +12,7 @@
       <FormGroupCustom :error="errors['requiredTag']" v-model:value="editLesson.requiredTag" label="tag" type="number"></FormGroupCustom>
       <button class="btn btn-primary mt-3 mb-3 "  type="submit">Modifica Lezione</button>
     </form>
-
+    <div class="text-start mb-4"><icon-button @click="closeModalView" icon="bi bi-x-circle" label="Chiudi" /></div>
   </div>
     <!--edit lesson-->
 
@@ -27,11 +27,12 @@ import FormGroupCustom from "../../../components/shared/form/FormGroupCustom";
 import {validationMixin} from "../../../mixins/validationMixin";
 import {validationTypeName} from "../../../utils/validationType";
 import EditorTextArea from "../../../components/shared/form/EditorTextArea";
+import IconButton from "../../shared/design/iconButton";
 
 
 export default {
   name: 'EditLesson',
-  components: {FormGroupCustom, EditorTextArea},
+  components: {IconButton, FormGroupCustom, EditorTextArea},
   props: {
     lesson: {type: Object}
   },
@@ -64,6 +65,9 @@ export default {
       if (this.isValid(this.editLesson)) {
         this.$emit('editLesson', this.editLesson)
       }
+    },
+    closeModalView(){
+      this.$emit('closeModalView')
     },
     init(){
       this.editLesson = {...this.lesson}

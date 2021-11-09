@@ -9,7 +9,7 @@
 
   <div v-if="editLessonShow">
 
-    <EditLesson :lesson="lesson" @editLesson="lessonEdit" />
+    <EditLesson :lesson="lesson" @editLesson="lessonEdit" @closeModalView="editLessonShow = false" />
 
   </div>
 

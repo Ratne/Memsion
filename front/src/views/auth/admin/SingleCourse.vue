@@ -9,10 +9,10 @@
         <div class="col-sm-12 col-md-9">
           <SummaryCourse  :course="course" @showEdit="showEdit = true"/>
 
-          <EditCourse  class="mt-5" :course="course" @updateCourse="editCourseAction" v-if="showEdit" />
+          <EditCourse  class="mt-5" :course="course" @updateCourse="editCourseAction" v-if="showEdit" @closeModalView="closeModalView"/>
 
           <ModulesList @goToModule="goToModule" @showModuleAdd="showModuleAdd = true" :modules="modules" />
-          <ModuleAdd v-if="showModuleAdd" @addModule="moduleAdd" />
+          <ModuleAdd v-if="showModuleAdd" @addModule="moduleAdd" @closeModal="closeModal" />
 
         </div>
         </div>
@@ -99,6 +99,12 @@ export default {
           moduleId
         }
       })
+    },
+    closeModal(){
+      this.showModuleAdd=false;
+    },
+    closeModalView(){
+      this.showEdit= false
     },
     lessonAdd(){
       this.$store.dispatch('resetErrors');

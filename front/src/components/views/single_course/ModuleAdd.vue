@@ -5,6 +5,7 @@
         <FormGroupCustom name="label" :error="errors['label']" v-model:value="moduleNew.label" label="name" type="text"></FormGroupCustom>
         <button class="btn btn-primary mt-3 mb-3 "  type="submit">Invia</button>
       </form>
+      <icon-button class="bi bi-x-circle" label="Chiudi" @click="closeModal"/>
     </div>
   </div>
 </template>
@@ -14,10 +15,11 @@ import FormGroupCustom from "../../../components/shared/form/FormGroupCustom";
 import {validationMixin} from "../../../mixins/validationMixin";
 import {validationTypeName} from "../../../utils/validationType";
 import GoBack from "../../shared/design/GoBack";
+import IconButton from "../../shared/design/iconButton";
 
 export default {
   name: "ModuleAdd",
-  components: {GoBack, FormGroupCustom},
+  components: {IconButton, GoBack, FormGroupCustom},
   mixins: [validationMixin],
   data(){
     return {
@@ -36,7 +38,9 @@ export default {
       if (this.isValid(this.moduleNew)){
         this.$emit('addModule', this.moduleNew)
       }
-
+    },
+    closeModal(){
+      this.$emit('closeModal')
     }
   },
   computed:{

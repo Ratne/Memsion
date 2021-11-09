@@ -17,7 +17,7 @@
     </div>
   </div>
   </div>
-  <AddLesson v-if="showAddLesson" @addLesson="lessonAdd"/>
+  <AddLesson v-if="showAddLesson" @addLesson="lessonAdd" @closeModalView="showAddLesson=false"/>
 </template>
 
 <script>

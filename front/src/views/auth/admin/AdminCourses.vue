@@ -28,7 +28,7 @@
     <FormGroupCustom name="requiredTag" :error="errors['requiredTag']" v-model:value="course.requiredTag" label="tag" type="number"></FormGroupCustom>
     <button class="btn btn-primary mt-3 mb-3 text"  type="submit">Invia</button>
     </form>
-
+    <div class="text-start"><icon-button label="Chiudi" icon="bi bi-x-circle" @click="showAddCourse=false"/></div>
   </div>
   </div>
 </template>
