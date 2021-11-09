@@ -4,7 +4,8 @@
       <div class="col-12">
      <h3 class="text-center">Importa Utenti</h3>
         <h2 class="text-start">Istruzioni:</h2>
-        <p class="text-start">Per importare correttamente gli utenti nella piattaforma preparare un file csv con le seguenti colonne (tutti i campi sono richiesti nell'ordine in cui sono qui sotto)</p>
+        <p class="text-start">Per importare correttamente gli utenti nella piattaforma esportare gli utenti da infusionsoft
+          e preparare un file csv (SENZA HEADER) con le seguenti colonne (tutti i campi sono richiesti nell'ordine in cui sono qui sotto)</p>
         <div class="col-3">
           <ol class="list-group list-group-numbered text-start">
             <li class="list-group-item">Nome</li>
