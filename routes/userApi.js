@@ -216,7 +216,6 @@ router.post('/login' , async (req,res) =>{
     retrieveId(userId, obj.email, res, token, 'Login effettuato')
 });
 
-
 // list user
 router.get( '/user-list', async (req, res) =>{
    User.find({}, (err, users) =>{

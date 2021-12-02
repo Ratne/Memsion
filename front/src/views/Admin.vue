@@ -54,7 +54,7 @@ export default {
 
     }
   },
-  name: "Login",
+  name: "Admin",
   mixins: [validationMixin],
   components: {Navbar, FormGroupCustom},
 
@@ -67,7 +67,7 @@ export default {
          localStorage.setItem('token', res.token);
          this.$store.dispatch('setToken',res.token );
 
-          this.$router.push(lastRoute.route? {name: lastRoute.route.name, params: lastRoute.route.params} : {name: 'Home'})
+          this.$router.push({name: 'Config'})
         })
       }
     }
