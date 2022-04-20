@@ -7,6 +7,7 @@ const Joi = require('joi');
 const axios = require("axios");
 const myCache = require("../myCache");
 const Course = require("../models/Course");
+const AutoLogin = require("../models/Autologin")
 const schema = Joi.object({
     name: Joi.string().required(),
     surname: Joi.string(),
@@ -31,35 +32,38 @@ const customField = (userId,userObjectId,userKey) =>{
             Authorization: `Bearer ${myCache.get('tokens').accessToken}`
         }
     }).then(res =>{
-        const fields = res.data.custom_fields.filter(ele =>{
-         return   ele.field_name === myCache.get('customId') || ele.field_name === myCache.get('customKey')
-        })
-        if (fields.length === 2){
-            const body = {
-                "custom_fields": [
-                    {
-                        "id": fields.find(ele => ele.field_name === myCache.get('customId')).id,
-                        "content": userObjectId.toString()
-                    },
-                    {
-                        "id": fields.find(ele => ele.field_name === myCache.get('customKey')).id,
-                        "content": userKey.toString()
-                    }
-                ]
-            }
-            axios.patch(`https://api.infusionsoft.com/crm/rest/v1/contacts/${userId}`, body,{
-                headers: {
-                    Accept: 'application/json, */*',
-                    Host: 'api.infusionsoft.com',
-                    Authorization: `Bearer ${myCache.get('tokens').accessToken}`
-                },
-            }).then(res => {
-                console.log(res)
+        AutoLogin.findOne({}).then(resp=> {
+            const fields = res.data.custom_fields.filter(ele =>{
+                return   ele.field_name === resp?.customMemsionId || ele.field_name === resp?.customKey
             })
-        }
-        else {
-            console.log('errore')
-        }
+            if (fields.length === 2){
+                const body = {
+                    "custom_fields": [
+                        {
+                            "id": fields.find(ele => ele.field_name === resp?.customMemsionId).id,
+                            "content": userObjectId.toString()
+                        },
+                        {
+                            "id": fields.find(ele => ele.field_name === resp?.customKey).id,
+                            "content": userKey.toString()
+                        }
+                    ]
+                }
+                axios.patch(`https://api.infusionsoft.com/crm/rest/v1/contacts/${userId}`, body,{
+                    headers: {
+                        Accept: 'application/json, */*',
+                        Host: 'api.infusionsoft.com',
+                        Authorization: `Bearer ${myCache.get('tokens').accessToken}`
+                    },
+                }).then(res => {
+                    console.log(res)
+                })
+            }
+            else {
+                console.log('errore')
+            }
+        })
+
 
     })
 }
@@ -90,11 +94,9 @@ router.post('/register', async (req, res) => {
         const savedUser = await user.save();
         res.send({user: user._id});
 
-        if (myCache.get('customId') && myCache.get('customKey')){
-            customField(savedUser.infusionsoftId, savedUser._id, savedUser.userKey)
-        }
-
-
+        AutoLogin.findOne({}).then(resp=> {
+           resp.customMemsionId && resp.memsionUserKey && customField(savedUser.infusionsoftId, savedUser._id, savedUser.userKey)
+        })
 
         // send email
         const emailSend = `
@@ -212,8 +214,8 @@ router.post('/login' , async (req,res) =>{
         {_id: user._id, isAdmin: user.isAdmin},
         process.env.TOKEN_SECRET,
         {algorithm: "HS256", expiresIn: '1d'});
-    let userId = user.infusionsoftId;
-    retrieveId(userId, obj.email, res, token, 'Login effettuato')
+        let userId = user.infusionsoftId;
+        retrieveId(userId, obj.email, res, token, 'Login effettuato')
 });
 
 // list user
@@ -265,14 +267,22 @@ router.patch('/user-list/user-update/:id', async (req, res) =>{
 // Custom memsion id e user key
 
 router.get('/custom-key', async (req, res ) =>{
-    res.send({customKey: myCache.get('customKey'),customId: myCache.get('customId') })
-})
+    AutoLogin.findOne({}).then(resp=> {
+        res.send({customKey: resp?.customMemsionId,customId: resp?.memsionUserKey })
+          })
+    })
 
 router.post('/custom-key' , async (req,res) =>{
     const obj = req.body
-    myCache.set( "customKey", obj.customKey, 0 ); // questi sono i campi dal frontend
-    myCache.set("customId", obj.customId, 0) // questi sono i campi dal frontend
-    res.send({errorMessage: 'Aggiornato'});
+    AutoLogin.deleteMany().then(resp => {
+        new AutoLogin({customMemsionId: obj.customKey, memsionUserKey: obj.customId}).save().then(resp => {
+            // myCache.set( "customKey", obj.customKey, 0 ); // questi sono i campi dal frontend
+            // myCache.set("customId", obj.customId, 0) // questi sono i campi dal frontend
+            res.send({errorMessage: 'Aggiornato'});
+        })
+    })
+
+
 });
 
 

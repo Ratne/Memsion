@@ -66,7 +66,6 @@ export default {
         http.post(process.env.VUE_APP_URL+'/login', this.user).then(res =>{
          localStorage.setItem('token', res.token);
          this.$store.dispatch('setToken',res.token );
-
           this.$router.push({name: 'Config'})
         })
       }

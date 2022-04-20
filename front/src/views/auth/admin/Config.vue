@@ -8,6 +8,7 @@
 </div>
 
 <div class="container">
+
   <h3 class="text-start">Istruzioni:</h3>
   <p class="text-start">Recati in Keap max pro / infusionsoft , admin / settings e Set up custom fields for: Contact , clicca GO, <br>
     ora clicca "Add a section Header" (facoltativo) così da inserire una sezione dedicata solo a Memsion, ora clicca add a custom field<br>
@@ -43,6 +44,7 @@ import {
   customIdUpdate,
   customKeyGet,
 } from "../../../services/userService";
+import {keapLogin} from "../../../services/adminService";
 
 
 
@@ -61,7 +63,7 @@ export default {
     saveUserId(){
       customIdUpdate(this.user).then(res =>{
       })
-    },
+    }
   },
 
   mounted() {

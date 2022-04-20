@@ -37,3 +37,7 @@ Nodejs & Vue3-powered
 
 ### Sponsor
 Sentry.io
+
+###WIP
+- Admin access 
+- Keap auth inside config
