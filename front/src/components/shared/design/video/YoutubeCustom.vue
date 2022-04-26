@@ -1,27 +1,28 @@
 <template>
-<div>
-  <iframe class="youtubeFrame" width="100%" :src="url" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-</div>
+  <Youtube :video-id=url></Youtube>
+
 </template>
 
 <script>
+import {Youtube} from "@vime/vue-next";
 export default {
   name: "YoutubeCustom",
+  components:{Youtube},
   props: {
     src: {type: String}
   },
   methods: {
     getYoutubeNumber(){
+
       const arr = this.src.split('?v=')
-      const number = arr[1]
-      return `https://www.youtube.com/embed/${number}`
+      return arr[1]
 
     },
     getYoubeNumber(){
+
       const arr = this.src.split('/')
-      const number = arr[arr.length-1]
-      return `https://www.youtube.com/embed/${number}`
+      return arr[arr.length-1]
     }
   },
 

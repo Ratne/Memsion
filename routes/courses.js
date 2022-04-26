@@ -61,6 +61,7 @@ router.delete("/courses/:id/menu/:idMenu",CourseController.courseDeleteMenu)
 
 router.post("/courses/:id/lessons", typeLesson, CourseController.lessonStore)
 router.patch("/courses/:id/lesson/:idLesson", CourseController.lessonUpdate)
+router.patch("/courses/:id/lesson/:idLesson/users", CourseController.lessonUsersUpdate)
 router.delete("/courses/:id/lesson/:idLesson", CourseController.lessonDelete)
 router.delete("/courses/:id/modules/:idModule", CourseController.moduleDelete)
 

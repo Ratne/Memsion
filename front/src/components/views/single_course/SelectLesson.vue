@@ -5,7 +5,7 @@
 
     <h2>{{lesson.title}}</h2>
     <div class="lessonDescription" v-html="lesson.description"></div>
-    <div v-if="lesson.video"><video-custom :url="lesson.video" /></div>
+    <div v-if="lesson.video"><video-custom @timeupdate="timeUpdate"  :url="lesson.video" /></div>
     <div class="lessonDescription" v-html="lesson.content"></div>
   </div>
 
@@ -15,7 +15,7 @@
 
 
 <script>
-import {lessonFilterShow} from "../../../services/lessonService";
+import {lessonFilterShow, lessonTimeUpdate} from "../../../services/lessonService";
 import VideoCustom from "../../shared/design/video/VideoCustom";
 
 export default {
@@ -41,6 +41,11 @@ export default {
       this.lesson = {}
       lessonFilterShow(this.idCourse, this.idLesson).then(res => {
         this.lesson = res
+      })
+    },
+    timeUpdate(time){
+      lessonTimeUpdate(this.idCourse,this.idLesson,Math.round(time)).then(res => {
+        console.log(res)
       })
     }
   },

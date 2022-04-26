@@ -44,7 +44,7 @@
 
 
 import {setFormDataWithImage} from "../../../utils/requestUtils";
-import {lessonUpdateImage} from "../../../services/lessonService";
+import {lessonTimeUpdate, lessonUpdateImage} from "../../../services/lessonService";
 import {copyUrlMixin} from "../../../mixins/copyUrl";
 import {routeNames} from "../../../router/routeNames";
 import IconButton from "../../shared/design/iconButton";
@@ -88,7 +88,7 @@ export default {
           idLesson: this.lesson._id
         }}
       )
-    }
+    },
   }
 }
 </script>

@@ -9,6 +9,8 @@
   "dependencies": {
     "@popperjs/core": "^2.10.2",
     "@tinymce/tinymce-vue": "^4.0.4",
+    "@vime/core": "^5.3.1",
+    "@vime/vue-next": "^5.3.1",
     "axios": "^0.21.4",
     "bootstrap": "^5.1.0",
     "bootstrap-icons": "^1.6.1",

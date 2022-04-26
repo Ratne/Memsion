@@ -1,20 +1,21 @@
 <template>
-<div>
-  <iframe :src="url" width="100%" class="vimeoFrame" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
-</div>
+  <Vimeo :video-id=url></Vimeo>
+
 </template>
 
 <script>
+import {Vimeo} from "@vime/vue-next";
 export default {
   name: "VimeoCustom",
+  components: {Vimeo},
   props: {
     src: {type: String}
   },
   computed: {
     url(){
       const arr = this.src.split('/')
-      const number = arr[arr.length-1]
-      return `https://player.vimeo.com/video/${number}`
+      return arr[arr.length-1]
+
 
     }
   }

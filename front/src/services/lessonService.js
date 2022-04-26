@@ -24,3 +24,7 @@ export const lessonDelete = (idCourse, idLesson) => {
 export const lessonUpdateImage = (idCourse, idLesson, data) => {
     return http.patch(`${url}/${idCourse}/lesson/${idLesson}/image`, data )
 }
+
+export const lessonTimeUpdate = (idCourse, idLesson, percentage) => {
+    return http.patch(`${url}/${idCourse}/lesson/${idLesson}/users`, {percentage} )
+}

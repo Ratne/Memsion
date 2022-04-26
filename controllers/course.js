@@ -1,5 +1,5 @@
 const Course = require("../models/Course");
-const {model: Lesson} = require("../models/Lesson");
+const {model: Lesson, userModel: User} = require("../models/Lesson");
 const {model: Module} = require("../models/Modules");
 const {model: Menu} = require("../models/Menu");
 const fs = require('fs');
@@ -171,12 +171,49 @@ exports.lessonStore = (req,res) =>{
     const _id = req.params.id;
     // inserire con joi la validazione di tutti i campi required del db
     const lesson = new Lesson({...req.body, image: req.file.path, mimetype: req.file.mimetype});
-    console.log(req.file);
     Course.updateOne({_id}, {$push: {lessons: lesson}} ).then(response =>{
         const image =  calcBase64(req.file.path, req.file.mimetype)
         res.send({...lesson._doc, image, errorMessage: 'Aggiunta Lezione'})
     })
 };
+
+exports.lessonUsersUpdate = (req,res) => {
+    const _id = req.params.id;
+    const idLesson = req.params.idLesson;
+    const userId = req.user._id
+    const user = new User({userId, percentage: req.body.percentage})
+
+    Course.findOneAndUpdate({'lessons': {
+                '$elemMatch': {
+                    '_id': idLesson,
+                    'users.userId': userId
+                }
+            }} ,
+        {
+             $max: {'lessons.$[e1].users.$[e2].percentage': req.body.percentage} ,
+        },
+        {
+            arrayFilters: [
+                { "e1._id": idLesson},
+                { "e2.userId": userId}
+
+            ],
+            useFindAndModify: false,
+        },
+        ).then(response => {
+
+            if (response === null){
+                Course.updateOne({'lessons._id': idLesson},
+                    {$addToSet: {'lessons.$.users': user }},
+                    {
+                    }).then(resp => {
+                    res.status(200).send({errorMessage: 'Tempo aggiornato'})
+                }).catch(err => console.log(err));
+            }
+            else  res.status(200).send({errorMessage: 'Tempo aggiornato'})
+    })
+
+}
 
 exports.lessonUpdate = (req,res) =>{
     const _id = req.params.id;
