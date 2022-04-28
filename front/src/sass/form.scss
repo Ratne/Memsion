@@ -9,12 +9,12 @@
   text-transform: capitalize;
 }
 .formCustomLogin{
-  border-radius: 20px;
-  box-shadow: $bgShadow;
   padding: 32px;
-  background-color: $bgCard-03;
+  background-color: #ffffff;
   a{
-    color: $btnPrimary;
+    color: black;
+    text-decoration: none;
+    font-size: 14px;
   }
 }
 

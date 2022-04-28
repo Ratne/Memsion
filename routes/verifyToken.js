@@ -10,7 +10,7 @@ module.exports = function(req,res,next){
         const verified = jwt.verify(token, process.env.TOKEN_SECRET);
         User.findOne({
             _id: verified._id
-        }, {isAdmin: 1, name: 1,tags: 1}).then(res => {
+        }, {isAdmin: 1, name: 1, surname: 1, email: 1, tags: 1}).then(res => {
             req.user = res
             next()
         });

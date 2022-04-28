@@ -1,15 +1,38 @@
+@import "font";
 @import "variables";
 @import "~bootstrap/scss/bootstrap";
 @import "form";
 @import "buttons";
+@import "mediaQuery";
+html,body{
+    height: 100%;
+}
+body{
+    display: flex;
+    flex-direction: column;
+}
+#app{
+    height: 100%;
+    flex-shrink: 0;
+}
+
 h1{
     font-size: $h1font;
 }
 
 h2{
-    font-size: 20px;
+    font-size: $h2font;
 }
 
 h3{
-    font-size: 18px;
+    font-size: $h3font;
 }
+
+p{
+    font-size: $pFont;
+}
+
+.bgGrayLight{
+    background-color: $grayLight;
+}
+

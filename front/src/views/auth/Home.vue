@@ -1,5 +1,5 @@
 <template>
-  <div class="container-fluid">
+  <div class="container-fluid pb-5">
   <div class="home">
     <h1 v-if="user && !user.isAdmin">Homepage</h1>
     <admin-courses v-if="user && user.isAdmin" />
@@ -34,3 +34,4 @@ export default {
   }
 }
 </script>
+

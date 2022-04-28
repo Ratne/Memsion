@@ -1,34 +1,41 @@
 <template>
-  <div class="container-fluid">
+  <div class="singleCourse mt-5 pt-5 container-fluid">
 
     <div class="row">
-      <div class="col-sm-12 col-md-3 leftSide">
-        <CourseMenu @goToLesson="goToLesson" :courseId="course._id" :link="link" :menu="menu" :isAdmin="false" />
-      </div>
-      <div class="col-sm-12 col-md-9 rightSide">
-
+      <div class="col-sm-12 col-md-9 leftSide">
         <div class="containerCourseLesson">
-        <div v-if="selectLesson">
-          <SelectLesson  :idLesson="selectLesson.idLesson" :idCourse="course._id" />
-        </div>
+          <div v-if="selectLesson">
+            <SelectLesson :idLesson="selectLesson.idLesson" :idCourse="course._id"/>
+          </div>
+          <div class="containerBackground" v-else>
+            <TitleH3 label="Introduzione"/>
+            <div class="d-flex">
+              <div class="imageContainer">
+                <img :src="course.image"/>
+              </div>
 
-        <div class="containerBackground" :style="{ backgroundImage: `url('${course.image}')` }" v-else>
+              <div class="courseIntroduction">
+                <div class="courseHeading">
+                  <TitleH2 :label="course.name"></TitleH2>
 
+                  <p v-html="course.description"></p>
 
-          <div class="courseIntroduction">
+                </div>
+              </div>
+            </div>
 
-             <div class="courseHeading">
-             <h2>Benvenuto nel corso: {{course.name}}</h2>
-              <h3 v-html="course.description"></h3>
-              <p>Seleziona una lezione per continuare</p>
+          </div>
+          <div class="row mt-5 listLessonContainer">
+
+            <div class="col-12">
+            <div class="p-3">  <TitleH3 class="mt-3" label="Seleziona una lezione per continuare"></TitleH3>
+              <ListLessons :lessons="menu" @goToLesson="goToLesson"></ListLessons></div>
             </div>
           </div>
         </div>
-          </div>
-
-
-
-
+      </div>
+      <div class="col-sm-12 col-md-3 rightSide">
+        <CourseMenu @goToLesson="goToLesson" :courseId="course._id" :link="link" :menu="menu" :isAdmin="false"/>
       </div>
     </div>
   </div>
@@ -45,55 +52,63 @@ import LessonList from "../../../components/views/single_course/LessonList";
 import ModulesList from "../../../components/views/single_course/ModulesList";
 import CourseMenu from "../../../components/views/single_course/CourseMenu";
 import SelectLesson from "../../../components/views/single_course/SelectLesson";
+import TitleH3 from "../../../components/shared/design/TitleH3";
+import TitleH2 from "../../../components/shared/design/TitleH2";
+import ListLessons from "../../../components/shared/design/ListLessons";
 
 
 export default {
   name: 'SingleCourseFilter',
   components: {
+    ListLessons,
+    TitleH2,
+    TitleH3,
     SelectLesson,
     CourseMenu,
-    ModulesList, LessonList, SummaryCourse},
-  data(){
+    ModulesList, LessonList, SummaryCourse
+  },
+  data() {
     return {
       course: {},
-      link:[],
+      link: [],
       modules: [],
       selectLesson: undefined
     }
   },
-  methods:{
-    goToLesson(lesson){
+  methods: {
+    goToLesson(lesson) {
       this.selectLesson = lesson
     },
   },
   mounted() {
-    coursesFilterShow(this.$route.params.id).then(res =>{
-      this.course=res
-      this.modules=res.modules
-      this.link=res.menu
-      if (this.$route.params.idLesson){
-      const lesson = this.course.lessons.find(ele => ele._id === this.$route.params.idLesson)
-      this.selectLesson = lesson ? {...lesson, idLesson: lesson._id } : lesson
+    coursesFilterShow(this.$route.params.id).then(res => {
+      this.course = res
+      this.modules = res.modules
+      this.link = res.menu
+      if (this.$route.params.idLesson) {
+        const lesson = this.course.lessons.find(ele => ele._id === this.$route.params.idLesson)
+        this.selectLesson = lesson ? {...lesson, idLesson: lesson._id} : lesson
       }
     });
   },
 
-  computed:{
-    menu(){
+  computed: {
+    menu() {
       const modules = this.modules.map(module => {
 
         return {
           label: module.label,
           type: 'module',
           id: module._id,
-          lessons: this.course.lessons.filter(lesson =>{
-           return lesson.module === module._id
-        }).map(lesson =>{
-          return {
-            name: lesson.name ,
-            idLesson: lesson._id
-          }
-          }
+          lessons: this.course.lessons.filter(lesson => {
+            return lesson.module === module._id
+          }).map(lesson => {
+                return {
+                  name: lesson.name,
+                  image: lesson.image,
+                  idLesson: lesson._id
+                }
+              }
           )
         }
       })
@@ -107,80 +122,64 @@ export default {
 
 <style scoped lang="scss">
 @import "src/sass/variables";
-.leftSide{
+@import "src/sass/mediaQuery";
+
+.singleCourse {
+  .imageContainer {
+    width: 300px;
+    min-width: 300px;
+    overflow: hidden;
+    background-color: white;
+
+    img {
+      width: 100%;
+      height: auto;
+    }
+  }
+  .listLessonContainer{
+    background: $grayLight;
+  }
+  .courseIntroduction {
+    padding-left: 18px;
+
+    .courseBg {
+
+    }
+
+    .courseHeading {
+
+
+    }
+  }
+
+  .containerCourseLesson {
+
+  }
+}
+
+
+.leftSide {
   order: 1;
 }
-.rightSide{
+
+.rightSide {
   order: 2;
 }
-.containerCourseLesson {
-      box-shadow: $bgShadow;
-      display: flex;
-      flex-direction: column;
-      height: 100%;
-      padding: 25px;
-      background-color: $bgCard;
-      border-radius: 20px;
-      margin-top: 32px;
-}
-.containerBackground{
-  width: 100%;
-  height: 100%;
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center;
-  min-height: 400px;
 
+
+.containerBackground {
 
 }
-.courseIntroduction{
-position: absolute;
 
+@media(max-width: $md-device) {
 
-  .courseBg{
-
-  }
-
-  .courseHeading{
-    max-width: 320px;
-    padding: 18px;
-    background-color: white;
-    position: relative;
-    left: 80px;
-    top: 80px;
-    border-radius: 20px;
-    h2{
-      color: #1e6866;
-    }
-    h3{
-
-        max-height: 200px;
-        overflow: auto;
-
-    }
-
-
-  }
-}
-@media(max-width: 960px){
-  .courseIntroduction{
-    position: unset;
-    .courseHeading{
-      margin-top: 12px;
-      margin-left: 12px;
-      position: unset;
-    }
-  }
-}
-@media(max-width: 768px){
-
-    .leftSide{
-      margin-top: 50px;
-      order: 2;
-    }
-  .rightSide{
+  .leftSide {
     order: 1;
   }
+  .rightSide {
+    margin-top: 50px;
+    order: 2;
   }
+}
 
 </style>

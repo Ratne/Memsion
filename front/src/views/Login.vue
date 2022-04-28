@@ -1,17 +1,26 @@
 <template>
 <navbar />
-<div class="container">
-  <div class="row">
-    <div class="col-sm-12 col-md-6 offset-md-3 col-lg-4 offset-lg-4 formCustomLogin">
-<h2 class="text-center pb-3">Login</h2>
+<div class="container-fluid d-flex flex-column h-100">
+  <div class="row mt-5 p-5">
+    <div class="col-12">
+      <TitleH1 className="text-center" label="Login"></TitleH1>
+    </div>
+  </div>
+  <div class="row p-5 bgGrayLight h-100">
+
+    <div class="col-sm-12 col-md-6 offset-md-3 col-lg-4 offset-lg-4 ">
+<div class="formCustomLogin">
   <form @submit.prevent="userLogin">
-
-    <FormGroupCustom :error="errors['email']" v-model:value="user.email" label="email" type="text"></FormGroupCustom>
-    <FormGroupCustom :error="errors['password']" v-model:value="user.password" type="password" label="Password"/>
-    <button class="btn btn-primary  mt-3 mb-3 "  type="submit">Invia</button>
-
+    <div class="row">
+    <FormGroupCustom :noLabel="true" :error="errors['email']" v-model:value="user.email" label="email" type="text"></FormGroupCustom>
+    <FormGroupCustom  :noLabel="true" :error="errors['password']" v-model:value="user.password" type="password" label="Password"/>
+    <div class="col-12 mt-4">
+      <ButtonPrimary class="w-100" label="Login"></ButtonPrimary>
+     </div>
+    </div>
   </form>
-      <p class="align-content-center">Password persa? <router-link to="/reset">Clicca qui</router-link></p>
+      <p class="text-uppercase text-center mt-2"><router-link to="/reset">Hai dimenticato la password?</router-link></p>
+  </div>
 
   </div>
   </div>
@@ -29,6 +38,8 @@ import {validationTypeName} from "../utils/validationType";
 import {http} from "../utils/http";
 import Navbar from "../components/core/Navbar";
 import lastRoute from "../guards/lastRoute";
+import TitleH1 from "../components/shared/design/TitleH1";
+import ButtonPrimary from "../components/shared/design/ButtonPrimary";
 export default {
   data(){
     return {
@@ -56,7 +67,7 @@ export default {
   },
   name: "Login",
   mixins: [validationMixin],
-  components: {Navbar, FormGroupCustom},
+  components: {ButtonPrimary, TitleH1, Navbar, FormGroupCustom},
 
   methods:{
     userLogin(){

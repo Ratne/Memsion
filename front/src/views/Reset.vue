@@ -1,20 +1,33 @@
 <template>
   <navbar />
-<div class="container">
-  <div class="row">
-    <div class="col-sm-12 col-md-6 offset-md-3 col-lg-4 offset-lg-4 formCustomLogin">
-      <h2 class="text-center pb-3">Recupera Password</h2>
+<div class="container-fluid h-100 d-flex flex-column">
 
+  <div class="row mt-5 p-5">
+    <div class="col-12">
+
+      <TitleH1 className="text-center" label="Reset Password"></TitleH1>
+    </div>
+  </div>
+
+  <div class="row p-5 bgGrayLight h-100">
+    <div class="col-sm-12 col-md-6 offset-md-3 col-lg-4 offset-lg-4">
+
+<div class="formCustomLogin">
   <form  v-if="form" v-on:keydown.enter.prevent="userPassword" @submit.prevent="userPassword">
-
-    <FormGroupCustom :error="errors['email']" v-model:value="user.email" label="email" type="text"></FormGroupCustom>
-    <button class="btn btn-primary mt-3 mb-3 " :disabled="isActive" type="submit"> Cambia Password</button>
-
+    <div class="row">
+    <FormGroupCustom :noLabel="true" :error="errors['email']" v-model:value="user.email" label="email" type="text"></FormGroupCustom>
+   <div class="col-12 mt-4">
+     <ButtonPrimary label="Cambia Password" class="w-100" :disabled="isActive"></ButtonPrimary>
+   </div>
+    </div>
   </form>
-      <p class="align-content-center"><router-link to="/login">Torna al login</router-link></p>
+
+
       <div class="row" v-if="password">
-        <h3>Controlla la tua casella email: se la tua utenza verrà trovata riceverai una email per cambiare password</h3>
+        <p class="text-center">Controlla la tua casella email: se la tua utenza verrà trovata riceverai una email per cambiare password</p>
       </div>
+  <p class="text-uppercase text-center mt-2"><router-link to="/login">Torna al login</router-link></p>
+</div>
   </div>
   </div>
 
@@ -30,6 +43,8 @@ import {validationMixin} from "../mixins/validationMixin";
 import {validationTypeName} from "../utils/validationType";
 import {http} from "../utils/http";
 import Navbar from "../components/core/Navbar";
+import TitleH1 from "../components/shared/design/TitleH1";
+import ButtonPrimary from "../components/shared/design/ButtonPrimary";
 export default {
   data(){
     return {
@@ -54,7 +69,7 @@ export default {
   },
   name: "Reset",
   mixins: [validationMixin],
-  components: {Navbar, FormGroupCustom},
+  components: {ButtonPrimary, TitleH1, Navbar, FormGroupCustom},
 
   methods:{
     userPassword(){

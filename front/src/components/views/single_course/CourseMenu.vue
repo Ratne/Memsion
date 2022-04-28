@@ -1,9 +1,9 @@
 <template>
 <div>
-  <h2 class="text-start mb-2">Menu</h2>
+  <h2 v-if="isAdmin" class="text-start mb-2">Menu</h2>
     <icon-button v-if="isAdmin" @clickEvent="goToMenuSettings" label="Modifica" icon="bi bi-pencil-square" />
     <div class="accordion">
-      <template v-for="(m, index) in menu">
+      <template v-if="isAdmin"  v-for="(m, index) in menu">
         <Accordion v-if="m.lessons && m.lessons.length" :title="m.label" :index="index">
           <span @click="goToLesson(lesson)" v-for="lesson in m.lessons">
            <i class="bi bi-card-heading me-2"></i> {{lesson.name}}
@@ -15,7 +15,7 @@
       <template v-for="(l) in link">
         <div class="text-start p-1" @click="clickUrl(l.url)"><i class="bi bi-link-45deg me-2 "></i><span class="text-capitalize">{{l.label}}</span></div>
       </template>
-      <go-back class="mt-3 mb-4" />
+<!--      <go-back class="mt-3 mb-4" />-->
     </div>
 
 

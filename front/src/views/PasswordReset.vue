@@ -1,20 +1,31 @@
 <template>
   <navbar/>
-  <div class="container">
-    <div class="row">
-      <div class="col-sm-12 col-md-6 offset-md-3 col-lg-4 offset-lg-4 formCustomLogin">
-        <h2 class="text-center pb-3">Recupera Password</h2>
-        <form @submit.prevent="userChangePassword">
+  <div class="container-fluid h-100 d-flex flex-column">
+    <div class="row mt-5 p-5">
+      <div class="col-12">
 
-          <FormGroupCustom :error="errors['password']" v-model:value="user.password" type="password" label="Password"/>
-          <button class="btn btn-primary mt-3 mb-3 " type="submit">Cambia Password</button>
-
-        </form>
-        <p class="align-content-center"><router-link to="/login">Torna al login</router-link></p>
+        <TitleH1 className="text-center" label="Recupera Password"></TitleH1>
       </div>
     </div>
 
+    <div class="row p-5 bgGrayLight h-100">
+      <div class="col-sm-12 col-md-6 offset-md-3 col-lg-4 offset-lg-4">
+
+        <div class="formCustomLogin">
+        <form @submit.prevent="userChangePassword">
+          <div class="row">
+          <FormGroupCustom :noLabel="true" :error="errors['password']" v-model:value="user.password" type="password" label="Password"/>
+            <div class="col-12 mt-4">
+              <ButtonPrimary label="Cambia Password" class="w-100"></ButtonPrimary>
+            </div>
+          </div>
+        </form>
+        <p class="text-uppercase text-center mt-2"><router-link to="/login">Torna al login</router-link></p>
+        </div>
+      </div>
+    </div>
   </div>
+
 
 
 </template>
@@ -27,6 +38,8 @@ import {validationTypeName} from "../utils/validationType";
 import {http} from "../utils/http";
 import Navbar from "../components/core/Navbar";
 import { useRoute } from 'vue-router';
+import TitleH1 from "../components/shared/design/TitleH1";
+import ButtonPrimary from "../components/shared/design/ButtonPrimary";
 export default {
   data(){
     return {
@@ -48,7 +61,7 @@ export default {
   },
   name: "PasswordReset",
   mixins: [validationMixin],
-  components: {Navbar, FormGroupCustom},
+  components: {Navbar, FormGroupCustom, ButtonPrimary, TitleH1},
   methods:{
     /*
      if (this.isValid(this.course)){
