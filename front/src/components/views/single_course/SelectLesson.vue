@@ -1,12 +1,15 @@
 <template>
 
-  <div>
-    <div class="headerImage" :style="{ backgroundImage: `url('${lesson.image}')` }"></div>
-
-    <h2>{{lesson.title}}</h2>
-    <div class="lessonDescription" v-html="lesson.description"></div>
+  <div class="px-5">
+    <TitleH1 :label="courseName"></TitleH1>
+    <TitleH2 :label="lesson.name"></TitleH2>
     <div v-if="lesson.video"><video-custom @timeupdate="timeUpdate"  :url="lesson.video" /></div>
+    <TitleH4 :label="selectModuleLabel"></TitleH4>
+    <div class="lessonDescription" v-html="lesson.description"></div>
+
     <div class="lessonDescription" v-html="lesson.content"></div>
+
+    <button-primary class="mt-3" label="Segna come completato"></button-primary>
   </div>
 
 
@@ -17,13 +20,19 @@
 <script>
 import {lessonFilterShow, lessonTimeUpdate} from "../../../services/lessonService";
 import VideoCustom from "../../shared/design/video/VideoCustom";
+import TitleH1 from "../../shared/design/TitleH1";
+import TitleH2 from "../../shared/design/TitleH2";
+import TitleH4 from "../../shared/design/TitleH4";
+import ButtonPrimary from "../../shared/design/ButtonPrimary";
 
 export default {
   name: "SelectLesson",
-  components: {VideoCustom},
+  components: {ButtonPrimary, TitleH4, TitleH2, TitleH1, VideoCustom},
   props: {
     idLesson: {type: String},
     idCourse: {type: String},
+    courseName: {type: String},
+    selectModuleLabel: {type:String}
   },
   data () {
     return {

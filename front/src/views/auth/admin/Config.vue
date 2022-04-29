@@ -1,7 +1,7 @@
 <template>
-  <div class="container">
+  <div class="container mt-5">
     <div class="row">
-      <div class="col-12">
+      <div class="col-12 mt-5">
           <h3 class="mt-3">Configurazioni aggiuntive</h3>
       </div>
     </div>
@@ -14,8 +14,8 @@
     ora clicca "Add a section Header" (facoltativo) così da inserire una sezione dedicata solo a Memsion, ora clicca add a custom field<br>
     Inserisci un nome come ad esempio "CustomMemsionId" di tipo text e fai salva, ripeti la procedura inserendo un altro campo chiamato ad esempio
     "MemsionUserKey" sempre di tipo text e fai salva. <br>
-    Fatto questo in fondo alla pagina clicca su "View the field database names (for the API)" e prendi il nome contenuto nel database
-    e copialo nei campi qui sotto. <br><b>Importante:</b> ricordati che devi inserire "_" (underscore) prima del nome come da istruzioni</p>
+    Fatto questo in fondo alla pagina clicca su "View the field database names (for the API)" e prendi i nomi contenuti nei database name
+    e copialo nei campi qui sotto. <br><b>Importante:</b> ricordati che NON devi inserire "_" (underscore) prima del nome come da istruzioni di infusionsoft</p>
   <h3 class="text-start mt-3">Istruzioni autologin:</h3>
   <p class="text-start">Dopo aver completato la procedura qui sotto per effettuare correttamente l'autologin dovrai creare in infusionsoft
   dei link nelle tue email in questo modo: <code>https://iltuositoweb/linklezioneolinkcorso?userapi=~CustomMemsionId~&userkey=~MemsionUserKey~

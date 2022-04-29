@@ -1,8 +1,8 @@
 <template>
   <div class="home">
-    <div class="container">
+    <div class="container mt-5">
       <div class="row ">
-        <div class="col-12 text-end mb-3 mt-3">
+        <div class="col-12 text-end mb-3 mt-5">
           <icon-button label="Aggiungi Utente" icon="bi bi-plus-circle" @clickEvent="goToNewUser"/>
           <icon-button @clickEvent="importUser" class="ms-4" label="Importa Utenti" icon="bi bi-file-earmark-spreadsheet-fill"/>
         </div>

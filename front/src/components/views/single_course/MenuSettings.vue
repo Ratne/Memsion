@@ -1,7 +1,7 @@
 <template>
-<div class="container">
+<div class="container mt-5">
   <div class="row">
-    <div class="col-12">
+    <div class="col-12 mt-5">
       <h1>Menu</h1>
 
     <div class="mt-1" v-for="m in menu">

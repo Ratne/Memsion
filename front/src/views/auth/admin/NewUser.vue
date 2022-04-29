@@ -1,8 +1,15 @@
 <template>
-  <div>
-    <h3>Aggiungi Utente</h3>
+<div class="container mt-5">
+  <div class="row">
+    <div class="col-12 mt-5">
+      <h3>Aggiungi Utente</h3>
+    </div>
+  </div>
 </div>
+
 <div class="container">
+  <div class="row">
+    <div class="col-12">
   <!--user add-->
   <div class="text-start">
     <form @submit.prevent="addUser">
@@ -14,7 +21,10 @@
     </form>
   </div>
   <!--user add-->
+
   <go-back  class="text-start" />
+    </div>
+  </div>
 </div>
 </template>
 

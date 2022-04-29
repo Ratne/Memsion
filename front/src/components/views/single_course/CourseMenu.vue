@@ -1,6 +1,6 @@
 <template>
 <div>
-  <h2 v-if="isAdmin" class="text-start mb-2">Menu</h2>
+  <h2 v-if="isAdmin" class="text-start mt-5 mb-2">Menu</h2>
     <icon-button v-if="isAdmin" @clickEvent="goToMenuSettings" label="Modifica" icon="bi bi-pencil-square" />
     <div class="accordion">
       <template v-if="isAdmin"  v-for="(m, index) in menu">
@@ -10,10 +10,11 @@
           </span>
         </Accordion>
       </template>
+      <template v-if="link && link.length">
       <h2 class="text-start mt-3 mb-1">Link</h2>
-
       <template v-for="(l) in link">
         <div class="text-start p-1" @click="clickUrl(l.url)"><i class="bi bi-link-45deg me-2 "></i><span class="text-capitalize">{{l.label}}</span></div>
+      </template>
       </template>
 <!--      <go-back class="mt-3 mb-4" />-->
     </div>

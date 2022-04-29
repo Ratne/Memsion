@@ -2,14 +2,14 @@
   <div class="singleCourse mt-5 pt-5 container-fluid">
 
     <div class="row">
-      <div class="col-sm-12 col-md-9 leftSide">
+      <div class="col-sm-12">
         <div class="containerCourseLesson">
           <div v-if="selectLesson">
-            <SelectLesson :idLesson="selectLesson.idLesson" :idCourse="course._id"/>
+            <SelectLesson :idLesson="selectLesson.idLesson" :selectModuleLabel="selectModuleLabel" :idCourse="course._id" :courseName="course.name"/>
           </div>
-          <div class="containerBackground" v-else>
+          <div class="containerBackground px-5" v-else>
             <TitleH3 label="Introduzione"/>
-            <div class="d-flex">
+            <div class="cardIntroduction">
               <div class="imageContainer">
                 <img :src="course.image"/>
               </div>
@@ -28,13 +28,13 @@
           <div class="row mt-5 listLessonContainer">
 
             <div class="col-12">
-            <div class="p-3">  <TitleH3 class="mt-3" label="Seleziona una lezione per continuare"></TitleH3>
+            <div class="p-5">  <TitleH3 class="mt-3" label="Scegli una lezione"></TitleH3>
               <ListLessons :lessons="menu" @goToLesson="goToLesson"></ListLessons></div>
             </div>
           </div>
         </div>
       </div>
-      <div class="col-sm-12 col-md-3 rightSide">
+      <div class="col-sm-12">
         <CourseMenu @goToLesson="goToLesson" :courseId="course._id" :link="link" :menu="menu" :isAdmin="false"/>
       </div>
     </div>
@@ -72,12 +72,15 @@ export default {
       course: {},
       link: [],
       modules: [],
-      selectLesson: undefined
+      selectLesson: undefined,
+      selectModuleLabel: undefined
     }
   },
   methods: {
-    goToLesson(lesson) {
+    goToLesson(lesson, moduleLabel) {
       this.selectLesson = lesson
+      this.selectModuleLabel= moduleLabel
+      window.scrollTo(0,0)
     },
   },
   mounted() {
@@ -142,44 +145,30 @@ export default {
   .courseIntroduction {
     padding-left: 18px;
 
-    .courseBg {
-
+  }
+  .containerBackground {
+    .cardIntroduction{
+      display: flex;
     }
 
-    .courseHeading {
+  }
 
-
+  @media (max-width: $md-device) {
+    .containerBackground {
+      .cardIntroduction {
+        flex-direction: column;
+        .imageContainer{
+          margin-bottom: 16px;
+          width: 100%;
+        }
+      }
     }
   }
-
-  .containerCourseLesson {
-
-  }
 }
 
 
-.leftSide {
-  order: 1;
-}
-
-.rightSide {
-  order: 2;
-}
 
 
-.containerBackground {
 
-}
-
-@media(max-width: $md-device) {
-
-  .leftSide {
-    order: 1;
-  }
-  .rightSide {
-    margin-top: 50px;
-    order: 2;
-  }
-}
 
 </style>

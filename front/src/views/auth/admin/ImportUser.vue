@@ -1,7 +1,7 @@
 <template>
-  <div class="container">
-    <div class="row">
-      <div class="col-12">
+  <div class="container mt-5">
+    <div class="row ">
+      <div class="col-12 mt-5">
      <h3 class="text-center">Importa Utenti</h3>
         <h2 class="text-start">Istruzioni:</h2>
         <p class="text-start">Per importare correttamente gli utenti nella piattaforma esportare gli utenti da infusionsoft

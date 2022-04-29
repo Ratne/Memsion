@@ -1,5 +1,5 @@
 <template>
-  <div class="container text-start">
+  <div class="container mt-5 text-start">
      <h2 class="text-center">Modifica Corso</h2>
      <form @submit.prevent="editCourseAction">
        <FormGroupCustom :error="errors['name']" v-model:value="editCourse.name" label="name" type="text"></FormGroupCustom>

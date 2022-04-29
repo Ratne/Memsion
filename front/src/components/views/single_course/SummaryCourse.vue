@@ -1,11 +1,12 @@
 <template>
-  <div class="row">
-    <div class="col-6">
+
+  <div class="row mt-5">
+    <div class="col-6 mt-5">
       <img :src="course.image" class="img-thumbnail" alt="course image" @click="editImage">
       </div>
 
     <!--summary course-->
-    <div class="col-6">
+    <div class="col-6 mt-5">
       <div class="row adminSidebar">
         <div class="col-6 text-start">Nome: {{ course.name }}</div>
         <div class="col-6 text-end"><span class="badge bg-primary">Tag: {{ course.requiredTag }}</span></div>

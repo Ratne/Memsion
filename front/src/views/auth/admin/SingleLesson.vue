@@ -1,9 +1,12 @@
 <template>
   <div class="home">
-    <div class="container-fluid">
-
-      <summary-lesson :courseId="courseId" :lesson="lesson" @setShowEdit="editLessonShow = true" />
-      <go-back class="mt-3 ms-3 mb-3 text-start" />
+    <div class="container-fluid mt-5">
+      <div class="row">
+        <div class="col-12 mt-5">
+          <summary-lesson :courseId="courseId" :lesson="lesson" @setShowEdit="editLessonShow = true" />
+          <go-back class="mt-3 ms-3 mb-3 text-start" />
+        </div>
+      </div>
     </div>
   </div>
 

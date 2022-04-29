@@ -33,10 +33,17 @@ const customField = (userId,userObjectId,userKey) =>{
         }
     }).then(res =>{
         AutoLogin.findOne({}).then(resp=> {
+
             const fields = res.data.custom_fields.filter(ele =>{
-                return   ele.field_name === resp?.customMemsionId || ele.field_name === resp?.customKey
+
+
+                return   ele.field_name === resp?.customMemsionId || ele.field_name === resp?.memsionUserKey;
+
+
             })
+
             if (fields.length === 2){
+
                 const body = {
                     "custom_fields": [
                         {
@@ -44,7 +51,7 @@ const customField = (userId,userObjectId,userKey) =>{
                             "content": userObjectId.toString()
                         },
                         {
-                            "id": fields.find(ele => ele.field_name === resp?.customKey).id,
+                            "id": fields.find(ele => ele.field_name === resp?.memsionUserKey).id,
                             "content": userKey.toString()
                         }
                     ]
@@ -60,7 +67,7 @@ const customField = (userId,userObjectId,userKey) =>{
                 })
             }
             else {
-                console.log('errore')
+                console.log('errore memsion keys non inserite')
             }
         })
 
@@ -275,7 +282,7 @@ router.get('/custom-key', async (req, res ) =>{
 router.post('/custom-key' , async (req,res) =>{
     const obj = req.body
     AutoLogin.deleteMany().then(resp => {
-        new AutoLogin({customMemsionId: obj.customKey, memsionUserKey: obj.customId}).save().then(resp => {
+        new AutoLogin({customMemsionId: obj.customId, memsionUserKey: obj.customKey}).save().then(resp => {
             // myCache.set( "customKey", obj.customKey, 0 ); // questi sono i campi dal frontend
             // myCache.set("customId", obj.customId, 0) // questi sono i campi dal frontend
             res.send({errorMessage: 'Aggiornato'});

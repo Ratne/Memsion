@@ -1,23 +1,30 @@
 <template>
-  <div class="container">
+  <div class="container mt-5">
     <div class="row">
+      <div class="col-12 mt-5">
       <h3>Id utente database: {{user._id}}</h3>
       <icon-button @clickEvent="editUser" label="Modifica Utente" icon="bi bi-pencil-square"/>
-
+      </div>
 
     </div>
-    <div class="row">
-        <div v-if="showEditUser==false">
-          <ul class="list-group text-start ms-2 list-group-flush">
-            <li class="list-group-item">Nome: {{user.name}}</li>
-            <li class="list-group-item">Cognome: {{user.surname}}</li>
-            <li class="list-group-item">Email: {{user.email}}</li>
-            <li class="list-group-item">Admin: {{user.isAdmin}}</li>
-            <li class="list-group-item">Infusionsoft Tag: {{user.tags}}</li>
-            <li class="list-group-item">Infusionsoft Id: {{user.infusionsoftId}}</li>
-            <li class="list-group-item">Secret User Key: {{user.userKey}}</li>
-          </ul>
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <div v-if="showEditUser==false">
+            <ul class="list-group text-start ms-2 list-group-flush">
+              <li class="list-group-item">Nome: {{user.name}}</li>
+              <li class="list-group-item">Cognome: {{user.surname}}</li>
+              <li class="list-group-item">Email: {{user.email}}</li>
+              <li class="list-group-item">Admin: {{user.isAdmin}}</li>
+              <li class="list-group-item">Infusionsoft Tag: {{user.tags}}</li>
+              <li class="list-group-item">Infusionsoft Id: {{user.infusionsoftId}}</li>
+              <li class="list-group-item">Secret User Key: {{user.userKey}}</li>
+            </ul>
+          </div>
         </div>
+    </div>
+
+
 
     </div>
     <div class="row">

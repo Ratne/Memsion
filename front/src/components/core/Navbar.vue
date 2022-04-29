@@ -15,8 +15,8 @@
         <router-link @click.prevent="logout" class="nav-item nav-link ms-auto" to="/logout">Logout</router-link>
       </div>
       <div v-else-if="isAdmin === false" class="navbar-nav w-100">
-<!--        <router-link class="nav-item nav-link" to="/auth">Home</router-link>-->
-        <router-link @click.prevent="logout" class="nav-item nav-link ms-auto" to="/logout">Logout</router-link>
+
+        <img class="profileImage ms-auto" src="/assets/profilo.svg" @click="profile" />
       </div>
       <div v-else class="navbar-nav">
 <!--        <router-link class="nav-item nav-link" to="/login">Login</router-link>-->
@@ -35,6 +35,9 @@ export default {
   methods:{
     logout() {
       this.$store.dispatch('logout')
+    },
+    profile() {
+      this.$router.push({ name: "Profile" });
     },
     goBackOne(){
       return this.$router.go(-1)
@@ -64,5 +67,11 @@ export default {
   margin-left: 10px;
   margin-right: 10px;
   width: 18px;
+}
+
+.profileImage{
+  cursor: pointer;
+
+  width: 42px;
 }
 </style>

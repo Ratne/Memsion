@@ -10,6 +10,7 @@ import SingleCourseFilter from "../views/auth/user/SingleCourseFilter";
 import {routeNames} from "./routeNames";
 import Config from "../views/auth/admin/Config";
 import ImportUser from "../views/auth/admin/ImportUser";
+import Profile from "../views/auth/user/Profile";
 
 
 
@@ -100,6 +101,11 @@ const authRoutes = [
     path: 'single/course/:id/lesson/:idLesson',
     name: routeNames.SingleCourseFilterWithLesson,
     component: SingleCourseFilter,
+  },
+  {
+    path: 'user/profile',
+    name: routeNames.ProfilePage,
+    component: Profile,
   }
 
 ]
