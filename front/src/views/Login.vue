@@ -1,4 +1,7 @@
 <template>
+
+
+
 <navbar />
 <div class="container-fluid d-flex flex-column h-100">
   <div class="row mt-5 p-5">
@@ -40,6 +43,7 @@ import Navbar from "../components/core/Navbar";
 import lastRoute from "../guards/lastRoute";
 import TitleH1 from "../components/shared/design/TitleH1";
 import ButtonPrimary from "../components/shared/design/ButtonPrimary";
+import VimeoCustom from "../components/shared/design/video/VimeoCustom";
 export default {
   data(){
     return {
@@ -67,7 +71,7 @@ export default {
   },
   name: "Login",
   mixins: [validationMixin],
-  components: {ButtonPrimary, TitleH1, Navbar, FormGroupCustom},
+  components: {VimeoCustom, ButtonPrimary, TitleH1, Navbar, FormGroupCustom},
 
   methods:{
     userLogin(){

@@ -1,13 +1,24 @@
 <template>
-  <Vimeo :video-id=url></Vimeo>
+
+
+  <Player id="vidVimeo" playsinline
+          controls
+          ref="player"
+          @vmCurrentTimeChange="this.$emit('onTimeUpdate', $event)"
+          @vmDurationChange="this.$emit('getDuration', $event)"
+  >
+    <Vimeo :video-id=url></Vimeo>
+
+  </Player>
+
 
 </template>
 
 <script>
-import {Vimeo} from "@vime/vue-next";
+import {Player, Vimeo} from "@vime/vue-next";
 export default {
   name: "VimeoCustom",
-  components: {Vimeo},
+  components: {Player, Vimeo},
   props: {
     src: {type: String}
   },

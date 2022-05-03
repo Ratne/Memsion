@@ -8,6 +8,7 @@ const axios = require("axios");
 const myCache = require("../myCache");
 const Course = require("../models/Course");
 const AutoLogin = require("../models/Autologin")
+const mongoose = require("mongoose");
 const schema = Joi.object({
     name: Joi.string().required(),
     surname: Joi.string(),
@@ -255,8 +256,17 @@ router.delete( '/user-list/delete-user/:id', async (req, res) =>{
 // user show
 router.get('/user-list/:id', async (req,res)=>{
     const _id = req.params.id
-    User.findOne({_id}).then(response =>{
-        res.send( {...response._doc})
+    User.findOne({_id}, {email: 1, infusionsoftId: 1, isAdmin: 1, name: 1, surname: 1, tags:1, userKey: 1}).then(response =>{
+        // che lezioni ha visto?
+    Course.aggregate([{ $match: {'lessons.users.userId': mongoose.Types.ObjectId(_id)}}, {$project: {name: 1, lessons: {$filter: {input: "$lessons", as: "lesson", cond: {$in : [ mongoose.Types.ObjectId(_id), "$$lesson.users.userId"]}}}} }]).then(resp => {
+
+        res.send( {...response._doc, courseView:resp.map(ele => ({
+                ...ele, lessons: ele.lessons.map(el => ({
+                    ... el, test: _id, users: el.users.filter(us => us.userId.toString() === _id)
+                }))
+            })) })
+    })
+
     })
 })
 

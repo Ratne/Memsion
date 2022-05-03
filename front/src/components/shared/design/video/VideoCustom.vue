@@ -1,28 +1,23 @@
 <template>
-  <Player id="vid" playsinline
+  <div>
+  <VimeoCustom v-if="isElement.isVimeo" @onTimeUpdate="onTimeUpdate" @getDuration="getDuration" :src="url" />
+  <YoutubeCustom v-else-if="isElement.isYoutube" @onTimeUpdate="onTimeUpdate" @getDuration="getDuration" :src="url" />
+  <Player v-else id="vid" playsinline
           controls
           ref="player"
           @vmCurrentTimeChange="onTimeUpdate"
           @vmDurationChange="getDuration"
   >
-
-
-      <VimeoCustom v-if="isElement.isVimeo" :src="url" />
-      <YoutubeCustom v-else-if="isElement.isYoutube" :src="url" />
-
-
-    <Video v-else>
+    <Video>
      <source
           :data-src=url
           type="video/mp4"
       />
     </Video>
-
-
   </Player>
-  <p>Percentuale vista: {{percentage}}</p>
-</template>
 
+  </div>
+</template>
 <script>
 import {Player, Video, Youtube, Vimeo} from "@vime/vue-next";
 import VimeoCustom from "./VimeoCustom";

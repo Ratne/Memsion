@@ -1,14 +1,22 @@
 <template>
+  <Player id="vidYoutube" playsinline
+          controls
+          ref="player"
+          @vmCurrentTimeChange="this.$emit('onTimeUpdate', $event)"
+          @vmDurationChange="this.$emit('getDuration', $event)"
+  >
+    <Youtube :video-id=url></Youtube>
 
-  <Youtube :video-id=url></Youtube>
+  </Player>
+
 
 </template>
 
 <script>
-import {Youtube} from "@vime/vue-next";
+import {Player, Youtube} from "@vime/vue-next";
 export default {
   name: "YoutubeCustom",
-  components:{Youtube},
+  components:{Player, Youtube},
   props: {
     src: {type: String}
   },
@@ -37,7 +45,5 @@ export default {
 </script>
 
 <style scoped>
-.youtubeFrame{
-  aspect-ratio: 16/9;
-}
+
 </style>

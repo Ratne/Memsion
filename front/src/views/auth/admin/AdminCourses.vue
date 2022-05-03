@@ -18,7 +18,9 @@
     </div>
 
 
-  <div v-if="showAddCourse" class="container">
+  <div v-if="showAddCourse" class="container pt-5">
+    <div class="row">
+      <div class="col-12 pt-5">
     <h3 class="text-center">Aggiungi corso</h3>
     <form class="text-start" @submit.prevent="courseAdd">
     <FormGroupCustom name="name" :error="errors['name']" v-model:value="course.name" label="name" type="text"></FormGroupCustom>
@@ -29,6 +31,8 @@
     <button class="btn btn-primary mt-3 mb-3 text"  type="submit">Invia</button>
     </form>
     <div class="text-start"><icon-button label="Chiudi" icon="bi bi-x-circle" @click="showAddCourse=false"/></div>
+      </div>
+    </div>
   </div>
   </div>
 </template>

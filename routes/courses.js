@@ -45,6 +45,7 @@ router.get("/courses/:id/lessons", CourseController.lessonsIndex)
 router.get("/courses/:id/lesson/:idLesson", CourseController.lessonShow)
 router.get("/courses/:id/lesson/:idLesson/user", CourseController.lessonFilterShow)
 router.get("/courses/:id/modules/:idModule",typeCourse,CourseController.moduleShow)
+router.get("/courses/:id/report",typeCourse,CourseController.reportCourse)
 
 
 
@@ -64,6 +65,7 @@ router.patch("/courses/:id/lesson/:idLesson", CourseController.lessonUpdate)
 router.patch("/courses/:id/lesson/:idLesson/users", CourseController.lessonUsersUpdate)
 router.delete("/courses/:id/lesson/:idLesson", CourseController.lessonDelete)
 router.delete("/courses/:id/modules/:idModule", CourseController.moduleDelete)
+router.patch("/courses/:id/modules/:idModule", CourseController.moduleEdit)
 
 
 

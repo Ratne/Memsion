@@ -315,6 +315,19 @@ exports.moduleShow = (req,res) =>{
     )
 };
 
+exports.moduleEdit = (req,res) =>{
+    const _id = req.params.id;
+    const idModule = req.params.idModule;
+    const label = req.body.label;
+    Course.updateOne({_id, 'modules._id': mongoose.Types.ObjectId(idModule)}, {$set: {'modules.$.label' :label }}).then(response =>{
+       res.send({
+            errorMessage: 'Modulo Aggiornato'})
+    }).catch(err => {
+        console.log(err)
+    });
+};
+
+
 
 exports.moduleDelete = (req,res) =>{
     const _id = req.params.id;
@@ -355,4 +368,23 @@ exports.courseDeleteMenu = (req,res) =>{
 
 
     })
+};
+
+
+exports.reportCourse = (req,res) =>{
+    const _id = req.params.id;
+    Course.aggregate(
+        [
+            {"$match": { _id : mongoose.Types.ObjectId(_id) }},
+
+            { $unwind: "$lessons" },
+            { $unwind: "$lessons.users" },
+            { $group: {_id: '$lessons.users.userId', lessons: {$push: '$lessons'}}}
+        ],
+        function (err, response){
+            res.send(response)
+
+
+        }
+    )
 };
