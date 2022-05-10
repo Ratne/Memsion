@@ -30,6 +30,18 @@
     <div class="row">
       <go-back class="mt-3 ms-3 mb-3 text-start" />
     </div>
+
+    <div class="container" v-if="showEditUser==false">
+      <div class="row">
+        <div class="col-12">
+
+          <SummaryUserStats :courses="user.courseView"></SummaryUserStats>
+
+        </div>
+      </div>
+    </div>
+
+
   <div class="text-end" v-if="showEditUser==false">
     <!--user delete-->
     <button class="btn btn-danger mt-3 mb-3 w-25 " type="submit" @click="deleteUser">ELIMINA UTENTE</button>
@@ -45,6 +57,7 @@
     <FormGroupCustom :error="errors['infusionsoftId']" v-model:value="editUserUpdate.infusionsoftId" label="infusionsoft id" type="number"></FormGroupCustom>
     <button class="btn btn-primary w-100 mt-3 mb-3 "  type="submit">AGGIORNA UTENTE</button>
     </form>
+    <icon-button class="bi bi-x-circle" label="Chiudi" @click="showEditUser = false"/>
   </div>
   <!--user delete-->
   </div>
@@ -60,12 +73,13 @@ import {validationTypeName} from "../../../utils/validationType";
 import {userDel, userShow, userUpdate} from "../../../services/userService";
 import IconButton from "../../../components/shared/design/iconButton";
 import GoBack from "../../../components/shared/design/GoBack";
+import SummaryUserStats from "../../../components/views/admin/SummaryUserStats";
 
 
 
 export default {
   name: 'SingleUser',
-  components: {GoBack, IconButton, FormGroupCustom},
+  components: {SummaryUserStats, GoBack, IconButton, FormGroupCustom},
   data(){
     return {
       user: {},

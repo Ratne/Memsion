@@ -44,6 +44,6 @@ export default {
 
 </script>
 
-<style scoped>
-
+<style lang="scss" scoped>
+@import '~@vime/core/themes/default.css';
 </style>

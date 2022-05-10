@@ -207,10 +207,10 @@ exports.lessonUsersUpdate = (req,res) => {
                     {$addToSet: {'lessons.$.users': user }},
                     {
                     }).then(resp => {
-                    res.status(200).send({errorMessage: 'Tempo aggiornato'})
+                    res.status(200)
                 }).catch(err => console.log(err));
             }
-            else  res.status(200).send({errorMessage: 'Tempo aggiornato'})
+            else  res.status(200)
     })
 
 }
@@ -379,12 +379,25 @@ exports.reportCourse = (req,res) =>{
 
             { $unwind: "$lessons" },
             { $unwind: "$lessons.users" },
-            { $group: {_id: '$lessons.users.userId', lessons: {$push: '$lessons'}}}
+            { $group: {_id: '$lessons.users.userId', lessons: {$push: '$lessons'},}},
+            {
+                $lookup:
+                    {
+                        from: 'users',
+                            localField: 'lessons.users.userId',
+                                foreignField: '_id',
+                                    as: 'user',
+                                        }
+                                        },
+            {$unset: ["user.password", "user.isAdmin", "user.tags", "user.email", "user.infusionsoftId",
+                      "user.createdAt", "user.updatedAt" ,"user.userKey" ]}
+
+
         ],
-        function (err, response){
-            res.send(response)
+        function (err, list){
+            Course.find({_id}, {count: {$size: '$lessons'}}).then(courseCount => {
 
-
-        }
-    )
+                res.send({list,count: courseCount[0]  })
+            }
+    )})
 };

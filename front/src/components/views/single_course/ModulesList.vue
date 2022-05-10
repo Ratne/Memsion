@@ -2,7 +2,7 @@
   <!--modules-->
   <div class="row adminSidebar mt-3">
     <div class="col-12">
-      <h1>Elenco Moduli</h1>
+      <TitleH1 label="Elenco Moduli" />
       <div class="d-flex flex-wrap">
         <div class="card listAdminCourse" v-for="module in modules" @click="$emit('goToModule', module._id)">
           <div class="card-body">
@@ -21,9 +21,10 @@
 
 
 import IconButton from "../../shared/design/iconButton";
+import TitleH1 from "../../shared/design/TitleH1";
 export default {
   name: 'ModulesList',
-  components: {IconButton},
+  components: {TitleH1, IconButton},
   props: {
     modules: {type: Array, default: ()=> [] }
   },
@@ -43,12 +44,11 @@ export default {
     &.listAdminCourse{
       width: 200px;
       display: flex;
-      padding: 15px;
-      background-color: $bgCard;
-      border-radius: 20px;
+      padding: 0px 15px;
+      background-color: $gray;
+      border-radius: 0px;
       border: none;
-      color: $colorUserCard;
-      box-shadow: $bgShadow;
+      color: $white;
       margin-right: 20px;
     }
 
@@ -56,9 +56,7 @@ export default {
   }
 .adminSidebar{
   padding:20px;
-  background-color: #ffffff;
-  box-shadow: $bgShadow;
-  border-radius: $customBorderRadius;
+  background-color: $white;
   margin-right: 0px;
 }
 

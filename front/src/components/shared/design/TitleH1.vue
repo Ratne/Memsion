@@ -14,5 +14,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
+@import "src/sass/variables";
+@import "src/sass/mediaQuery";
+@media (max-width: $md-device) {
+  h1{
+    font-size: $h1fontmobile;
+  }
+}
 </style>

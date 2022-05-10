@@ -1,18 +1,19 @@
 <template>
   <!--lessons-->
+
   <div class="container-fluid">
-    <h1>Elenco Lezioni</h1>
-    <div class="row">
-      <div class="card mb-sm-2 ms-2 mx-2 lessonAdminList" style="width: 18rem;" v-for="lesson in lessons" @click="$emit('goToLesson', lesson._id)">
+    <TitleH1 label="Elenco Lezioni" />
+    <div class="row bgGrayLight py-3">
+      <div class="card mb-2 ms-2 mx-2 lessonAdminList" style="width: 18rem;" v-for="lesson in lessons" @click="$emit('goToLesson', lesson._id)">
         <img :src="lesson.image" class="card-img-top mt-2" alt="course image">
         <div class="card-body">
           <h5 class="card-title">{{lesson.name}}</h5>
-          <p class="card-text" v-if="lesson.requiredTag">Tag: {{lesson.requiredTag}}</p>
+          <p class="badge text-black bg-primary" v-if="lesson.requiredTag">Tag: {{lesson.requiredTag}}</p>
         </div>
       </div>
     </div>
+</div>
 
-  </div>
   <!--lessons-->
 </template>
 
@@ -20,8 +21,10 @@
 
 
 
+import TitleH1 from "../../shared/design/TitleH1";
 export default {
   name: 'LessonList',
+  components: {TitleH1},
   props: {
     lessons: {type: Array, default: ()=> [] }
   },
@@ -39,11 +42,10 @@ export default {
     flex-direction: column;
     height: 100%;
     padding: 15px;
-    background-color: $bgCard;
-    border-radius: 20px;
+    background-color: $white;
     border: none;
-    color: $colorUserCard;
-    box-shadow: $bgShadow;
+    color: $dark;
+    min-height: 350px;
   }
 
 

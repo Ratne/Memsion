@@ -9,7 +9,7 @@
     </div>
   </div>
 
-  <div class="row p-5 bgGrayLight h-100">
+  <div class="row px-md-5 px-2 pb-5 pt-5 bgGrayLight h-100">
     <div class="col-sm-12 col-md-6 offset-md-3 col-lg-4 offset-lg-4">
 
 <div class="formCustomLogin">

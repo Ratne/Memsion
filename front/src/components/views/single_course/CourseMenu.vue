@@ -1,22 +1,23 @@
 <template>
 <div>
-  <h2 v-if="isAdmin" class="text-start mt-5 mb-2">Menu</h2>
+  <TitleH1 v-if="isAdmin" label="Menu" ></TitleH1>
     <icon-button v-if="isAdmin" @clickEvent="goToMenuSettings" label="Modifica" icon="bi bi-pencil-square" />
     <div class="accordion">
       <template v-if="isAdmin"  v-for="(m, index) in menu">
         <Accordion v-if="m.lessons && m.lessons.length" :title="m.label" :index="index">
           <span @click="goToLesson(lesson)" v-for="lesson in m.lessons">
-           <i class="bi bi-card-heading me-2"></i> {{lesson.name}}
+           <div><i class="bi bi-card-heading me-2"></i> {{lesson.name}}</div>
           </span>
         </Accordion>
       </template>
       <template v-if="link && link.length">
-      <h2 class="text-start mt-3 mb-1">Link</h2>
+        <div class="pb-5">
+      <TitleH1 class="mt-3" label="Link" />
       <template v-for="(l) in link">
-        <div class="text-start p-1" @click="clickUrl(l.url)"><i class="bi bi-link-45deg me-2 "></i><span class="text-capitalize">{{l.label}}</span></div>
+        <div class="text-start p-1  d-flex" ><i class="bi bi-link-45deg me-2 "></i><span @click="clickUrl(l.url)" class="text-capitalize pointer">{{l.label}}</span></div>
       </template>
+    </div>
       </template>
-<!--      <go-back class="mt-3 mb-4" />-->
     </div>
 
 
@@ -32,9 +33,10 @@
 import Accordion from "../../shared/design/Accordion";
 import IconButton from "../../shared/design/iconButton";
 import GoBack from "../../shared/design/GoBack";
+import TitleH1 from "../../shared/design/TitleH1";
 export default {
   name: "CourseMenu",
-  components: {GoBack, IconButton, Accordion},
+  components: {TitleH1, GoBack, IconButton, Accordion},
   props:{
     menu: {type: Array, default: () => []},
     link: {type: Array, default: () => []},
@@ -69,3 +71,8 @@ export default {
 }
 
 </script>
+<style lang="scss" scoped>
+.pointer{
+  cursor: pointer;
+}
+</style>

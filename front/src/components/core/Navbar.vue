@@ -1,5 +1,5 @@
 <template>
-  <nav class="navbar bg-white fixed-top navbar-expand navbar-light mb-4 px-5">
+  <nav class="navbar bg-white fixed-top navbar-expand navbar-light mb-4 px-md-5 px-2">
       <a v-if="checkRoute!=='Home' && checkRoute!=='Login'" @click="goBackOne">
               <img class="goBackArrow" src="/assets/back.svg" />
       </a>

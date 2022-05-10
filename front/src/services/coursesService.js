@@ -46,3 +46,6 @@ export const courseDeleteMenu = (id, idMenu) => {
     return http.delete(`${url}/${id}/menu/${idMenu}` )
 }
 
+export const courseReport = (id) => {
+    return http.get(`${url}/${id}/report`)
+}

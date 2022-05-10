@@ -1,27 +1,25 @@
 <template>
-<div class="container mt-5">
-  <div class="row">
-    <div class="col-12 mt-5">
-      <h1>Menu</h1>
+  <div class="container mt-5">
+    <div class="row">
+      <div class="col-12 mt-5">
+        <TitleH1 label="Menu" />
+<div class="d-flex flex-wrap">
+        <div class="mt-2 bgGrayLight p-3 me-3 menuClass" v-for="m in menu">
+          <div>Label: {{ m.label }}</div>
+          <div class="text-truncate"> Url: {{ m.url }}</div>
 
-    <div class="mt-1" v-for="m in menu">
-     Label: {{m.label}}
-      Url: {{m.url}}
-      <icon-button label="Elimina" @clickEvent="deleteVoice(m._id)" icon="bi bi-trash2"/>
+          <icon-button label="Elimina" @clickEvent="deleteVoice(m._id)" icon="bi bi-trash2"/>
 
-    </div>
+        </div>
+</div>
+        <div class="mt-3">
+          <icon-button label="Aggiungi" @clickEvent="showAddVoice" icon="bi bi-plus-circle"/>
+        </div>
 
-    <div class="container mt-3">
-      <icon-button label="Aggiungi" @clickEvent="showAddVoice" icon="bi bi-plus-circle"/>
-    </div>
-      <div class="row text-start">
-        <go-back />
+        <menu-add @addMenu="addVoice" v-if="showAdd"/>
       </div>
-
-    <menu-add @addMenu="addVoice" v-if="showAdd" />
     </div>
   </div>
-</div>
 </template>
 
 <script>
@@ -29,30 +27,31 @@ import {courseDeleteMenu, coursesAddVoiceMenu, coursesShowMenu} from "../../../s
 import MenuAdd from "./MenuAdd";
 import IconButton from "../../shared/design/iconButton";
 import GoBack from "../../shared/design/GoBack";
+import TitleH1 from "../../shared/design/TitleH1";
 
 export default {
   name: "MenuSettings",
-  components: {GoBack, IconButton, MenuAdd},
-  data(){
+  components: {TitleH1, GoBack, IconButton, MenuAdd},
+  data() {
     return {
       courseId: this.$route.params.id,
       menu: [],
       showAdd: false
     }
   },
-  methods:{
-    deleteVoice(idMenu){
-      if(confirm("Vuoi eliminare la voce del menu?")) {
+  methods: {
+    deleteVoice(idMenu) {
+      if (confirm("Vuoi eliminare la voce del menu?")) {
         courseDeleteMenu(this.courseId, idMenu).then(res => {
           this.menu = this.menu.filter(ele => ele._id !== idMenu)
         })
       }
     },
-    showAddVoice(){
+    showAddVoice() {
       this.showAdd = true
     },
-    addVoice(data){
-      coursesAddVoiceMenu(this.courseId, data.menu).then(res =>{
+    addVoice(data) {
+      coursesAddVoiceMenu(this.courseId, data.menu).then(res => {
         this.menu.push(res.menu)
         data.callback && data.callback()
         this.showAdd = false
@@ -60,13 +59,16 @@ export default {
     }
   },
   mounted() {
-    coursesShowMenu(this.courseId).then(res =>{
+    coursesShowMenu(this.courseId).then(res => {
       this.menu = res.menu
     })
   }
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+.menuClass{
+  width: 300px;
 
+}
 </style>

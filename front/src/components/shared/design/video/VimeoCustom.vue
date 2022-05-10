@@ -34,7 +34,5 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.vimeoFrame{
-  aspect-ratio: 16/9;
-}
+@import '~@vime/core/themes/default.css';
 </style>

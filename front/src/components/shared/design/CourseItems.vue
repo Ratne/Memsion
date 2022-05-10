@@ -1,5 +1,5 @@
 <template>
-  <div class="card mb-5 mb-md-0 courseHomeUser px-5" @click="$emit('goToCourse', course._id)">
+  <div class="card mb-5 mb-md-0 courseHomeUser px-md-5 px-2" @click="$emit('goToCourse', course._id)">
     <div class="ms-md-3 imageContainer"><img :src="course.image" alt="course image" /></div>
     <div class="card-body">
       <TitleH3 :label="course.name"></TitleH3>

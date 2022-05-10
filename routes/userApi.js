@@ -248,9 +248,12 @@ router.get( '/user-list', async (req, res) =>{
 // delete user
 router.delete( '/user-list/delete-user/:id', async (req, res) =>{
     const _id = req.params.id
-    User.deleteOne({_id}).then(response =>{
-        res.send(response)
+    Course.updateMany({'lessons.users.userId':_id}, {$pull: {'lessons.$.users': {userId: _id}}} ).then(response =>{
+        User.deleteOne({_id}).then(response =>{
+            res.send(response)
+        })
     })
+
 })
 
 // user show

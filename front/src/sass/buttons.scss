@@ -5,7 +5,8 @@
 
   &.btn-primary{
     background-color: $btnPrimary;
+    text-transform: uppercase;
     border: none;
-    color: white;
+    color: $dark;
   }
 }

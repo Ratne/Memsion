@@ -13,6 +13,10 @@ export const moduleShow = (id, idModule) =>{
     return http.get(`${url}/${id}/modules/${idModule}`)
 }
 
+export const moduleEdit = (id, idModule, data) =>{
+    return http.patch(`${url}/${id}/modules/${idModule}`, data)
+}
+
 export const moduleDelete = (id, idModule) =>{
     return http.delete(`${url}/${id}/modules/${idModule}`)
 }

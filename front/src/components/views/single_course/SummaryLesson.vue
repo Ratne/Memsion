@@ -1,14 +1,14 @@
 <template>
-  <div class="row">
-    <div class="col-6">
-      <img :src="lesson.image" class="img-thumbnail" alt="lesson image" @click="editImage">
+  <div class="row bgGrayLight py-3">
+    <div class="col-12 col-md-6">
+      <img :src="lesson.image" class="imageLesson" alt="lesson image" @click="editImage">
       <div class="mt-3" v-if="lesson.video"><video-custom :url="lesson.video" /></div>
       </div>
     <!--summary lesson-->
-    <div class="col-6">
+    <div class="col-12 col-md-6">
       <div class="row adminSidebar">
         <div class="col-6 text-start">Nome: {{ lesson.name }}</div>
-        <div class="col-6 text-end"><span class="badge bg-primary">Tag: {{ lesson.requiredTag }}</span></div>
+        <div class="col-6 text-end"><span class="badge text-black bg-primary">Tag: {{ lesson.requiredTag }}</span></div>
         <div class="col-12 text-start">
           <p><span @click="goToSingleLesson">Url Lezione: </span>
             <icon-button label="Copia" icon="bi bi-clipboard-check" @clickEvent="copyUrlLesson" /> </p>
@@ -98,8 +98,6 @@ export default {
 .adminSidebar{
   padding:20px;
   background-color: #ffffff;
-  box-shadow: $bgShadow;
-  border-radius: $customBorderRadius;
   margin-right: 0px;
 }
 
@@ -108,6 +106,10 @@ export default {
   overflow: auto;
   text-align: start;
   margin-bottom: 12px;
+}
+
+.imageLesson{
+  width: 100%;
 }
 
 </style>

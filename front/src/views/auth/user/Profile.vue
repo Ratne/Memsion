@@ -1,7 +1,7 @@
 <template>
   <div class="mt-5 pt-5 container-fluid">
       <div class="row">
-        <div class="col-12 px-5">
+        <div class="col-12 px-md-5 px-2">
          <TitleH1 label="Profilo Personale" />
           <div>
             <p>Nome: {{user.name}}</p>

@@ -1,15 +1,13 @@
 <template>
+  <navbar />
 
-
-
-<navbar />
 <div class="container-fluid d-flex flex-column h-100">
   <div class="row mt-5 p-5">
     <div class="col-12">
       <TitleH1 className="text-center" label="Login"></TitleH1>
     </div>
   </div>
-  <div class="row p-5 bgGrayLight h-100">
+  <div class="row px-md-5 px-2 pb-5 pt-5 bgGrayLight h-100">
 
     <div class="col-sm-12 col-md-6 offset-md-3 col-lg-4 offset-lg-4 ">
 <div class="formCustomLogin">
@@ -43,7 +41,6 @@ import Navbar from "../components/core/Navbar";
 import lastRoute from "../guards/lastRoute";
 import TitleH1 from "../components/shared/design/TitleH1";
 import ButtonPrimary from "../components/shared/design/ButtonPrimary";
-import VimeoCustom from "../components/shared/design/video/VimeoCustom";
 export default {
   data(){
     return {
@@ -71,7 +68,7 @@ export default {
   },
   name: "Login",
   mixins: [validationMixin],
-  components: {VimeoCustom, ButtonPrimary, TitleH1, Navbar, FormGroupCustom},
+  components: {ButtonPrimary, TitleH1, Navbar, FormGroupCustom},
 
   methods:{
     userLogin(){

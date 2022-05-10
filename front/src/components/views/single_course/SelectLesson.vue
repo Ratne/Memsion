@@ -1,10 +1,10 @@
 <template>
 
-  <div class="px-5">
+  <div class="px-md-5 px-2">
     <TitleH1 :label="courseName"></TitleH1>
     <TitleH2 :label="lesson.name"></TitleH2>
     <div v-if="lesson.video"><video-custom @timeupdate="timeUpdate"  :url="lesson.video" /></div>
-    <TitleH4 :label="selectModuleLabel"></TitleH4>
+    <TitleH4 class="mt-3" :label="selectModuleLabel"></TitleH4>
     <div class="lessonDescription" v-html="lesson.description"></div>
 
     <div class="lessonDescription" v-html="lesson.content"></div>
@@ -79,6 +79,7 @@ export default {
 }
 .lessonDescription{
   font-size: 18px;
+  word-break: break-word;
 }
 
 </style>

@@ -7,7 +7,7 @@
           <div v-if="selectLesson">
             <SelectLesson :idLesson="selectLesson.idLesson" :selectModuleLabel="selectModuleLabel" :idCourse="course._id" :courseName="course.name"/>
           </div>
-          <div class="containerBackground px-5" v-else>
+          <div class="containerBackground px-md-5 px-2" v-else>
             <TitleH3 label="Introduzione"/>
             <div class="cardIntroduction">
               <div class="imageContainer">
@@ -28,7 +28,7 @@
           <div class="row mt-5 listLessonContainer">
 
             <div class="col-12">
-            <div class="p-5">  <TitleH3 class="mt-3" label="Scegli una lezione"></TitleH3>
+            <div class="px-md-5 px-2 pt-5 pb-5">  <TitleH3 class="mt-3" label="Scegli una lezione"></TitleH3>
               <ListLessons :lessons="menu" @goToLesson="goToLesson"></ListLessons></div>
             </div>
           </div>
@@ -55,6 +55,7 @@ import SelectLesson from "../../../components/views/single_course/SelectLesson";
 import TitleH3 from "../../../components/shared/design/TitleH3";
 import TitleH2 from "../../../components/shared/design/TitleH2";
 import ListLessons from "../../../components/shared/design/ListLessons";
+import {routeNames} from "../../../router/routeNames";
 
 
 export default {
@@ -78,6 +79,12 @@ export default {
   },
   methods: {
     goToLesson(lesson, moduleLabel) {
+      this.$router.push({
+        name: routeNames.SingleCourseFilterWithLesson,
+        params: {
+          id: this.course._id,
+          idLesson: lesson.idLesson
+        }})
       this.selectLesson = lesson
       this.selectModuleLabel= moduleLabel
       window.scrollTo(0,0)

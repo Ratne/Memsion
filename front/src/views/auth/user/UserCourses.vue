@@ -1,7 +1,7 @@
 <template>
   <div class="home mt-5">
 
-      <div class="row px-5 mt-5">
+      <div class="row px-md-5 px-2 mt-5">
         <div class="col-12">
           <TitleH1 className="text-start" :label="label"></TitleH1>
           <TitleH2 label="Elenco Corsi"></TitleH2>

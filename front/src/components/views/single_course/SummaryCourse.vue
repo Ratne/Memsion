@@ -1,15 +1,15 @@
 <template>
 
-  <div class="row mt-5">
-    <div class="col-6 mt-5">
-      <img :src="course.image" class="img-thumbnail" alt="course image" @click="editImage">
+  <div class="row  mt-5">
+    <div class="col-12 col-md-6 py-3 bgGrayLight mt-5">
+      <img :src="course.image" class="imageLesson" alt="course image" @click="editImage">
       </div>
 
     <!--summary course-->
-    <div class="col-6 mt-5">
+    <div class="col-12 col-md-6 bgGrayLight py-3 mt-5">
       <div class="row adminSidebar">
         <div class="col-6 text-start">Nome: {{ course.name }}</div>
-        <div class="col-6 text-end"><span class="badge bg-primary">Tag: {{ course.requiredTag }}</span></div>
+        <div class="col-6 text-end"><span class="badge text-black bg-primary">Tag: {{ course.requiredTag }}</span></div>
         <div class="col-12 text-start">
           <p><span @click="goToSingleCourse">Url Corso:</span> <span @click="copyUrlCourse"><i class="bi bi-clipboard-check"></i> Copia</span> </p>
         </div>
@@ -21,9 +21,10 @@
         <div class="col-12">
           <icon-button icon="bi bi-pencil-square" label="Modifica" @clickEvent="setShowEdit"  />
           </div>
+
     <!--summary course-->
       </div>
-
+      <div class="mt-3"><icon-button icon="bi bi-bar-chart" label="Vai al Report" @clickEvent="goToReport"  /></div>
     </div>
 
   </div>
@@ -75,6 +76,14 @@ export default {
         }
       })
     },
+    goToReport(){
+      this.$router.push({
+        name: 'ReportCourse',
+        params: {
+          courseId: this.course._id,
+        }
+      })
+    },
     setShowEdit(){
       this.$emit('showEdit')
     }
@@ -87,15 +96,17 @@ export default {
 .adminSidebar{
   padding:20px;
   background-color: #ffffff;
-  box-shadow: $bgShadow;
-  border-radius: $customBorderRadius;
   margin-right: 0px;
+
 }
 
 .badge{
   &.bg-primary{
     background-color: red;
   }
+}
+.imageLesson{
+  width: 100%;
 }
 
 </style>

@@ -1,10 +1,9 @@
 <template>
-  <div class="home">
+  <div class="home pt-5 mt-5 px-md-5 px-2">
 <div class="container-fluid">
       <div v-if="course" class="row">
         <div class="col-sm-12 col-md-3">
-
-          <CourseMenu class="menuAdmin" :link="course.menu"  :courseId="course._id" :menu="menu" />
+       <CourseMenu class="menuAdmin" :link="course.menu"  :courseId="course._id" :menu="menu" />
         </div>
         <div class="col-sm-12 col-md-9">
           <SummaryCourse  :course="course" @showEdit="showEdit = true"/>
