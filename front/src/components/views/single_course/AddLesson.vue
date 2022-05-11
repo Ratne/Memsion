@@ -10,6 +10,7 @@
       <editor-text-area v-model:dataValue="lesson.content" />
       <FormGroupCustom name="image" :error="errors['image']" @change="onFileChange" label="image" type="file"></FormGroupCustom>
       <FormGroupCustom v-model:value="lesson.video" label="video" type="text"></FormGroupCustom>
+      <FormGroupCustom v-model:value="lesson.script" label="script" type="text"></FormGroupCustom>
       <FormGroupCustom :error="errors['requiredTag']" v-model:value="lesson.requiredTag" label="tag" type="number"></FormGroupCustom>
       <button class="btn btn-primary w-100 mt-3 mb-3 "  type="submit">Invia</button>
     </form>

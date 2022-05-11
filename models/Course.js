@@ -14,7 +14,8 @@ const courseSchema = new mongoose.Schema({
     requiredTag: {type: Number, required: true},
     lessons: {type: [lessonSchema], required: true},
     modules:{type: [moduleSchema], required: true},
-    menu: {type: [menuSchema], required: true}
+    menu: {type: [menuSchema], required: true},
+    reverse: {type: Boolean, default: false},
 })
 
 

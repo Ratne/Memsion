@@ -41,7 +41,8 @@ export default {
     menu: {type: Array, default: () => []},
     link: {type: Array, default: () => []},
     courseId: {type: String},
-    isAdmin: {type: Boolean , default: true}
+    isAdmin: {type: Boolean , default: true},
+
   },
   methods: {
     clickUrl(url) {
@@ -66,8 +67,7 @@ export default {
         }
       })
     }
-  }
-
+  },
 }
 
 </script>

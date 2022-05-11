@@ -3,10 +3,11 @@
 <div class="container-fluid">
       <div v-if="course" class="row">
         <div class="col-sm-12 col-md-3">
-       <CourseMenu class="menuAdmin" :link="course.menu"  :courseId="course._id" :menu="menu" />
+       <CourseMenu :reverse=course.reverse class="menuAdmin" :link="course.menu"  :courseId="course._id" :menu="menu" />
         </div>
         <div class="col-sm-12 col-md-9">
           <SummaryCourse  :course="course" @showEdit="showEdit = true"/>
+
 
           <EditCourse  class="mt-5" :course="course" @updateCourse="editCourseAction" v-if="showEdit" @closeModalView="closeModalView"/>
 

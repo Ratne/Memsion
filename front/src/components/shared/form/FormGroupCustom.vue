@@ -6,6 +6,7 @@
     <input :disabled="disabled" v-if="type === 'number'" :placeholder="label" :value="value" @input="$emit('update:value', $event.target.value)" :class="['form-control', {error: error}]" :type="type" :name="name" />
     <input :disabled="disabled" v-if="type === 'password'" :placeholder="label" :value="value" @input="$emit('update:value', $event.target.value)" :class="['form-control', {error: error}]" :type="type" :name="name" />
     <input :disabled="disabled" v-if="type === 'file'" :value="value" @input="$emit('update:value', $event.target.value)" :class="['form-control', {error: error}]" :type="type" :name="name" />
+    <input :disabled="disabled" v-if="type === 'checkbox'" :checked="value" @change="$emit('update:value', $event.target.checked)" :class="['form-check-input', {error: error}]" :type="type" :name="name" />
     <textarea :disabled="disabled" v-if="type === 'textarea'" :value="value" @change="$emit('update:value', $event.target.value)" :class="['form-control', {error: error}]" :type="type" :name="name" >{{value}}</textarea>
     <div style="color: red" v-if="error">{{error}}</div>
   </div>

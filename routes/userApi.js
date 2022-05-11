@@ -25,6 +25,17 @@ const autoLoginSchema = Joi.object({
     userKey: Joi.string().required(),
 })
 
+function makeSecret(length) {
+    let result           = '';
+    let characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    let charactersLength = characters.length;
+    for ( let i = 0; i < length; i++ ) {
+        result += characters.charAt(Math.floor(Math.random() *
+            charactersLength));
+    }
+    return result;
+}
+
 const customField = (userId,userObjectId,userKey) =>{
     axios.get('https://api.infusionsoft.com/crm/rest/v1/contacts/model', {
         headers: {
@@ -96,7 +107,8 @@ router.post('/register', async (req, res) => {
         surname: obj.surname,
         email: obj.email,
         password: hashPassword,
-        infusionsoftId: obj.contactId
+        infusionsoftId: obj.contactId,
+        userKey: makeSecret(7)
     });
     try {
         const savedUser = await user.save();

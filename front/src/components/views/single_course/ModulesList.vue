@@ -26,7 +26,8 @@ export default {
   name: 'ModulesList',
   components: {TitleH1, IconButton},
   props: {
-    modules: {type: Array, default: ()=> [] }
+    modules: {type: Array, default: ()=> [] },
+
   },
 
 }

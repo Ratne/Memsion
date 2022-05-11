@@ -1,5 +1,5 @@
 <template>
-    <div v-for="(m, index) in lessons">
+    <div v-for="(m, index) in moduleSorted">
       <div class="row mb-3" v-if="m.lessons && m.lessons.length" >
         <TitleH3 class="moduleLabel" :label="m.label"></TitleH3>
           <div class="col-lg-3 col-md-4 col-sm-6 mb-3 pointer" @click="$emit('goToLesson', lesson, m.label)" v-for="lesson in m.lessons">
@@ -27,8 +27,17 @@ export default {
   props: {
     lessons: {
       type: Object
-    }
+    },
+    reverse: {
+      type: Boolean,
+      default: false
+  }
   },
+  computed: {
+    moduleSorted() {
+      return this.reverse ? [...this.lessons].reverse() : this.lessons;
+    }
+  }
 }
 </script>
 

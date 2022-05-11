@@ -29,7 +29,8 @@
 
             <div class="col-12">
             <div class="px-md-5 px-2 pt-5 pb-5">  <TitleH3 class="mt-3" label="Scegli una lezione"></TitleH3>
-              <ListLessons :lessons="menu" @goToLesson="goToLesson"></ListLessons></div>
+
+              <ListLessons :reverse="course.reverse" :lessons="menu" @goToLesson="goToLesson"></ListLessons></div>
             </div>
           </div>
         </div>
