@@ -5,6 +5,7 @@
           <div class="col-lg-3 col-md-4 col-sm-6 mb-3 pointer" @click="$emit('goToLesson', lesson, m.label)" v-for="lesson in m.lessons">
           <div class="itemLesson"> <TitleH2 class="cardText" :label="lesson.name" />
             <img class="w-100" :src="lesson.image">
+
           <ButtonPrimary class="mt-3 w-100 buttonVideo" label="Guarda"></ButtonPrimary>
           </div>
           </div>

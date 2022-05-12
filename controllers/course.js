@@ -231,9 +231,9 @@ exports.lessonUsersUpdate = (req, res) => {
             Course.updateOne({'lessons._id': idLesson},
                 {$addToSet: {'lessons.$.users': user}},
                 {}).then(resp => {
-                res.status(200)
-            }).catch(err => console.log(err));
-        } else res.status(200)
+                res.status(200).send({message: 'Aggiornato'})
+            }).catch(err => console.log(err))
+        } else res.status(200).send({message: 'Aggiornato'})
     })
 
 }

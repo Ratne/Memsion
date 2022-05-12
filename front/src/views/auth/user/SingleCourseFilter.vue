@@ -5,7 +5,7 @@
       <div class="col-sm-12">
         <div class="containerCourseLesson">
           <div v-if="selectLesson">
-            <SelectLesson :idLesson="selectLesson.idLesson" :selectModuleLabel="selectModuleLabel" :idCourse="course._id" :courseName="course.name"/>
+            <SelectLesson @goToLesson="goToLesson" :moduleList=menu :idLesson="selectLesson.idLesson" :idCourse="course._id" :courseName="course.name"/>
           </div>
           <div class="containerBackground px-md-5 px-2" v-else>
             <TitleH3 label="Introduzione"/>
@@ -14,6 +14,7 @@
                 <img :src="course.image"/>
               </div>
 
+              <br>
               <div class="courseIntroduction">
                 <div class="courseHeading">
                   <TitleH2 :label="course.name"></TitleH2>
@@ -117,7 +118,8 @@ export default {
                 return {
                   name: lesson.name,
                   image: lesson.image,
-                  idLesson: lesson._id
+                  idLesson: lesson._id,
+                  module: lesson.module,
                 }
               }
           )
