@@ -9,6 +9,7 @@
           <div class="text-truncate"> Url: {{ m.url }}</div>
 
           <icon-button label="Elimina" @clickEvent="deleteVoice(m._id)" icon="bi bi-trash2"/>
+<!--          <icon-button label="Modifica" @clickEvent="editVoice(m._id)" icon="bi bi-trash2"/>-->
 
         </div>
 </div>

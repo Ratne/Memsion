@@ -7,9 +7,9 @@
       <video-custom @timeupdate="timeUpdate"  :url="lesson.video" />
     </div>
     <div v-else-if="lesson.script" >
-      <Suspense>
+
          <PlayerExt :script="lesson.script" />
-      </Suspense>
+
     </div>
     <button-primary @click="lessonPrev" :disabled="!prevLesson" class="mt-3" label="Indietro"></button-primary>
     <button-primary @click="lessonNext" :disabled="!nextLesson" class="mt-3" label="Avanti"></button-primary>

@@ -45,6 +45,8 @@ import {http} from "../utils/http";
 import Navbar from "../components/core/Navbar";
 import TitleH1 from "../components/shared/design/TitleH1";
 import ButtonPrimary from "../components/shared/design/ButtonPrimary";
+import {passwordResetCall} from "../services/userService";
+
 export default {
   data(){
     return {
@@ -77,7 +79,7 @@ export default {
       if (this.checkLogin) {
 
         this.isActive=true
-        http.post(process.env.VUE_APP_URL+'/password-reset', this.user).then(res =>{
+        passwordResetCall(this.user).then(res =>{
           this.password=true;
           this.form=false;
         })

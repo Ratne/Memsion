@@ -42,3 +42,7 @@ export const importUser = (data) => {
 export const autoLogin = (data) =>{
     return http.post("/autologin", data )
 }
+
+export const passwordResetCall = (data) =>{
+    return http.post("/password-reset", data )
+}

@@ -2,10 +2,10 @@
   <div class="container mt-5">
     <div class="row ">
       <div class="col-12 mt-5">
-     <h3 class="text-center">Importa Utenti</h3>
-        <h2 class="text-start">Istruzioni:</h2>
+     <TitleH3 label="Importa Utenti" />
+        <title-h2 label="Istruzioni" />
         <p class="text-start">Per importare correttamente gli utenti nella piattaforma esportare gli utenti da infusionsoft
-          e preparare un file csv (SENZA HEADER) con le seguenti colonne (tutti i campi sono richiesti nell'ordine in cui sono qui sotto)</p>
+          e preparare un file csv (SENZA INTESTAZIONE) con le seguenti colonne (tutti i campi sono richiesti, tranne il surname (lasciare la colonna bianca) nell'ordine in cui sono qui sotto)</p>
         <div class="col-3">
           <ol class="list-group list-group-numbered text-start">
             <li class="list-group-item">Nome</li>
@@ -37,12 +37,14 @@
 
 import GoBack from "../../../components/shared/design/GoBack";
 import {importUser} from "../../../services/userService";
+import TitleH3 from "../../../components/shared/design/TitleH3";
+import TitleH2 from "../../../components/shared/design/TitleH2";
 
 
 
 export default {
   name: 'ImportUser',
-  components: {GoBack},
+  components: {TitleH2, TitleH3, GoBack},
   data(){
     return {
       file: '',

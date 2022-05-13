@@ -9,6 +9,7 @@
       <span class="text-start">Contenuto Lezione</span>
       <editor-text-area v-model:dataValue="editLesson.content" />
       <FormGroupCustom v-model:value="editLesson.video" label="video" type="text"></FormGroupCustom>
+      <FormGroupCustom v-model:value="editLesson.script" label="script" type="text"></FormGroupCustom>
       <FormGroupCustom :error="errors['requiredTag']" v-model:value="editLesson.requiredTag" label="tag" type="number"></FormGroupCustom>
       <button class="btn btn-primary mt-3 mb-3 "  type="submit">Modifica Lezione</button>
     </form>
