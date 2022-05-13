@@ -10,6 +10,7 @@ const Course = require("../models/Course");
 const AutoLogin = require("../models/Autologin")
 const mongoose = require("mongoose");
 const updateInfusionsoftUser = require("../utils/serviceUser");
+const {userRegistrationEmail} = require("../utils/userEmail");
 const schema = Joi.object({
     name: Joi.string().required(),
     surname: Joi.string(),
@@ -71,18 +72,7 @@ router.post('/register', async (req, res) => {
         })
 
         // send email
-        const emailSend = `
-                    <div align="center"><img alt="logo" width="30%" src="${process.env.PATH_LOGO}" /></div>
-                    <h2>Benvenuto nella piattaforma dei corsi</h2>
-                    <p>Ciao ${obj.name} da Davide</p>
-                    <p>In questa piattaforma potrai visualizzare tutti i corsi
-                    ai quali hai avuto accesso o hai acquistato</p>
-                    <p>Per poter procedere al login ti inserisco qui sotto username e password</p>
-                    <p>La tua username è: ${obj.email}</p>
-                    <p>La tua password è: ${randomPassword}</p> 
-                    <p>Puoi procedere all'accesso dalla seguente url ${process.env.URL_PIATTAFORMA}</p>
-                         `;
-        await sendEmail(user.email, "Benvenuto a bordo", emailSend);
+       await sendEmail(user.email, "Benvenuto a bordo", userRegistrationEmail(obj.name, obj.email, randomPassword))
 
     }
     catch (err){
@@ -178,9 +168,9 @@ router.post('/login' , async (req,res) =>{
     const user = await User.findOne({
         email: obj.email
     });
-    if (!user) return res.status(400).send({errorMessage: 'Email or password wrong'});
+    if (!user) return res.status(400).send({errorMessage: 'Email o password errate'});
     const validPass = await bcrypt.compare(obj.password, user.password);
-    if (!validPass) return res.status(400).send({errorMessage: 'Email or password wrong'});
+    if (!validPass) return res.status(400).send({errorMessage: 'Email o password errate'});
 
     const token = jwt.sign(
         {_id: user._id, isAdmin: user.isAdmin},

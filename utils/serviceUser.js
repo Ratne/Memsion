@@ -49,6 +49,8 @@ const updateInfusionsoftUser = (userId,userObjectId,userKey) =>{
         })
 
 
+    }).catch(err => {
+        console.log(err)
     })
 }
 

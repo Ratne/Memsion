@@ -5,14 +5,22 @@
      <TitleH3 label="Importa Utenti" />
         <title-h2 label="Istruzioni" />
         <p class="text-start">Per importare correttamente gli utenti nella piattaforma esportare gli utenti da infusionsoft
-          e preparare un file csv (SENZA INTESTAZIONE) con le seguenti colonne (tutti i campi sono richiesti, tranne il surname (lasciare la colonna bianca) nell'ordine in cui sono qui sotto)</p>
+          e preparare un file csv (CON INTESTAZIONE) con le seguenti colonne (Email e Id sono obbligatori) nell'ordine in cui sono qui sotto)</p>
+        <button-primary v-if="instructions === false" @buttonClick="instructions = true" label="Mostra Istruzioni" class="mb-3" />
+        <div v-if="instructions">
+          <img src="/assets/import.gif" alt="import" class="img-fluid mb-5">
+
         <div class="col-3">
+          <TitleH2 class="mt-1 mb-1" label="Colonne CSV" />
+          <div class="mb-1 mt-1"><a href="/assets/import.csv">Scarica CSV D'Esempio</a></div>
           <ol class="list-group list-group-numbered text-start">
-            <li class="list-group-item">Nome</li>
-            <li class="list-group-item">Cognome</li>
+            <li class="list-group-item">Id</li>
+            <li class="list-group-item">First Name</li>
+            <li class="list-group-item">Last Name</li>
             <li class="list-group-item">Email</li>
-            <li class="list-group-item">Infusionsoft id</li>
           </ol>
+        </div>
+          <button-primary v-if="instructions === true" @buttonClick="instructions = false" label="Chiudi Istruzioni" class="mb-3 mt-3" />
         </div>
       </div>
     </div>
@@ -39,15 +47,17 @@ import GoBack from "../../../components/shared/design/GoBack";
 import {importUser} from "../../../services/userService";
 import TitleH3 from "../../../components/shared/design/TitleH3";
 import TitleH2 from "../../../components/shared/design/TitleH2";
+import ButtonPrimary from "../../../components/shared/design/ButtonPrimary";
 
 
 
 export default {
   name: 'ImportUser',
-  components: {TitleH2, TitleH3, GoBack},
+  components: {ButtonPrimary, TitleH2, TitleH3, GoBack},
   data(){
     return {
       file: '',
+      instructions: false
     }
   },
   methods:{

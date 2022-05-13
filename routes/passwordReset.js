@@ -6,6 +6,7 @@ const Joi = require("joi");
 const express = require("express");
 const router = express.Router();
 const bcrypt = require("bcryptjs");
+const {userPasswordReset} = require("../utils/userEmail");
 
 router.post("/", async (req, res) => {
     try {
@@ -25,15 +26,7 @@ router.post("/", async (req, res) => {
             }).save();
         }
 
-        const emailSend = `
-                            <h2>Resetta la tua password</h2>
-                            <p>Ciao da Davide</p>
-                            <p>Abbiamo ricevuto una richiesta per recuperare la tua password</p>
-                            <p>Se sei stato te ti basterà seguire questo link qui sotto</p>
-                            <p>Altrimenti ti basterà ignorare questa email</p>
-                            <p>Per resettare la tua password segui questo link:
-                            ${process.env.FRONT_URL}password-reset/${user._id}/${token.token}</p>
-                         `;
+        const emailSend = userPasswordReset(user._id, token.token);
         await sendEmail(user.email, "Reimposta la tua password", emailSend);
 
         res.send("Se questa email esiste riceverai a breve una email di reset");
@@ -53,22 +46,22 @@ router.post("/:userId/:token", async (req, res) => {
 
         const user = await User.findById(req.params.userId);
 
-        if (!user) return res.status(400).send("invalid link or expired");
+        if (!user) return res.status(400).send("Link non valido o scaduto");
 
         const token = await Token.findOne({
             userId: user._id,
             token: req.params.token,
         });
-        if (!token) return res.status(400).send("Invalid link or expired");
+        if (!token) return res.status(400).send("Link non valido o scaduto");
         let salt = await bcrypt.genSalt(10);
         let hashPassword = await bcrypt.hash(req.body.password, salt);
         user.password = hashPassword;
         await user.save();
         await token.delete();
 
-        res.send({errorMessage: 'Password reset'});
+        res.send({errorMessage: 'Password reimpostata'});
     } catch (error) {
-        res.send({errorMessage: 'An error occurred'});
+        res.send({errorMessage: 'Errore: contattare l\'amministratore'});
         console.log(error);
     }
 });

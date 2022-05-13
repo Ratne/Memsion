@@ -2,14 +2,14 @@
   <div class="container mt-5">
     <div class="row">
       <div class="col-12 mt-5">
-          <h3 class="mt-3">Configurazioni aggiuntive</h3>
+          <TitleH3 label="Configurazioni Aggiuntive" />
       </div>
     </div>
 </div>
 
 <div class="container">
 
-  <h3 class="text-start">Istruzioni:</h3>
+  <TitleH3 label="Istruzioni" />
   <p class="text-start">Recati in Keap max pro / infusionsoft , admin / settings e Set up custom fields for: Contact , clicca GO, <br>
     ora clicca "Add a section Header" (facoltativo) così da inserire una sezione dedicata solo a Memsion, ora clicca add a custom field<br>
     Inserisci un nome come ad esempio "CustomMemsionId" di tipo text e fai salva, ripeti la procedura inserendo un altro campo chiamato ad esempio
@@ -18,7 +18,7 @@
     e copialo nei campi qui sotto. <br><b>Importante:</b> ricordati che NON devi inserire "_" (underscore) prima del nome come da istruzioni di infusionsoft</p>
   <h3 class="text-start mt-3">Istruzioni autologin:</h3>
   <p class="text-start">Dopo aver completato la procedura qui sotto per effettuare correttamente l'autologin dovrai creare in infusionsoft
-  dei link nelle tue email in questo modo: <code>https://iltuositoweb/linklezioneolinkcorso?userapi=~CustomMemsionId~&userkey=~MemsionUserKey~
+  dei link nelle tue email in questo modo: <code>{{urlSito}}/linklezioneOlinkcorso?userapi=~CustomMemsionId~&userkey=~MemsionUserKey~
     </code> ovviamente passati in modo dinamico ~CustomField1~ e ~CustomField2~
   </p>
 
@@ -40,21 +40,21 @@
 
 import FormGroupCustom from "../../../components/shared/form/FormGroupCustom";
 import {
-  customerUpdate,
   customIdUpdate,
   customKeyGet,
 } from "../../../services/userService";
-import {keapLogin} from "../../../services/adminService";
+import TitleH3 from "../../../components/shared/design/TitleH3";
 
 
 
 
 export default {
   name: 'Config',
-  components: {FormGroupCustom},
+  components: {TitleH3, FormGroupCustom},
   data(){
     return {
       user: {},
+      urlSito: process.env.VUE_APP_URL,
       disabled: false
     }
   },

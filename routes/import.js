@@ -8,6 +8,7 @@ const bcrypt = require("bcryptjs");
 const sendEmail = require("../utils/sendEmail");
 const AutoLogin = require("../models/Autologin");
 const updateInfusionsoftUser = require("../utils/serviceUser");
+const {userRegistrationEmail} = require("../utils/userEmail");
 
 
 const storage = multer.diskStorage({
@@ -39,7 +40,6 @@ async function findUser(userEmail) {
      await User.findOne({
         email: userEmail
     })
-    console.log(userFind)
     return userFind
 }
 
@@ -62,17 +62,7 @@ async function saveUser (userData) {
             })
 
             // invio email all'utente
-            const emailSend = `
-                    <div align="center"><img alt="logo" width="30%" src="${process.env.PATH_LOGO}" /></div>
-                    <h2>Benvenuto nella piattaforma dei corsi</h2>
-                    <p>Ciao ${ele.name} da Davide</p>
-                    <p>In questa piattaforma potrai visualizzare tutti i corsi
-                    ai quali hai avuto accesso o hai acquistato</p>
-                    <p>Per poter procedere al login ti inserisco qui sotto username e password</p>
-                    <p>La tua username è: ${ele.email}</p>
-                    <p>La tua password è: ${randomPassword}</p> 
-                    <p>Puoi procedere all'accesso dalla seguente url ${process.env.URL_PIATTAFORMA}</p>
-                         `;
+            const emailSend = userRegistrationEmail(ele.name, ele.email, randomPassword);
             await sendEmail(ele.email, "Benvenuto a bordo", emailSend);
         }
     }
@@ -85,20 +75,21 @@ function uploadToMongo(filePath) {
     let stream = fs.createReadStream(filePath)
     const users =[]
     let csvStream = csv
-        .parse()
+        .parse({headers: true})
         .on('data', (data) => {
-
             users.push({
-                name: data[0],
-                surname: data[1] || '',
-                email:data[2],
-                infusionsoftId: data[3],
+                name: data["First Name"] || '',
+                surname: data["Last Name"] || '',
+                email:data.Email,
+                infusionsoftId: data.Id,
                 userKey: makeSecret(7),
             })
         })
         .on('end', () => {
           saveUser(users).then(res =>{
 
+          }).catch(err => {
+              console.log(err)
           })
 
 
