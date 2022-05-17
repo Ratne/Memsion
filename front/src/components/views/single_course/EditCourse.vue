@@ -6,7 +6,7 @@
        <span>Descrizione Corso</span>
        <editor-text-area :error="errors['description']" v-model:dataValue="editCourse.description" />
        <FormGroupCustom :error="errors['requiredTag']" v-model:value="editCourse.requiredTag" label="tag" type="number"></FormGroupCustom>
-       <FormGroupCustom v-model:value="editCourse.reverse" label="ordine inverso" type="checkbox"></FormGroupCustom>
+       <div class="d-flex align-items-center"> <label class="me-2">Ordine inverso</label> <FormGroupCustom v-model:value="editCourse.reverse" type="checkbox"></FormGroupCustom></div>
        <button class="btn btn-primary w-100 mt-3 mb-3 "  type="submit">AGGIORNA CORSO</button>
      </form>
     <icon-button label="Chiudi" icon="bi bi-x-circle" @click="closeModalView"/>

@@ -4,7 +4,7 @@
         <TitleH3 class="moduleLabel" :label="m.label"></TitleH3>
           <div class="col-lg-3 col-md-4 col-sm-6 mb-3 pointer" @click="$emit('goToLesson', lesson, m.label)" v-for="lesson in m.lessons">
               <div :class="['itemLesson', {selected: selectLesson && selectLesson._id === lesson.idLesson}]"> <TitleH2 class="cardText" :label="lesson.name" />
-                <img class="w-100" :src="lesson.image">
+               <div class="imgLesson"> <img class="w-100" :src="lesson.image"> </div>
               <ButtonPrimary class="mt-3 w-100 buttonVideo" label="Guarda"></ButtonPrimary>
           </div>
           </div>
@@ -61,6 +61,16 @@ export default {
   }
   background: white;
   padding: 20px;
+  .imgLesson{
+    max-height: 130px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    min-height: 130px;
+  }
+  &.selected{
+    border: 2px solid $dark;
+  }
 }
 .cardText{
   overflow: hidden;

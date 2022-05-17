@@ -27,6 +27,7 @@ export default {
 
 <style lang="scss" scoped>
 #ext{
-  height: 500px;
+  //min-height: 300px;
+  aspect-ratio: 16/9;
 }
 </style>

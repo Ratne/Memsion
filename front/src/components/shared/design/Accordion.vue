@@ -23,7 +23,7 @@ export default {
   props: {
     title: {type: String},
     index: {},
-    rightContent: {type: String}
+    rightContent: {type: String || Number}
   },
 
   computed:{

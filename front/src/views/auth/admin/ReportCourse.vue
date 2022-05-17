@@ -4,6 +4,7 @@
       <div class="row">
         <div class="col-12">
         <TitleH1 label="Report Utenti"></TitleH1>
+
           <SummaryCourseStats :users="report.list"></SummaryCourseStats>
 
         </div>

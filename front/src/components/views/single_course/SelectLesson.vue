@@ -11,8 +11,10 @@
          <PlayerExt :script="lesson.script" />
 
     </div>
-    <button-primary @click="lessonPrev" :disabled="!prevLesson" class="mt-3" label="Indietro"></button-primary>
-    <button-primary @click="lessonNext" :disabled="!nextLesson" class="mt-3" label="Avanti"></button-primary>
+    <div class="d-flex justify-content-end">
+      <button-primary @click="lessonPrev" :disabled="!prevLesson" class="mt-3 me-3 bg-dark text-white" label="Indietro"></button-primary>
+      <button-primary @click="lessonNext" :disabled="!nextLesson" class="mt-3 bg-dark text-white" label="Avanti"></button-primary>
+    </div>
     <TitleH4 class="mt-3" :label="moduleLabel"></TitleH4>
     <div class="lessonDescription" v-html="lesson.description"></div>
 

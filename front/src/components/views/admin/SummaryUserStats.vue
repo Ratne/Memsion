@@ -21,11 +21,11 @@ export default {
         let singlePercentage = 0;
         course.lessons.forEach(lesson => {
 
-          singlePercentage+= lesson.users[0].percentage
+          singlePercentage+= +lesson.users[0].percentage
 
         })
 
-       return singlePercentage/course.lessons.length
+       return (singlePercentage/course.lessons.length).toFixed(2)
 
     }
   }

@@ -9,8 +9,23 @@
       <span class="text-start">Contenuto Lezione</span>
       <editor-text-area v-model:dataValue="lesson.content" />
       <FormGroupCustom name="image" :error="errors['image']" @change="onFileChange" label="image" type="file"></FormGroupCustom>
-      <FormGroupCustom v-model:value="lesson.video" label="video" type="text"></FormGroupCustom>
-      <FormGroupCustom v-model:value="lesson.script" label="script" type="text"></FormGroupCustom>
+      <div class="py-2">
+        <label class="me-3">Scegli il tipo della lezione: </label>
+        <div class="form-check form-check-inline">
+          <input v-model="lessonType" class="form-check-input" type="radio" name="type" id="video" value="video">
+          <label class="form-check-label" for="video">
+            Video
+          </label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input v-model="lessonType" class="form-check-input" type="radio" name="type" id="script" value="script" >
+          <label class="form-check-label" for="script">
+            Script
+          </label>
+        </div>
+      </div>
+      <FormGroupCustom v-if="lessonType === 'video'" v-model:value="lesson.video" label="video" type="text"></FormGroupCustom>
+      <FormGroupCustom v-else v-model:value="lesson.script" label="script" type="text"></FormGroupCustom>
       <FormGroupCustom :error="errors['requiredTag']" v-model:value="lesson.requiredTag" label="tag" type="number"></FormGroupCustom>
       <button class="btn btn-primary w-100 mt-3 mb-3 "  type="submit">Invia</button>
     </form>
@@ -39,6 +54,7 @@ export default {
 
     return {
       lesson: {},
+      lessonType: 'video',
       validazione: [
         {
           name: 'name',
@@ -81,6 +97,17 @@ export default {
     allValidations(){
       return [...this.validazione]
 
+    }
+  },
+  watch: {
+    lessonType(newValue, oldValue){
+      if (newValue === 'video') {
+        this.lesson.video = ''
+        this.lesson.script = undefined
+      } else {
+        this.lesson.video = undefined
+        this.lesson.script = ''
+      }
     }
   }
 }

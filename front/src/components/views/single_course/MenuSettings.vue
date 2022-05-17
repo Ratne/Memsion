@@ -7,10 +7,10 @@
         <div class="mt-2 bgGrayLight p-3 me-3 menuClass" v-for="m in menu">
           <div>Label: {{ m.label }}</div>
           <div class="text-truncate"> Url: {{ m.url }}</div>
-
+<div class="pt-3">
           <icon-button label="Elimina" @clickEvent="deleteVoice(m._id)" icon="bi bi-trash2"/>
-<!--          <icon-button label="Modifica" @clickEvent="editVoice(m._id)" icon="bi bi-trash2"/>-->
-
+<!--          <icon-button label="Modifica" @clickEvent="editVoice(m._id)" class="ms-3"  icon="bi bi-pencil"/>-->
+</div>
         </div>
 </div>
         <div class="mt-3">
