@@ -246,20 +246,25 @@ exports.lessonOrderUpdate = (req, res) => {
     const moduleId = req.body.moduleId
     Course.findOne(
         {_id: mongoose.Types.ObjectId(_id)}, {lessons: 1}).then(response => {
-        const lesson = response.lessons.find(lesson => lesson._id.toString() === lessonId)
+        const lessonIndex = response.lessons.findIndex(lesson => lesson._id.toString() === lessonId);
+        const lesson = response.lessons[lessonIndex];
         if (moduleId) {
             lesson.module = moduleId
         }
         const moduleLesson = response.lessons.filter(less => lesson.module === less.module)
         const prevLesson = moduleLesson[position]
+        console.log(prevLesson)
+        console.log('LessonIndex ' + lessonIndex);
         if (prevLesson && lesson) {
             const newLessonArray = response.lessons;
             const positionArray = newLessonArray.findIndex(lesson => lesson._id.toString() === prevLesson._id.toString())
             console.log(positionArray, position)
-            const result = [...newLessonArray.filter((ele, index) => index <= positionArray && ele._id.toString() !== lesson._id.toString() ), lesson,
-                ...newLessonArray.filter((ele, index) => index > positionArray && ele._id.toString() !== lesson._id.toString())]
-            res.send(result)
-            //Course.updateOne({_id}, {lessons: result}).then(response => {  console.log(response); res.status(200).send({Errormessage: 'Ordine aggiornato', result})})
+            const before = newLessonArray.filter((ele, index) => (lessonIndex > position ? index < positionArray : index <= positionArray) && ele._id.toString() !== lesson._id.toString() )
+            const after = newLessonArray.filter((ele, index) => (lessonIndex > position ? index >= positionArray : index>positionArray) && ele._id.toString() !== lesson._id.toString())
+            const result = [...before, lesson, ...after]
+            console.log('Before '+JSON.stringify(before.length))
+            console.log('After '+JSON.stringify(after.length))
+            Course.updateOne({_id}, {lessons: result}).then(response => {  console.log(response); res.status(200).send({errorMessage: 'Ordine aggiornato', result})})
         }
         else res.status(400).send({message: 'Lezione o posizione non corretta'})
 

@@ -25,6 +25,7 @@
     <!--summary course-->
       </div>
       <div class="mt-3"><icon-button icon="bi bi-bar-chart" label="Vai al Report" @clickEvent="goToReport"  /></div>
+      <div class="mt-3"><icon-button icon="bi bi-chevron-bar-contract" label="Ordina Lezioni" @clickEvent="goToAllLesson"  /></div>
     </div>
 
   </div>
@@ -79,6 +80,14 @@ export default {
     goToReport(){
       this.$router.push({
         name: 'ReportCourse',
+        params: {
+          courseId: this.course._id,
+        }
+      })
+    },
+    goToAllLesson(){
+      this.$router.push({
+        name: 'ListAllLessons',
         params: {
           courseId: this.course._id,
         }
