@@ -46,7 +46,7 @@ router.get("/courses/:id/lesson/:idLesson", CourseController.lessonShow)
 router.get("/courses/:id/lesson/:idLesson/user", CourseController.lessonFilterShow)
 router.get("/courses/:id/modules/:idModule",typeCourse,CourseController.moduleShow)
 router.get("/courses/:id/report",typeCourse,CourseController.reportCourse)
-
+router.get("/courses/:id/list_lessons",typeCourse,CourseController.allCourseLessons)
 
 
 

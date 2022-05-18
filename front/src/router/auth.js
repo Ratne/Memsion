@@ -12,6 +12,7 @@ import Config from "../views/auth/admin/Config";
 import ImportUser from "../views/auth/admin/ImportUser";
 import Profile from "../views/auth/user/Profile";
 import ReportCourse from "../views/auth/admin/ReportCourse";
+import ListAllLessons from "../views/auth/admin/ListAllLessons";
 
 
 
@@ -33,6 +34,14 @@ const authRoutes = [
     path: 'course/:courseId/lesson/:lessonId',
     name: 'SingleLesson',
     component: SingleLesson,
+    meta: {
+      isAdmin: true
+    }
+  },
+  {
+    path: 'course/:courseId/list-lessons',
+    name: 'ListAllLessons',
+    component: ListAllLessons,
     meta: {
       isAdmin: true
     }

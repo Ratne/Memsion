@@ -4,6 +4,7 @@
     <div class="row">
       <div class="col-sm-12">
         <div class="containerCourseLesson">
+
           <div v-if="selectLesson">
             <SelectLesson @goToLesson="goToLesson" :moduleList=menu :idLesson="selectLesson.idLesson" :idCourse="course._id" :courseName="course.name"/>
           </div>
@@ -87,7 +88,8 @@ export default {
           id: this.course._id,
           idLesson: lesson.idLesson
         }})
-      this.selectLesson = lesson
+      const l =  this.course.lessons.find(ele => ele._id === lesson.idLesson)
+      this.selectLesson = {...l, idLesson: l._id}
       this.selectModuleLabel= moduleLabel
       window.scrollTo(0,0)
     },

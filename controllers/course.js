@@ -255,9 +255,11 @@ exports.lessonOrderUpdate = (req, res) => {
         if (prevLesson && lesson) {
             const newLessonArray = response.lessons;
             const positionArray = newLessonArray.findIndex(lesson => lesson._id.toString() === prevLesson._id.toString())
-            const result = [...newLessonArray.filter((ele, index) => index < positionArray && ele._id.toString() !== lesson._id.toString() ), lesson,
-                ...newLessonArray.filter((ele, index) => index >= positionArray && ele._id.toString() !== lesson._id.toString())]
-            Course.updateOne({_id}, {lessons: result}).then(response => {  res.status(200).send({message: 'Ordine aggiornato', result})})
+            console.log(positionArray, position)
+            const result = [...newLessonArray.filter((ele, index) => index <= positionArray && ele._id.toString() !== lesson._id.toString() ), lesson,
+                ...newLessonArray.filter((ele, index) => index > positionArray && ele._id.toString() !== lesson._id.toString())]
+            res.send(result)
+            //Course.updateOne({_id}, {lessons: result}).then(response => {  console.log(response); res.status(200).send({Errormessage: 'Ordine aggiornato', result})})
         }
         else res.status(400).send({message: 'Lezione o posizione non corretta'})
 
@@ -474,4 +476,32 @@ exports.reportCourse = (req, res) => {
             res.send({list})
 
         })
+};
+
+
+exports.allCourseLessons = (req, res) => {
+    const _id = req.params.id;
+
+    Course.aggregate(
+        [
+            {"$match": {_id: mongoose.Types.ObjectId(_id)}},
+            {
+                "$project": {
+                    modules: 1,
+                    lessons:  1
+
+                        },
+                    },
+                    { $unwind: "$lessons" },
+            {$group: {_id: '$lessons.module', lessons: {$push: '$lessons'}, modules: {$first: "$modules"},}},
+        ],
+        function (err, response) {
+            if (response.length && response[0].modules.length) {
+                const modules = response[0].modules;
+                res.send(modules.map(ele => ({
+                    ...ele, lessons: response.find(el => el._id.toString() === ele._id.toString())?.lessons || []
+                })))
+            } else res.send({lessons: []})
+        }
+    )
 };

@@ -49,3 +49,7 @@ export const courseDeleteMenu = (id, idMenu) => {
 export const courseReport = (id) => {
     return http.get(`${url}/${id}/report`)
 }
+
+export const listAllLesson = (id) => {
+    return http.get(`${url}/${id}/list_lessons`)
+}

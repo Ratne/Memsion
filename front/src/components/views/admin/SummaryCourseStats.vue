@@ -1,6 +1,6 @@
 <template>
   <template v-for="(user, index) in users">
-    <Accordion :title="user.user[0].name +' ' + user.user[0].surname" :right-content="coursePercentage(user)" :index="index">
+    <Accordion v-if="user.user[0]" :title="user.user[0].name +' ' + user.user[0].surname" :right-content="coursePercentage(user)" :index="index">
 
       <div class="w-100 d-flex" v-for="lesson in user.lessons"><span><i
           class="bi bi-card-heading me-2"></i> {{ lesson.name }} </span> <span
