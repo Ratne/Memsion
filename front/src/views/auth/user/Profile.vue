@@ -45,7 +45,13 @@ export default {
     user() {
       return this.$store.getters.getUser
     }
-  }
+  },
+  mounted() {
+    this.$store.dispatch('setBackPage', {name: 'Home'})
+  },
+  beforeUnmount() {
+    this.$store.dispatch('resetBackPage')
+  },
 }
 </script>
 <style lang="scss" scoped>

@@ -1,10 +1,10 @@
 <template>
   <div class="mt-5">
-    <form class="text-start" @submit.prevent="addMenu">
-    <FormGroupCustom name="label" :error="errors['label']" v-model:value="menuNew.label" label="label" type="text"></FormGroupCustom>
-    <FormGroupCustom name="url" :error="errors['url']" v-model:value="menuNew.url" label="url" type="text"></FormGroupCustom>
-    <button class="btn btn-primary mt-3 mb-3 "  type="submit">Invia</button>
-  </form>
+    <form class="text-start" @submit.prevent="editMenu">
+      <FormGroupCustom name="label" :error="errors['label']" v-model:value="menuNew.label" label="label" type="text"></FormGroupCustom>
+      <FormGroupCustom name="url" :error="errors['url']" v-model:value="menuNew.url" label="url" type="text"></FormGroupCustom>
+      <button class="btn btn-primary mt-3 mb-3 "  type="submit">Invia</button>
+    </form>
   </div>
 </template>
 
@@ -14,9 +14,10 @@ import {validationMixin} from "../../../mixins/validationMixin";
 import {validationTypeName} from "../../../utils/validationType";
 
 export default {
-  name: "MenuAdd",
+  name: "editMenu",
   components: {FormGroupCustom},
   mixins: [validationMixin],
+  props: ['editMenu'],
   data(){
     return {
       menuNew: {},
@@ -35,14 +36,10 @@ export default {
     }
   },
   methods: {
-    addMenu(){
-      const callback = () =>{
-        this.menuNew = {}
-      }
+    editMenu(){
       if (this.isValid(this.menuNew)){
-        this.$emit('addMenu', {
+        this.$emit('editMenu', {
           menu:  this.menuNew,
-          callback
         } )
       }
 
@@ -52,6 +49,14 @@ export default {
     allValidations(){
       return [...this.validazione]
 
+    }
+  },
+  mounted() {
+    this.menuNew = {...this.editMenu}
+  },
+  watch: {
+    editMenu(){
+      this.menuNew = {...this.editMenu}
     }
   }
 }

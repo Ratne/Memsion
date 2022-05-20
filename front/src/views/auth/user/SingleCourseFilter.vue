@@ -34,6 +34,7 @@
 
               <ListLessons :selectLesson="selectLesson" :reverse="course.reverse" :lessons="menu" @goToLesson="goToLesson"></ListLessons></div>
             </div>
+
           </div>
         </div>
       </div>
@@ -81,6 +82,13 @@ export default {
     }
   },
   methods: {
+    setGoBack(){
+      this.selectLesson ? this.$store.dispatch('setBackPage', {name: 'SingleCourseFilter', params: {id: this.course._id} }) : this.$store.dispatch('setBackPage', {name: 'Home'})
+    },
+    setSelectedLesson(){
+      const lesson = this.course.lessons.find(ele => ele._id === this.$route.params.idLesson)
+      this.selectLesson = lesson ? {...lesson, idLesson: lesson._id} : lesson
+    },
     goToLesson(lesson, moduleLabel) {
       this.$router.push({
         name: routeNames.SingleCourseFilterWithLesson,
@@ -95,15 +103,31 @@ export default {
     },
   },
   mounted() {
+    this.setGoBack();
     coursesFilterShow(this.$route.params.id).then(res => {
       this.course = res
       this.modules = res.modules
       this.link = res.menu
       if (this.$route.params.idLesson) {
-        const lesson = this.course.lessons.find(ele => ele._id === this.$route.params.idLesson)
-        this.selectLesson = lesson ? {...lesson, idLesson: lesson._id} : lesson
+        this.setSelectedLesson()
       }
     });
+  },
+  watch:{
+    selectLesson(){
+      this.setGoBack()
+    },
+    [`$route.params.idLesson`](){
+      if (this.$route.params.idLesson){
+       this.setSelectedLesson()
+      }
+      else {
+        this.selectLesson = undefined
+      }
+      },
+  },
+  beforeUnmount() {
+    this.$store.dispatch('resetBackPage')
   },
 
   computed: {

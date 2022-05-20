@@ -53,6 +53,7 @@ router.get("/courses/:id/list_lessons",typeCourse,CourseController.allCourseLess
 router.post("/courses",typeCourse,CourseController.courseStore)
 router.post("/courses/:id/modules",typeCourse,CourseController.modulesStore)
 router.post("/courses/:id/menu",CourseController.courseAddVoiceMenu)
+router.patch("/courses/:id/menu/edit",CourseController.courseEditMenu)
 router.patch("/courses/:id", CourseController.courseUpdate)
 router.delete("/courses/:id", CourseController.courseDelete)
 router.delete("/courses/:id/menu/:idMenu",CourseController.courseDeleteMenu)

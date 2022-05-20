@@ -30,6 +30,11 @@ export const coursesAddVoiceMenu = (id, data) => {
     return http.post(`${url}/${id}/menu`, data)
 }
 
+export const coursesEditVoiceMenu = (id, data) => {
+    return http.patch(`${url}/${id}/menu/edit`, data)
+}
+
+
 export const coursesUpdate = (data) => {
     return http.patch(`${url}/${data._id}`, data )
 }

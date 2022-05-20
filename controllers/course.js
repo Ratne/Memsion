@@ -253,18 +253,15 @@ exports.lessonOrderUpdate = (req, res) => {
         }
         const moduleLesson = response.lessons.filter(less => lesson.module === less.module)
         const prevLesson = moduleLesson[position]
-        console.log(prevLesson)
-        console.log('LessonIndex ' + lessonIndex);
+
         if (prevLesson && lesson) {
             const newLessonArray = response.lessons;
             const positionArray = newLessonArray.findIndex(lesson => lesson._id.toString() === prevLesson._id.toString())
-            console.log(positionArray, position)
+
             const before = newLessonArray.filter((ele, index) => (lessonIndex > position ? index < positionArray : index <= positionArray) && ele._id.toString() !== lesson._id.toString() )
             const after = newLessonArray.filter((ele, index) => (lessonIndex > position ? index >= positionArray : index>positionArray) && ele._id.toString() !== lesson._id.toString())
             const result = [...before, lesson, ...after]
-            console.log('Before '+JSON.stringify(before.length))
-            console.log('After '+JSON.stringify(after.length))
-            Course.updateOne({_id}, {lessons: result}).then(response => {  console.log(response); res.status(200).send({errorMessage: 'Ordine aggiornato', result})})
+            Course.updateOne({_id}, {lessons: result}).then(response => { res.status(200).send({errorMessage: 'Ordine aggiornato', result})})
         }
         else res.status(400).send({message: 'Lezione o posizione non corretta'})
 
@@ -437,6 +434,19 @@ exports.courseDeleteMenu = (req, res) => {
         res.send({
             response,
             errorMessage: 'Voce Menu Cancellata'
+        })
+
+
+    })
+};
+
+exports.courseEditMenu = (req, res) => {
+    const _id = req.params.id
+    const idMenu = req.body.menu._id
+    Course.updateOne({_id, 'menu._id': (idMenu)}, {$set: {'menu.$': req.body.menu}}).then(response => {
+        res.send({
+            response,
+            errorMessage: 'Voce Menu Aggiornata'
         })
 
 

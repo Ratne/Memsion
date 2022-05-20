@@ -10,6 +10,7 @@
 
 <script>
 import IconButton from "./iconButton";
+
 export default {
   name: "GoBack",
   components: {IconButton},

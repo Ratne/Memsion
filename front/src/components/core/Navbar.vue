@@ -1,9 +1,9 @@
 <template>
   <nav class="navbar bg-white fixed-top navbar-expand navbar-light mb-4 px-md-5 px-2">
-      <a v-if="checkRoute!=='Home' && checkRoute!=='Login'" @click="goBackOne">
+      <a v-if="backRoute" @click="goBackOne">
               <img class="goBackArrow" src="/assets/back.svg" />
       </a>
-    <img src="/assets/logo.svg" class="logoNav me-4 ms-3" alt="logo">
+    <img @click="goHomePage" src="/assets/logo.svg" class="logoNav me-4 ms-3" alt="logo">
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -40,16 +40,24 @@ export default {
       this.$router.push({ name: "Profile" });
     },
     goBackOne(){
-      return this.$router.go(-1)
+      return this.$router.push(this.backRoute)
     },
+    goHomePage(){
+      return this.$router.push({name: 'Home'})
+    }
   },
 
 
   computed:{
-    checkRoute(){
-      return this.$route.name
+    // checkRoute(){
+    //   return this.$route.name
+    // },
+    backRoute(){
+      return this.$store.getters.getBackPage
     }
-  }
+  },
+
+
 }
 </script>
 

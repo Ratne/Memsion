@@ -47,23 +47,36 @@ export default {
     return {
       modules: [],
       drag: false,
+      addedData: undefined,
+      removedData: undefined
     }
   },
   methods: {
     log(evt) {
-      console.log(evt);
       if (evt.moved) {
 
         lessonOrderUpdate(this.$route.params.courseId, evt.moved.element._id, evt.moved.newIndex, evt.moved.element.module)
             .then(res => console.log(res))
       }
+      else if (evt.added){
+        this.addedData = evt.added
+
+      }
+      else if (evt.removed){
+        this.removedData = evt.removed
+      }
 
 
     },
     onEnd(ev){
-      console.log(ev)
-      debugger
       this.drag= false
+      if (this.addedData && this.removedData){
+        lessonOrderUpdate(this.$route.params.courseId, this.addedData.element._id, this.addedData.newIndex, ev.to.dataset.id)
+            .then(res => console.log(res))
+        this.addedData = undefined
+        this.removedData = undefined
+      }
+
     }
   },
   mounted() {
