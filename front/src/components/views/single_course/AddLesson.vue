@@ -10,19 +10,8 @@
       <editor-text-area v-model:dataValue="lesson.content" />
       <FormGroupCustom name="image" :error="errors['image']" @change="onFileChange" label="image" type="file"></FormGroupCustom>
       <div class="py-2">
-        <label class="me-3">Scegli il tipo della lezione: </label>
-        <div class="form-check form-check-inline">
-          <input v-model="lessonType" class="form-check-input" type="radio" name="type" id="video" value="video">
-          <label class="form-check-label" for="video">
-            Video
-          </label>
-        </div>
-        <div class="form-check form-check-inline">
-          <input v-model="lessonType" class="form-check-input" type="radio" name="type" id="script" value="script" >
-          <label class="form-check-label" for="script">
-            Script
-          </label>
-        </div>
+        <RadioList v-model:value="lessonType" label="Scegli il tipo della lezione: " :data="radioListData"/>
+
       </div>
       <FormGroupCustom v-if="lessonType === 'video'" v-model:value="lesson.video" label="video" type="text"></FormGroupCustom>
       <FormGroupCustom v-else v-model:value="lesson.script" label="script" type="text"></FormGroupCustom>
@@ -45,11 +34,12 @@ import {validationMixin} from "../../../mixins/validationMixin";
 import {validationTypeName} from "../../../utils/validationType";
 import EditorTextArea from "../../../components/shared/form/EditorTextArea";
 import IconButton from "../../shared/design/iconButton";
+import RadioList from "../../shared/form/RadioList";
 
 
 export default {
   name: 'AddLesson',
-  components: {IconButton, FormGroupCustom, EditorTextArea},
+  components: {RadioList, IconButton, FormGroupCustom, EditorTextArea},
   data(){
 
     return {
@@ -71,6 +61,21 @@ export default {
           validation:
               {type: validationTypeName.required}
         }
+      ],
+      radioListData: [
+        {
+          name: 'video',
+          id: 'video',
+          value: 'video',
+          label: 'video'
+        },
+        {
+          name: 'script',
+          id: 'script',
+          value: 'script',
+          label: 'script'
+        },
+
       ]
     }
   },

@@ -9,7 +9,6 @@
       </div>
     </div>
     <div class="container">
-
       <CustomTable :data="filterUser" :fields="fields" :filter-properties="filterProperties" ></CustomTable>
       <div class="row">
         <go-back class="mt-3 ms-3 mb-3 text-start" />

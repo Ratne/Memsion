@@ -15,27 +15,37 @@
     </tr>
     </thead>
     <tbody>
-    <tr v-for="element of filterData" @click="goToUser(element.id)">
+    <tr v-for="element of paginateData" @click="goToUser(element.id)">
       <td v-for="ele of fields">
         {{element[ele.field]}}</td>
     </tr>
     </tbody>
-  </table></div>
+  </table>
+
+    <Pagination :page="page" :pages="pages" @changePage="changePage" />
+
+    </div>
   </div>
+
 </template>
 
 <script>
+import Pagination from "./Pagination";
 export default {
+  components: {Pagination},
   data (){
     return {
-      search: ''
+      search: '',
+      elementForPage:50,
+      page: 1
     }
   },
   name: 'CustomTable',
   props: {
     data: {type: Array, default: () => []},
     fields: {type: Array, default: () => []},
-    filterProperties: {type: Array, default: () =>[]}
+    filterProperties: {type: Array, default: () =>[]},
+
   },
   methods: {
     compareSearch(value){
@@ -58,6 +68,9 @@ export default {
         }
       })
 
+    },
+    changePage(page){
+      this.page = page
     }
 
 
@@ -69,7 +82,20 @@ export default {
         return this.controlElement(ele);
 
       })
+    },
+    offset(){
+      return (this.page - 1)*this.elementForPage
+    },
+    paginateData(){
+      return this.filterData.filter((ele, index)=> index >= this.offset && index < (this.offset + this.elementForPage))
+    },
+    numberLenght(){
+      return this.filterData.length
+    },
+    pages(){
+      return Math.ceil(this.numberLenght/this.elementForPage) || 1
     }
+
   },
 }
 </script>
