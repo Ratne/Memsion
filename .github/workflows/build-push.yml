@@ -15,14 +15,14 @@ jobs:
       with:
         username: ${{ secrets.DOCKER_HUB_USERNAME }}
         password: ${{ secrets.DOCKER_HUB_PASSWORD }}
-    - name: Get release tag
-      run: echo ::set-env name=TAG_VERSION::$(echo ${GITHUB_REF:10})
+    - uses: olegtarasov/get-tag@v2.1
+      id: tagName
     - name: Build and Push Backend
       run: |
-        docker build -t nutellinoit/memsion-backend:$TAG_VERSION .
-        docker push nutellinoit/memsion-frontend:$TAG_VERSION
+        docker build -t nutellinoit/memsion-backend:$GIT_TAG_NAME .
+        docker push nutellinoit/memsion-frontend:$GIT_TAG_NAME
     - name: Build and Push Frontend
       run: |
         cd front
-        docker build -t nutellinoit/memsion-frontend:$TAG_VERSION .
-        docker push nutellinoit/memsion-frontend:$TAG_VERSION
+        docker build -t nutellinoit/memsion-frontend:$GIT_TAG_NAME .
+        docker push nutellinoit/memsion-frontend:$GIT_TAG_NAME
