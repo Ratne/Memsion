@@ -1,0 +1,28 @@
+name: "Build and Push image to docker hub on tag"
+
+on:
+  push:
+    tags:
+      - "v*.*.*"
+
+jobs:
+  pipeline:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+    - name: Login to Docker hub Registry
+      uses: docker/login-action@v1
+      with:
+        username: ${{ secrets.DOCKER_HUB_USERNAME }}
+        password: ${{ secrets.DOCKER_HUB_PASSWORD }}
+    - name: Get release tag
+      run: echo ::set-env name=TAG_VERSION::$(echo ${GITHUB_REF:10})
+    - name: Build and Push Backend
+      run: |
+        docker build -t nutellinoit/memsion-backend:$TAG_VERSION .
+        docker push nutellinoit/memsion-frontend:$TAG_VERSION
+    - name: Build and Push Frontend
+      run: |
+        cd front
+        docker build -t nutellinoit/memsion-frontend:$TAG_VERSION .
+        docker push nutellinoit/memsion-frontend:$TAG_VERSION
