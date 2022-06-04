@@ -11,3 +11,4 @@ backend_data
 .env.mongodb.example
 mongo-init.js
 mongo-init.js.example
+releases
