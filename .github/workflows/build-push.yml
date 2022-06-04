@@ -19,10 +19,10 @@ jobs:
       id: tagName
     - name: Build and Push Backend
       run: |
-        docker build -t nutellinoit/memsion-backend:$GIT_TAG_NAME .
-        docker push nutellinoit/memsion-frontend:$GIT_TAG_NAME
+        docker build -t ${{ secrets.DOCKER_HUB_USERNAME }}/memsion-backend:$GIT_TAG_NAME .
+        docker push ${{ secrets.DOCKER_HUB_USERNAME }}/memsion-backend:$GIT_TAG_NAME
     - name: Build and Push Frontend
       run: |
         cd front
-        docker build -t nutellinoit/memsion-frontend:$GIT_TAG_NAME .
-        docker push nutellinoit/memsion-frontend:$GIT_TAG_NAME
+        docker build -t ${{ secrets.DOCKER_HUB_USERNAME }}/memsion-frontend:$GIT_TAG_NAME .
+        docker push ${{ secrets.DOCKER_HUB_USERNAME }}/memsion-frontend:$GIT_TAG_NAME
