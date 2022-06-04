@@ -9,4 +9,4 @@ _old_env
 .env.mongodb
 backend_data
 mongo_data
-.mongo-init.js
+mongo-init.js
