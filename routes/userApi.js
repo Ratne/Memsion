@@ -13,7 +13,7 @@ const updateInfusionsoftUser = require("../utils/serviceUser");
 const {userRegistrationEmail} = require("../utils/userEmail");
 const schema = Joi.object({
     name: Joi.string().required(),
-    surname: Joi.string(),
+    surname: Joi.string().allow(null, ''),
     email: Joi.string().required().email(),
     contactId: Joi.string().required(),
 })

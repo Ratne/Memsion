@@ -13,8 +13,7 @@
 </style>
 <script>
 import ErrorMessage from "./components/core/ErrorMessage";
-import VimeoCustom from "./components/shared/design/video/VimeoCustom";
 export default {
-  components: {VimeoCustom, ErrorMessage}
+  components: {ErrorMessage},
 }
 </script>
