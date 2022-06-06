@@ -4,3 +4,11 @@ node_modules
 .env
 _old_env
 .gitignore
+<<<<<<< feature/add-ci
+.env.backend
+.env.frontend
+.env.mongodb
+backend_data
+mongo_data
+mongo-init.js
+prodenv.txt
