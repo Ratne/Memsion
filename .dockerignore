@@ -1,0 +1,14 @@
+front
+mongo_data
+backend_data
+.env
+.env.backend
+.env.frontend
+.env.mongodb
+.env.example
+.env.frontend.example
+.env.backend.example
+.env.mongodb.example
+mongo-init.js
+mongo-init.js.example
+releases

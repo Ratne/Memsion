@@ -1,0 +1,31 @@
+version: '3'
+services:
+
+  frontend:
+    restart: always
+    image: ratne/memsion-frontend:v0.0.0-demo
+    ports:
+      - "${EXPOSED_FRONTEND_ADDRESS}:80"
+    env_file:
+      - .env.frontend
+
+  backend:
+    restart: always
+    image: ratne/memsion-backend:v0.0.0-demo
+    ports:
+      - "${EXPOSED_BACKEND_ADDRESS}:2000"
+    volumes:
+      - ./backend_data:/app/uploads
+    depends_on:
+      - mongodb
+    env_file:
+      - .env.backend
+
+  mongodb:
+    image: mongo:4.4.5
+    restart: always
+    volumes:
+      - ./mongo_data:/data/db
+      - ./mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
+    env_file:
+      - .env.mongodb

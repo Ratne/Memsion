@@ -1,0 +1,2 @@
+// generate password with command: echo -n "password" | bcrypt
+db.users.insertMany([ {isAdmin: "true", name: "demo", surname:"demo", email:"demo@demo.it", password: "password", infusionsoftId: "1"}])
