@@ -51,11 +51,6 @@ export default {
             type: validationTypeName.required,}
         },
         {
-          name: 'description',
-          validation:
-              {type: validationTypeName.required}
-        },
-        {
           name: 'content',
           validation:
               {type: validationTypeName.required}

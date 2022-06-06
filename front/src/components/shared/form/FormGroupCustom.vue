@@ -40,7 +40,6 @@ export default {
   border: none;
   border-bottom: 1px solid black;
   color: black;
-  text-transform: uppercase;
   border-radius: 0px;
   font-size: 20px;
 }
